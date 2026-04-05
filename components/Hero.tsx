@@ -4,18 +4,14 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section
-      id="home"
-      className="relative w-full h-screen overflow-hidden"
-    >
-      {/* Background image */}
+    <section id="home" className="relative w-full h-screen overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/menu-bg.jpg')" }}
+        style={{ backgroundImage: "url('/hero-bg.jpg')" }}
       />
       <div className="absolute inset-0 bg-black/20" />
 
-      {/* Tagline — absolute, left side, vertically centered */}
+      {/* Tagline — left side, vertically centered */}
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
@@ -25,29 +21,26 @@ export default function Hero() {
       >
         <p className="text-white text-[20px] md:text-[23px] font-normal leading-[1.75] mb-8">
           We craft bold, unforgettable digital<br />
-          experiences that captivate and inspire.<br />
-          Based globally, working worldwide.
+          experiences that captivate and inspire.
         </p>
 
+        {/* Minimal text link */}
         <motion.a
           href="#work"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="inline-flex items-center gap-3 bg-white rounded-full px-6 py-3.5 hover:bg-white/90 transition-all group w-fit"
+          className="group inline-flex items-center gap-2 text-white text-sm font-normal tracking-wide"
         >
-          <span className="text-black text-[15px] font-normal leading-none">
+          <span className="relative">
             Get started
+            <span className="absolute bottom-0 left-0 w-0 h-px bg-white group-hover:w-full transition-all duration-300 ease-out" />
           </span>
-          <span className="w-7 h-7 rounded-full bg-black flex items-center justify-center shrink-0 group-hover:scale-95 transition-transform">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
+          <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
         </motion.a>
       </motion.div>
 
-      {/* Brand name — absolute, bottom-right, bleeds slightly off right */}
+      {/* Brand name — bottom-right */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

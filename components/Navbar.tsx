@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const menuItems = ["Home", "About", "Work", "Contact"];
+const menuItems = [
+  { label: "Home", href: "#home" },
+  { label: "Services", href: "#services" },
+  { label: "Work", href: "#work" },
+  { label: "About us", href: "#about-us" },
+  { label: "Contact", href: "#contact" },
+];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -69,15 +75,15 @@ export default function Navbar() {
               <nav className="flex flex-col gap-2 mt-8">
                 {menuItems.map((item, i) => (
                   <motion.a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
+                    key={item.label}
+                    href={item.href}
                     onClick={() => setOpen(false)}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 + i * 0.07, duration: 0.4 }}
                     className="menu-link text-black text-4xl md:text-5xl font-light tracking-tight hover:opacity-60 transition-opacity py-2"
                   >
-                    {item}
+                    {item.label}
                   </motion.a>
                 ))}
               </nav>

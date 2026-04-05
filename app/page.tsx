@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 
@@ -9,24 +9,19 @@ import Hero from "@/components/Hero";
 
 const services = [
   {
-    num: "01", title: "Branding",
+    num: "01", title: "Website Design",
+    description: "We design stunning, pixel-perfect websites that captivate from the first scroll. Every layout, interaction, and detail is crafted to leave a lasting impression.",
+    tags: ["UI Design", "UX Design", "Interaction Design", "Prototyping"],
+  },
+  {
+    num: "02", title: "Development & Hosting",
+    description: "Clean, fast, production-ready code with seamless deployment. We build with Next.js and modern tooling, then handle hosting so you never have to think about it.",
+    tags: ["Next.js", "React", "TypeScript", "Vercel", "CMS Integration"],
+  },
+  {
+    num: "03", title: "Branding",
     description: "We build brand identities that are bold, memorable, and built to last. From logo systems to full visual languages, we craft brands that mean something.",
     tags: ["Logo Design", "Visual Identity", "Brand Strategy", "Guidelines"],
-  },
-  {
-    num: "02", title: "Web Design",
-    description: "Award-worthy websites that balance beauty with performance. Every layout, interaction, and detail is considered to create experiences users remember.",
-    tags: ["UI Design", "Interaction Design", "Prototyping", "Design Systems"],
-  },
-  {
-    num: "03", title: "Development",
-    description: "Clean, fast, production-ready code. We build with Next.js, React, and modern tooling to deliver sites that are as solid under the hood as they look.",
-    tags: ["Next.js", "React", "TypeScript", "CMS Integration"],
-  },
-  {
-    num: "04", title: "Strategy",
-    description: "Great digital products start with clear thinking. We help you define your positioning, audience, and roadmap before a single pixel is placed.",
-    tags: ["Digital Strategy", "UX Research", "Positioning", "Roadmapping"],
   },
 ];
 
@@ -41,27 +36,6 @@ const projects = [
 
 const serviceVisuals = [
   <div key="1" className="w-full h-full flex items-center justify-center p-16">
-    <div className="w-full max-w-sm space-y-6">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-white/10" />
-        <div className="space-y-2">
-          <div className="h-2.5 w-28 bg-white/20 rounded-full" />
-          <div className="h-2 w-16 bg-white/10 rounded-full" />
-        </div>
-      </div>
-      <div className="grid grid-cols-3 gap-3">
-        <div className="aspect-square rounded-2xl bg-white/10" />
-        <div className="aspect-square rounded-2xl bg-white/5" />
-        <div className="aspect-square rounded-2xl bg-white/15" />
-      </div>
-      <div className="space-y-2.5">
-        <div className="h-2 w-full bg-white/10 rounded-full" />
-        <div className="h-2 w-4/5 bg-white/7 rounded-full" />
-        <div className="h-2 w-3/5 bg-white/5 rounded-full" />
-      </div>
-    </div>
-  </div>,
-  <div key="2" className="w-full h-full flex items-center justify-center p-16">
     <div className="w-full max-w-sm">
       <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
         <div className="h-8 bg-white/5 flex items-center px-4 gap-1.5">
@@ -81,9 +55,9 @@ const serviceVisuals = [
       </div>
     </div>
   </div>,
-  <div key="3" className="w-full h-full flex items-center justify-center p-16">
+  <div key="2" className="w-full h-full flex items-center justify-center p-16">
     <div className="w-full max-w-sm space-y-3 font-mono">
-      {["import { motion } from 'framer-motion'", "", "const Hero = () => {", "  return (", "    <motion.div", "      animate={{ opacity: 1 }}", "    />", "  )", "}"].map((line, i) => (
+      {["import { motion } from 'framer-motion'", "", "const Page = () => {", "  return (", "    <motion.div", "      animate={{ opacity: 1 }}", "    />", "  )", "}"].map((line, i) => (
         <div key={i} className="flex gap-4">
           <span className="text-white/15 w-4 text-right shrink-0 text-xs">{line ? i + 1 : ""}</span>
           <span className="text-white/35 text-xs">{line}</span>
@@ -91,15 +65,25 @@ const serviceVisuals = [
       ))}
     </div>
   </div>,
-  <div key="4" className="w-full h-full flex items-center justify-center p-16">
+  <div key="3" className="w-full h-full flex items-center justify-center p-16">
     <div className="w-full max-w-sm space-y-6">
-      {["Discovery", "Define", "Design", "Deliver"].map((step, i) => (
-        <div key={step} className="flex items-center gap-5">
-          <span className="text-white/20 text-xs w-5 shrink-0">{`0${i + 1}`}</span>
-          <div className="flex-1 h-px bg-white/10" />
-          <span className="text-white/40 text-sm">{step}</span>
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 rounded-2xl bg-white/10" />
+        <div className="space-y-2">
+          <div className="h-2.5 w-28 bg-white/20 rounded-full" />
+          <div className="h-2 w-16 bg-white/10 rounded-full" />
         </div>
-      ))}
+      </div>
+      <div className="grid grid-cols-3 gap-3">
+        <div className="aspect-square rounded-2xl bg-white/10" />
+        <div className="aspect-square rounded-2xl bg-white/5" />
+        <div className="aspect-square rounded-2xl bg-white/15" />
+      </div>
+      <div className="space-y-2.5">
+        <div className="h-2 w-full bg-white/10 rounded-full" />
+        <div className="h-2 w-4/5 bg-white/7 rounded-full" />
+        <div className="h-2 w-3/5 bg-white/5 rounded-full" />
+      </div>
     </div>
   </div>,
 ];
@@ -129,9 +113,21 @@ export default function Home() {
   const workRef = useRef(null);
   const whyRef = useRef(null);
   const contactRef = useRef(null);
+  const phoneCardRef = useRef(null);
+  const statsCardRef = useRef(null);
   const workInView = useInView(workRef, { once: true, margin: "-80px" });
   const whyInView = useInView(whyRef, { once: true, margin: "-80px" });
   const contactInView = useInView(contactRef, { once: true, margin: "-80px" });
+
+  const statsInView = useInView(statsCardRef, { once: true, margin: "-50px" });
+  const aboutRef = useRef(null);
+  const aboutInView = useInView(aboutRef, { once: true, margin: "-80px" });
+
+  const { scrollYProgress: phoneScrollProgress } = useScroll({
+    target: phoneCardRef,
+    offset: ["start end", "end start"],
+  });
+  const phoneY = useTransform(phoneScrollProgress, [0, 1], [60, -60]);
 
   return (
     <main className="bg-black text-white">
@@ -193,56 +189,58 @@ export default function Home() {
       <div className="h-48" />
 
       {/* ── FEATURED PROJECTS ────────────────────────────────────────────── */}
-      <section id="work" ref={workRef} className="px-10 md:px-16 pt-32 pb-32">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={workInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="flex items-end justify-between mb-14"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
-            Featured<br />projects{" "}
-            <span className="text-white/25 text-xl font-normal align-middle ml-1">(0{projects.length})</span>
-          </h2>
-          <a href="#contact" className="hidden md:inline-flex items-center gap-2 text-white/50 text-sm hover:text-white transition-colors pb-1">
-            <span>→</span><span>View all</span>
-          </a>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map((p, i) => (
-            <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 28 }}
-              animate={workInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.65, delay: i * 0.1 }}
-              className="group cursor-pointer"
+      <section id="work" ref={workRef} style={{ padding: "8rem 3% 8rem" }}>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={workInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "64px" }}
+          >
+            <h2 style={{ fontSize: "clamp(48px, 6vw, 80px)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.02em" }}>
+              Featured<br />projects{" "}
+              <span style={{ fontSize: "clamp(18px, 2vw, 28px)", fontWeight: 400, color: "rgba(255,255,255,0.25)", verticalAlign: "middle", marginLeft: "8px" }}>(0{projects.length})</span>
+            </h2>
+            <a href="#contact" style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px", display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", paddingBottom: "4px" }}
+              onMouseEnter={e => (e.currentTarget.style.color = "white")}
+              onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}
             >
-              <div className={`relative ${p.color} rounded-2xl overflow-hidden`} style={{ aspectRatio: "16/10" }}>
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
-                <div className="absolute top-5 right-5 w-9 h-9 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path d="M2 10L10 2M10 2H4M10 2V8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+              <span>→</span><span>View all</span>
+            </a>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {projects.map((p, i) => (
+              <motion.div
+                key={p.title}
+                initial={{ opacity: 0, y: 28 }}
+                animate={workInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.65, delay: i * 0.1 }}
+                className="group cursor-pointer"
+              >
+                <div className={`relative ${p.color} rounded-2xl overflow-hidden`} style={{ aspectRatio: "16/9" }}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
+                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                      <path d="M2 10L10 2M10 2H4M10 2V8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start justify-between mt-4 px-1">
-                <span className="text-white text-base font-normal">{p.title}</span>
-                <div className="flex flex-col items-end gap-0.5 pt-0.5">
-                  {p.tags.map((tag) => (
-                    <span key={tag} className="text-white/35 text-xs leading-relaxed">{tag}</span>
-                  ))}
+                <div className="flex items-start justify-between mt-3 px-1">
+                  <span className="text-white text-sm font-normal">{p.title}</span>
+                  <div className="flex flex-col items-end gap-0.5 pt-0.5">
+                    {p.tags.map((tag) => (
+                      <span key={tag} className="text-white/35 text-xs leading-relaxed">{tag}</span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
       </section>
 
       {/* ── WHY CHOOSE US ────────────────────────────────────────────────── */}
       <div className="h-48" />
-      <section id="about" ref={whyRef} className="pb-48 overflow-hidden">
-        <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 20px" }}>
+      <section id="about" ref={whyRef} style={{ padding: "0 3% 12rem", overflow: "hidden" }}>
 
           {/* Header */}
           <motion.div
@@ -253,10 +251,9 @@ export default function Home() {
             style={{ marginBottom: "48px" }}
           >
             <p className="text-white/35 text-xs tracking-[0.25em] uppercase mb-4">Why choose us</p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1]">
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]">
               Tailored design solutions<br />for every need
-            </h2>
-          </motion.div>
+            </h2>          </motion.div>
 
           {/* Cards */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
@@ -266,13 +263,13 @@ export default function Home() {
               initial={{ opacity: 0, y: 24 }}
               animate={whyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
-              style={{ position: "relative", borderRadius: "16px", overflow: "hidden", height: "340px" }}
+              style={{ position: "relative", borderRadius: "16px", overflow: "hidden", height: "480px" }}
             >
               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/car-bg.png')" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(23,37,84,0.6), rgba(23,37,84,0.2), rgba(23,37,84,0.5))" }} />
-              <div style={{ position: "relative", zIndex: 10, padding: "28px", height: "100%", display: "flex", flexDirection: "column" }}>
-                <p style={{ color: "rgba(147,197,253,0.6)", fontSize: "11px", marginBottom: "10px" }}>Fast turnarounds</p>
-                <h3 style={{ color: "white", fontSize: "17px", fontWeight: 400, lineHeight: 1.4 }}>
+              <div style={{ position: "relative", zIndex: 10, padding: "32px", height: "100%", display: "flex", flexDirection: "column" }}>
+                <p style={{ color: "rgba(147,197,253,0.6)", fontSize: "12px", marginBottom: "12px" }}>Fast turnarounds</p>
+                <h3 style={{ color: "white", fontSize: "24px", fontWeight: 400, lineHeight: 1.35 }}>
                   Delivering high-quality<br />designs, right on time
                 </h3>
               </div>
@@ -283,18 +280,22 @@ export default function Home() {
               initial={{ opacity: 0, y: 24 }}
               animate={whyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              style={{ background: "white", borderRadius: "16px", overflow: "hidden", position: "relative", height: "340px" }}
+              ref={phoneCardRef}
+              style={{ background: "white", borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
             >
-              <div style={{ padding: "28px 28px 0" }}>
-                <p style={{ color: "rgba(0,0,0,0.45)", fontSize: "11px", marginBottom: "10px" }}>100% satisfaction</p>
-                <h3 style={{ color: "black", fontSize: "17px", fontWeight: 400, lineHeight: 1.4 }}>
+              <div style={{ padding: "32px 32px 0" }}>
+                <p style={{ color: "rgba(0,0,0,0.45)", fontSize: "12px", marginBottom: "12px" }}>100% satisfaction</p>
+                <h3 style={{ color: "black", fontSize: "24px", fontWeight: 400, lineHeight: 1.35 }}>
                   Crafted with precision<br />to meet your vision.
                 </h3>
               </div>
-              {/* Phone centered, top visible, overflows bottom */}
+              {/* Phone with parallax — rises up on scroll in, goes down on scroll out */}
               <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/phone-mockup.png" alt="Phone mockup" style={{ width: "220px", objectFit: "contain", objectPosition: "top" }} />
+                <motion.img
+                  src="/phone-mockup.png"
+                  alt="Phone mockup"
+                  style={{ width: "220px", objectFit: "contain", objectPosition: "top", y: phoneY }}
+                />
               </div>
             </motion.div>
 
@@ -303,22 +304,32 @@ export default function Home() {
               initial={{ opacity: 0, y: 24 }}
               animate={whyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
-              style={{ background: "#18181b", borderRadius: "16px", overflow: "hidden", height: "340px", display: "flex", flexDirection: "column" }}
+              ref={statsCardRef}
+              style={{ background: "#18181b", borderRadius: "16px", overflow: "hidden", height: "480px", display: "flex", flexDirection: "column" }}
             >
-              <div style={{ padding: "28px", display: "flex", flexDirection: "column", height: "100%" }}>
-                <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", marginBottom: "10px" }}>Exponential growth</p>
-                <h3 style={{ color: "white", fontSize: "17px", fontWeight: 400, lineHeight: 1.4 }}>
+              <div style={{ padding: "32px", display: "flex", flexDirection: "column", height: "100%" }}>
+                <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "12px", marginBottom: "12px" }}>Exponential growth</p>
+                <h3 style={{ color: "white", fontSize: "24px", fontWeight: 400, lineHeight: 1.35 }}>
                   Design that drives<br />impact and success.
                 </h3>
-                <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: "12px", paddingBottom: "8px" }}>
-                  {[["Conversion rate", "84", "rgba(255,255,255,0.25)"], ["User engagement", "67", "rgba(255,255,255,0.15)"], ["Brand recall", "91", "gradient"]].map(([label, val, color]) => (
-                    <div key={label}>
-                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
+                <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: "16px", paddingBottom: "8px" }}>
+                  {[["Conversion rate", 84, "rgba(255,255,255,0.25)"], ["User engagement", 67, "rgba(255,255,255,0.15)"], ["Brand recall", 91, "gradient"]].map(([label, val, color]) => (
+                    <div key={label as string}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
                         <span style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px" }}>{label}</span>
                         <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px" }}>+{val}%</span>
                       </div>
                       <div style={{ height: "4px", background: "rgba(255,255,255,0.05)", borderRadius: "99px", overflow: "hidden" }}>
-                        <div style={{ height: "100%", width: `${val}%`, borderRadius: "99px", background: color === "gradient" ? "linear-gradient(to right, #a78bfa, #f472b6, #fb923c)" : color }} />
+                        <motion.div
+                          initial={{ width: "0%" }}
+                          animate={statsInView ? { width: `${val}%` } : { width: "0%" }}
+                          transition={{ duration: 1.2, delay: 0.3 + (["Conversion rate", "User engagement", "Brand recall"].indexOf(label as string) * 0.15), ease: [0.16, 1, 0.3, 1] }}
+                          style={{
+                            height: "100%",
+                            borderRadius: "99px",
+                            background: color === "gradient" ? "linear-gradient(to right, #a78bfa, #f472b6, #fb923c)" : color as string
+                          }}
+                        />
                       </div>
                     </div>
                   ))}
@@ -327,6 +338,68 @@ export default function Home() {
             </motion.div>
 
           </div>
+      </section>
+
+      {/* ── ABOUT US ─────────────────────────────────────────────────────── */}
+      <div className="h-12" />
+      <section id="about-us" ref={aboutRef} className="px-10 md:px-16 pb-32">
+
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          animate={aboutInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.05 }}
+          className="text-5xl md:text-6xl font-bold tracking-tight leading-none"
+          style={{ marginBottom: "80px" }}
+        >About us</motion.h2>
+
+        <div className="grid md:grid-cols-2 gap-20 items-start">
+
+          {/* Left — statement + copy */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={aboutInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.1 }}
+          >
+            <h2 className="font-bold leading-[1.08] tracking-tight mb-8" style={{ fontSize: "clamp(36px, 4vw, 64px)" }}>
+              We craft bold, purposeful digital experiences that help brands stand out and connect with the right audience.
+            </h2>
+            <p className="text-white/40 text-lg leading-relaxed mb-8">
+              Good design isn't just about looking great — it's about telling a story, building trust, and making a lasting impression.
+            </p>
+            <a href="#contact" className="group inline-flex items-center gap-2 text-white text-sm font-normal">
+              <span className="relative">
+                Start a project
+                <span className="absolute bottom-0 left-0 w-0 h-px bg-white group-hover:w-full transition-all duration-300" />
+              </span>
+              <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+            </a>
+          </motion.div>
+
+          {/* Right — stat rows with dividers, no boxes */}
+          <div className="border-t border-white/[0.08]">
+            {[
+              { num: "50+", label: "Projects completed", desc: "Delivered across web, brand and strategy" },
+              { num: "99%", label: "Client satisfaction", desc: "Measured across every project we ship" },
+              { num: "10+", label: "Industries served", desc: "From tech startups to luxury brands" },
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 16 }}
+                animate={aboutInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.2 + i * 0.12 }}
+                className="flex items-center justify-between border-b border-white/[0.08] py-8"
+              >
+                <div>
+                  <p className="text-white text-base font-normal mb-1">{stat.label}</p>
+                  <p className="text-white/35 text-sm">{stat.desc}</p>
+                </div>
+                <span className="font-bold leading-none tracking-tight shrink-0 ml-8" style={{ fontSize: "clamp(48px, 5.5vw, 80px)" }}>
+                  {stat.num}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+
         </div>
       </section>
 
