@@ -17,8 +17,8 @@ export default function Navbar() {
   return (
     <>
       {/* Top black bar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black flex items-center justify-between px-6 md:px-10 h-12">
-        <span className="text-white text-sm font-normal">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black flex items-center justify-between px-6 md:px-10 h-16">
+        <span className="text-white text-base font-medium ml-4">
           Strive Studios
         </span>
 
@@ -56,53 +56,61 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", ease: [0.76, 0, 0.24, 1], duration: 0.5 }}
-              className="fixed top-0 right-0 h-full w-full md:w-[55%] lg:w-[45%] bg-white z-50 flex flex-col justify-between py-10 px-12"
+              className="fixed top-0 right-0 h-full w-full md:w-[50%] lg:w-[40%] bg-black z-50 flex flex-col"
             >
-              {/* Close button */}
-              <div className="flex justify-end">
+              {/* Top bar with close button */}
+              <div className="flex items-center justify-between px-8 md:px-12 h-16 border-b border-white/10">
+                <span className="text-white text-base font-medium">Menu</span>
                 <button
                   onClick={() => setOpen(false)}
-                  className="w-10 h-10 rounded-full bg-black flex items-center justify-center hover:scale-95 transition-transform"
+                  className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:scale-95 transition-transform"
                   aria-label="Close menu"
                 >
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 1L13 13M13 1L1 13" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                    <path d="M1 1L13 13M13 1L1 13" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
                   </svg>
                 </button>
               </div>
 
-              {/* Nav links — stacked vertically */}
-              <nav className="flex flex-col gap-2 mt-8">
+              {/* Nav links */}
+              <nav className="flex-1 flex flex-col justify-center px-8 md:px-12 gap-6">
                 {menuItems.map((item, i) => (
                   <motion.a
                     key={item.label}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15 + i * 0.07, duration: 0.4 }}
-                    className="menu-link text-black text-4xl md:text-5xl font-light tracking-tight hover:opacity-60 transition-opacity py-2"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
+                    className="group text-white text-5xl md:text-6xl font-bold tracking-tight py-3 relative"
                   >
-                    {item.label}
+                    <span className="relative z-10 inline-block group-hover:translate-x-2 transition-transform duration-300">
+                      {item.label}
+                    </span>
+                    <span className="absolute left-0 bottom-2 w-0 h-px bg-white/30 group-hover:w-full transition-all duration-500" />
                   </motion.a>
                 ))}
               </nav>
 
               {/* Footer info */}
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="grid grid-cols-2 gap-4 text-black/60 text-sm"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="px-8 md:px-12 py-8 border-t border-white/10"
               >
-                <div className="flex flex-col gap-1">
-                  <span>Instagram</span>
-                  <span>LinkedIn</span>
-                  <span>Dribbble</span>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <span>hello@strivestudios.co</span>
-                  <span>+1 (406) 555-0120</span>
+                <div className="grid grid-cols-2 gap-8">
+                  <div className="flex flex-col gap-3">
+                    <span className="text-white/40 text-xs uppercase tracking-wider mb-1">Social</span>
+                    <a href="#" className="text-white/60 hover:text-white text-sm transition-colors">Instagram</a>
+                    <a href="#" className="text-white/60 hover:text-white text-sm transition-colors">LinkedIn</a>
+                    <a href="#" className="text-white/60 hover:text-white text-sm transition-colors">Dribbble</a>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <span className="text-white/40 text-xs uppercase tracking-wider mb-1">Contact</span>
+                    <a href="mailto:hello@strivestudios.co" className="text-white/60 hover:text-white text-sm transition-colors">hello@strivestudios.co</a>
+                    <a href="tel:+14065550120" className="text-white/60 hover:text-white text-sm transition-colors">+1 (406) 555-0120</a>
+                  </div>
                 </div>
               </motion.div>
             </motion.div>

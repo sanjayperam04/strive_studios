@@ -403,30 +403,120 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── OUR PROCESS ──────────────────────────────────────────────────── */}
+      <div className="h-48" />
+      <section id="process" ref={aboutRef} style={{ padding: "0 3% 12rem", overflow: "hidden" }}>
+
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={aboutInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7 }}
+            className="text-center"
+            style={{ marginBottom: "48px" }}
+          >
+            <p className="text-white/35 text-xs tracking-[0.25em] uppercase mb-4">Our process</p>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]">
+              Building websites made<br />simple and stress-free
+            </h2>
+          </motion.div>
+
+          {/* Cards */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+
+            {/* Card 1 — Discovery */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={aboutInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              style={{ background: "white", borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
+            >
+              <div style={{ padding: "32px", height: "100%", display: "flex", flexDirection: "column" }}>
+                <div>
+                  <p style={{ color: "rgba(0,0,0,0.45)", fontSize: "12px", marginBottom: "12px" }}>01</p>
+                  <h3 style={{ color: "black", fontSize: "24px", fontWeight: 400, lineHeight: 1.35 }}>Discovery</h3>
+                </div>
+                <div style={{ marginTop: "auto" }}>
+                  <p style={{ color: "rgba(0,0,0,0.6)", fontSize: "14px", lineHeight: "1.6" }}>
+                    We start by understanding your business goals, target users, and technical requirements. Through detailed consultations and research, we define the project scope, features, and technology stack that will bring your vision to life.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Card 2 — Design */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={aboutInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              style={{ background: "white", borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
+            >
+              <div style={{ padding: "32px", height: "100%", display: "flex", flexDirection: "column" }}>
+                <div>
+                  <p style={{ color: "rgba(0,0,0,0.45)", fontSize: "12px", marginBottom: "12px" }}>02</p>
+                  <h3 style={{ color: "black", fontSize: "24px", fontWeight: 400, lineHeight: 1.35 }}>Build</h3>
+                </div>
+                <div style={{ marginTop: "auto" }}>
+                  <p style={{ color: "rgba(0,0,0,0.6)", fontSize: "14px", lineHeight: "1.6" }}>
+                    Our developers bring designs to life with clean, scalable code. Using modern frameworks like Next.js and React, we build fast, responsive websites with seamless functionality. Regular updates keep you in the loop throughout development.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Card 3 — Deliver */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={aboutInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              style={{ background: "white", borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
+            >
+              <div style={{ padding: "32px", height: "100%", display: "flex", flexDirection: "column" }}>
+                <div>
+                  <p style={{ color: "rgba(0,0,0,0.45)", fontSize: "12px", marginBottom: "12px" }}>03</p>
+                  <h3 style={{ color: "black", fontSize: "24px", fontWeight: 400, lineHeight: 1.35 }}>Launch</h3>
+                </div>
+                <div style={{ marginTop: "auto" }}>
+                  <p style={{ color: "rgba(0,0,0,0.6)", fontSize: "14px", lineHeight: "1.6" }}>
+                    After thorough testing and optimization, we deploy your website to production. We handle hosting setup, domain configuration, and provide training so you can manage your site with confidence. Ongoing support ensures everything runs smoothly.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+      </section>
+
       {/* ── CONTACT ──────────────────────────────────────────────────────── */}
       <div className="h-48" />
-      <section id="contact" ref={contactRef} className="px-10 md:px-16 pb-24">
+      <section id="contact" ref={contactRef} style={{ padding: "0 3% 0" }}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={contactInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <p className="text-white/30 text-xs tracking-[0.3em] uppercase mb-8">Get in touch</p>
-          <h2 className="font-bold tracking-tight leading-none mb-14" style={{ fontSize: "clamp(40px, 7vw, 110px)" }}>
-            Let&apos;s work<br />
-            <span className="text-white/20">together.</span>
-          </h2>
-          <a
-            href="mailto:hello@strivestudios.co"
-            className="inline-flex items-center gap-3 bg-white text-black text-sm font-normal px-6 py-3.5 rounded-full hover:bg-white/90 transition-colors group"
-          >
-            Start a project
-            <span className="w-6 h-6 rounded-full bg-black flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M1 9L9 1M9 1H3M9 1V7" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </a>
+          <div className="max-w-5xl">
+            <h2 className="text-white font-bold tracking-tight leading-[1.05] mb-12" style={{ fontSize: "clamp(56px, 8vw, 120px)" }}>
+              Have a project<br />in mind?
+            </h2>
+            
+            <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
+              <a
+                href="mailto:hello@strivestudios.co"
+                className="text-white/50 hover:text-white text-2xl md:text-3xl font-light transition-colors"
+              >
+                hello@strivestudios.co
+              </a>
+              
+              <div className="h-px md:h-12 w-12 md:w-px bg-white/10" />
+              
+              <div className="flex gap-6">
+                <a href="#" className="text-white/40 hover:text-white text-sm transition-colors">Instagram</a>
+                <a href="#" className="text-white/40 hover:text-white text-sm transition-colors">LinkedIn</a>
+                <a href="#" className="text-white/40 hover:text-white text-sm transition-colors">Dribbble</a>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         {/* Footer */}
@@ -434,47 +524,88 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={contactInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-32 border-t border-white/[0.06]"
+          className="mt-32"
         >
-          {/* Big brand name */}
-          <div className="pt-10 pb-10">
-            <p className="text-white/5 font-bold tracking-tight leading-none select-none"
-              style={{ fontSize: "clamp(60px, 12vw, 180px)" }}>
-              Strive Studios
-            </p>
+          {/* Main footer content */}
+          <div className="border-t border-white/[0.06] pt-16 pb-12">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+              
+              {/* Left — Brand */}
+              <div className="md:col-span-5">
+                <h3 className="text-white text-2xl font-bold mb-4">Strive Studios</h3>
+                <p className="text-white/40 text-sm leading-relaxed mb-6 max-w-sm">
+                  A digital agency crafting bold websites and brand experiences that help businesses stand out and connect with their audience.
+                </p>
+                <a 
+                  href="mailto:hello@strivestudios.co" 
+                  className="text-white/50 text-sm hover:text-white transition-colors"
+                >
+                  hello@strivestudios.co
+                </a>
+              </div>
+
+              {/* Right — Links */}
+              <div className="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8">
+                
+                {/* Navigation */}
+                <div>
+                  <h4 className="text-white text-sm font-medium mb-4">Navigation</h4>
+                  <div className="flex flex-col gap-3">
+                    {["Services", "Work", "About", "Contact"].map(l => (
+                      <a 
+                        key={l} 
+                        href={`#${l.toLowerCase()}`} 
+                        className="text-white/40 text-sm hover:text-white transition-colors"
+                      >
+                        {l}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Services */}
+                <div>
+                  <h4 className="text-white text-sm font-medium mb-4">Services</h4>
+                  <div className="flex flex-col gap-3">
+                    {["Website Design", "Development", "Branding"].map(l => (
+                      <a 
+                        key={l} 
+                        href="#services" 
+                        className="text-white/40 text-sm hover:text-white transition-colors"
+                      >
+                        {l}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Social */}
+                <div>
+                  <h4 className="text-white text-sm font-medium mb-4">Connect</h4>
+                  <div className="flex flex-col gap-3">
+                    {["Instagram", "LinkedIn", "Dribbble"].map(l => (
+                      <a 
+                        key={l} 
+                        href="#" 
+                        className="text-white/40 text-sm hover:text-white transition-colors"
+                      >
+                        {l}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
 
-          {/* Footer bottom row */}
-          <div className="border-t border-white/[0.06] pt-6 pb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="flex flex-col gap-1">
-              <span className="text-white text-sm font-normal">Strive Studios</span>
-              <span className="text-white/30 text-xs">Digital Agency — Web Design & Development</span>
+          {/* Bottom bar */}
+          <div className="border-t border-white/[0.06] py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <span className="text-white/30 text-xs">© 2025 Strive Studios. All rights reserved.</span>
+            <div className="flex items-center gap-6">
+              <a href="#" className="text-white/30 text-xs hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="text-white/30 text-xs hover:text-white transition-colors">Terms of Service</a>
             </div>
-
-            <div className="flex flex-col md:flex-row gap-6 md:gap-12 text-xs">
-              <div className="flex flex-col gap-1.5">
-                <span className="text-white/20 uppercase tracking-widest text-[10px] mb-1">Navigation</span>
-                {["Home", "Services", "Work", "Contact"].map(l => (
-                  <a key={l} href={`#${l.toLowerCase()}`} className="text-white/40 hover:text-white transition-colors">{l}</a>
-                ))}
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <span className="text-white/20 uppercase tracking-widest text-[10px] mb-1">Social</span>
-                {["Instagram", "LinkedIn", "Dribbble"].map(l => (
-                  <a key={l} href="#" className="text-white/40 hover:text-white transition-colors">{l}</a>
-                ))}
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <span className="text-white/20 uppercase tracking-widest text-[10px] mb-1">Contact</span>
-                <a href="mailto:hello@strivestudios.co" className="text-white/40 hover:text-white transition-colors">hello@strivestudios.co</a>
-                <span className="text-white/40">Based globally</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-white/[0.06] py-5 flex items-center justify-between">
-            <span className="text-white/20 text-xs">© 2025 Strive Studios. All rights reserved.</span>
-            <span className="text-white/20 text-xs">Crafted with precision.</span>
           </div>
         </motion.footer>
       </section>
