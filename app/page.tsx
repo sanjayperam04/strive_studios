@@ -26,9 +26,9 @@ const services = [
 ];
 
 const projects = [
-  { title: "Campus Connect", tags: ["Web Development", "Branding"], image: "/project-1.png" },
-  { title: "ASCEND", tags: ["UI Design", "Development"], image: "/project-2.png" },
-  { title: "Velocity", tags: ["Web Development", "College Website"], image: "/project-3.png" },
+  { title: "Campus Connect", tags: ["Web Development", "Branding"], image: "/project-1.png", url: "https://campus-connect-six-pi.vercel.app" },
+  { title: "ASCEND", tags: ["UI Design", "Development"], image: "/project-2.png", url: "https://ascend-black.vercel.app" },
+  { title: "Velocity", tags: ["Web Development", "College Website"], image: "/project-3.png", url: "https://v-velocity-junior-college-website.vercel.app" },
   { title: "Vanta Digital", tags: ["Web Design", "Development"], image: "/project-4.png" },
 ];
 
@@ -210,12 +210,15 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {projects.map((p, i) => (
-              <motion.div
+              <motion.a
                 key={p.title}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 28 }}
                 animate={workInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.65, delay: i * 0.1 }}
-                className="group cursor-pointer"
+                className="group cursor-pointer block"
               >
                 <div className="relative rounded-2xl overflow-hidden bg-zinc-900" style={{ aspectRatio: "16/9" }}>
                   <img 
@@ -223,11 +226,13 @@ export default function Home() {
                     alt={p.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
-                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                      <path d="M2 10L10 2M10 2H4M10 2V8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
+                  {p.url && (
+                    <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 10L10 2M10 2H4M10 2V8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                  )}
                 </div>
                 <div className="flex items-start justify-between mt-3 px-1">
                   <span className="text-white text-sm font-normal">{p.title}</span>
@@ -237,7 +242,7 @@ export default function Home() {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </motion.a>
             ))}
           </div>
       </section>
