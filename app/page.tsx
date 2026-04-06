@@ -26,10 +26,10 @@ const services = [
 ];
 
 const projects = [
-  { title: "Apex Collective", tags: ["Branding", "UI Design"], color: "bg-zinc-200" },
-  { title: "Orbit Studio", tags: ["UI Design", "Development"], color: "bg-stone-300" },
-  { title: "Meridian Labs", tags: ["Strategy", "Branding"], color: "bg-neutral-200" },
-  { title: "Vanta Digital", tags: ["Web Design", "Development"], color: "bg-zinc-300" },
+  { title: "Campus Connect", tags: ["Web Development", "Branding"], image: "/project-1.png" },
+  { title: "ASCEND", tags: ["UI Design", "Development"], image: "/project-2.png" },
+  { title: "Velocity", tags: ["Web Development", "College Website"], image: "/project-3.png" },
+  { title: "Vanta Digital", tags: ["Web Design", "Development"], image: "/project-4.png" },
 ];
 
 // ─── SERVICE VISUALS ─────────────────────────────────────────────────────────
@@ -217,8 +217,12 @@ export default function Home() {
                 transition={{ duration: 0.65, delay: i * 0.1 }}
                 className="group cursor-pointer"
               >
-                <div className={`relative ${p.color} rounded-2xl overflow-hidden`} style={{ aspectRatio: "16/9" }}>
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
+                <div className="relative rounded-2xl overflow-hidden bg-zinc-900" style={{ aspectRatio: "16/9" }}>
+                  <img 
+                    src={p.image} 
+                    alt={p.title}
+                    className="w-full h-full object-cover"
+                  />
                   <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
                     <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
                       <path d="M2 10L10 2M10 2H4M10 2V8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -342,24 +346,17 @@ export default function Home() {
 
       {/* ── ABOUT US ─────────────────────────────────────────────────────── */}
       <div className="h-12" />
-      <section id="about-us" ref={aboutRef} className="px-10 md:px-16 pb-32">
+      <section id="about-us" className="px-10 md:px-16 pb-32">
 
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          animate={aboutInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.05 }}
+        <h2
           className="text-5xl md:text-6xl font-bold tracking-tight leading-none"
           style={{ marginBottom: "80px" }}
-        >About us</motion.h2>
+        >About us</h2>
 
         <div className="grid md:grid-cols-2 gap-20 items-start">
 
           {/* Left — statement + copy */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={aboutInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
+          <div>
             <h2 className="font-bold leading-[1.08] tracking-tight mb-8" style={{ fontSize: "clamp(36px, 4vw, 64px)" }}>
               We craft bold, purposeful digital experiences that help brands stand out and connect with the right audience.
             </h2>
@@ -373,7 +370,7 @@ export default function Home() {
               </span>
               <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
             </a>
-          </motion.div>
+          </div>
 
           {/* Right — stat rows with dividers, no boxes */}
           <div className="border-t border-white/[0.08]">
@@ -382,11 +379,8 @@ export default function Home() {
               { num: "99%", label: "Client satisfaction", desc: "Measured across every project we ship" },
               { num: "10+", label: "Industries served", desc: "From tech startups to luxury brands" },
             ].map((stat, i) => (
-              <motion.div
+              <div
                 key={stat.label}
-                initial={{ opacity: 0, y: 16 }}
-                animate={aboutInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 + i * 0.12 }}
                 className="flex items-center justify-between border-b border-white/[0.08] py-8"
               >
                 <div>
@@ -396,7 +390,7 @@ export default function Home() {
                 <span className="font-bold leading-none tracking-tight shrink-0 ml-8" style={{ fontSize: "clamp(48px, 5.5vw, 80px)" }}>
                   {stat.num}
                 </span>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -429,55 +423,61 @@ export default function Home() {
               initial={{ opacity: 0, y: 24 }}
               animate={aboutInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
-              style={{ background: "white", borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
+              style={{ borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
             >
-              <div style={{ padding: "32px", height: "100%", display: "flex", flexDirection: "column" }}>
+              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/process-bg.jpg')" }} />
+              <div className="absolute inset-0 bg-black/40" />
+              <div style={{ padding: "32px", height: "100%", display: "flex", flexDirection: "column", position: "relative", zIndex: 10 }}>
                 <div>
-                  <p style={{ color: "rgba(0,0,0,0.45)", fontSize: "12px", marginBottom: "12px" }}>01</p>
-                  <h3 style={{ color: "black", fontSize: "24px", fontWeight: 400, lineHeight: 1.35 }}>Discovery</h3>
+                  <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "12px", marginBottom: "12px" }}>01</p>
+                  <h3 style={{ color: "white", fontSize: "24px", fontWeight: 400, lineHeight: 1.35 }}>Discovery</h3>
                 </div>
                 <div style={{ marginTop: "auto" }}>
-                  <p style={{ color: "rgba(0,0,0,0.6)", fontSize: "14px", lineHeight: "1.6" }}>
+                  <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "14px", lineHeight: "1.6" }}>
                     We start by understanding your business goals, target users, and technical requirements. Through detailed consultations and research, we define the project scope, features, and technology stack that will bring your vision to life.
                   </p>
                 </div>
               </div>
             </motion.div>
 
-            {/* Card 2 — Design */}
+            {/* Card 2 — Build */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={aboutInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              style={{ background: "white", borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
+              style={{ borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
             >
-              <div style={{ padding: "32px", height: "100%", display: "flex", flexDirection: "column" }}>
+              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/process-bg.jpg')" }} />
+              <div className="absolute inset-0 bg-black/40" />
+              <div style={{ padding: "32px", height: "100%", display: "flex", flexDirection: "column", position: "relative", zIndex: 10 }}>
                 <div>
-                  <p style={{ color: "rgba(0,0,0,0.45)", fontSize: "12px", marginBottom: "12px" }}>02</p>
-                  <h3 style={{ color: "black", fontSize: "24px", fontWeight: 400, lineHeight: 1.35 }}>Build</h3>
+                  <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "12px", marginBottom: "12px" }}>02</p>
+                  <h3 style={{ color: "white", fontSize: "24px", fontWeight: 400, lineHeight: 1.35 }}>Build</h3>
                 </div>
                 <div style={{ marginTop: "auto" }}>
-                  <p style={{ color: "rgba(0,0,0,0.6)", fontSize: "14px", lineHeight: "1.6" }}>
+                  <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "14px", lineHeight: "1.6" }}>
                     Our developers bring designs to life with clean, scalable code. Using modern frameworks like Next.js and React, we build fast, responsive websites with seamless functionality. Regular updates keep you in the loop throughout development.
                   </p>
                 </div>
               </div>
             </motion.div>
 
-            {/* Card 3 — Deliver */}
+            {/* Card 3 — Launch */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={aboutInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
-              style={{ background: "white", borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
+              style={{ borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
             >
-              <div style={{ padding: "32px", height: "100%", display: "flex", flexDirection: "column" }}>
+              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/process-bg.jpg')" }} />
+              <div className="absolute inset-0 bg-black/40" />
+              <div style={{ padding: "32px", height: "100%", display: "flex", flexDirection: "column", position: "relative", zIndex: 10 }}>
                 <div>
-                  <p style={{ color: "rgba(0,0,0,0.45)", fontSize: "12px", marginBottom: "12px" }}>03</p>
-                  <h3 style={{ color: "black", fontSize: "24px", fontWeight: 400, lineHeight: 1.35 }}>Launch</h3>
+                  <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "12px", marginBottom: "12px" }}>03</p>
+                  <h3 style={{ color: "white", fontSize: "24px", fontWeight: 400, lineHeight: 1.35 }}>Launch</h3>
                 </div>
                 <div style={{ marginTop: "auto" }}>
-                  <p style={{ color: "rgba(0,0,0,0.6)", fontSize: "14px", lineHeight: "1.6" }}>
+                  <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "14px", lineHeight: "1.6" }}>
                     After thorough testing and optimization, we deploy your website to production. We handle hosting setup, domain configuration, and provide training so you can manage your site with confidence. Ongoing support ensures everything runs smoothly.
                   </p>
                 </div>
