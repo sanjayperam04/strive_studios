@@ -3,16 +3,29 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+interface NavbarProps {
+  onContactClick?: () => void;
+}
+
 const menuItems = [
   { label: "Home", href: "#home" },
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "About us", href: "#about-us" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "#contact", isContact: true },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onContactClick }: NavbarProps) {
   const [open, setOpen] = useState(false);
+
+  const handleMenuClick = (item: typeof menuItems[0]) => {
+    if (item.isContact && onContactClick) {
+      onContactClick();
+      setOpen(false);
+    } else {
+      setOpen(false);
+    }
+  };
 
   return (
     <>
@@ -75,20 +88,36 @@ export default function Navbar() {
               {/* Nav links */}
               <nav className="flex-1 flex flex-col justify-center px-8 md:px-12 gap-6">
                 {menuItems.map((item, i) => (
-                  <motion.a
-                    key={item.label}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
-                    className="group text-white text-5xl md:text-6xl font-bold tracking-tight py-3 relative"
-                  >
-                    <span className="relative z-10 inline-block group-hover:translate-x-2 transition-transform duration-300">
-                      {item.label}
-                    </span>
-                    <span className="absolute left-0 bottom-2 w-0 h-px bg-white/30 group-hover:w-full transition-all duration-500" />
-                  </motion.a>
+                  item.isContact ? (
+                    <motion.button
+                      key={item.label}
+                      onClick={() => handleMenuClick(item)}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
+                      className="group text-white text-5xl md:text-6xl font-bold tracking-tight py-3 relative text-left"
+                    >
+                      <span className="relative z-10 inline-block group-hover:translate-x-2 transition-transform duration-300">
+                        {item.label}
+                      </span>
+                      <span className="absolute left-0 bottom-2 w-0 h-px bg-white/30 group-hover:w-full transition-all duration-500" />
+                    </motion.button>
+                  ) : (
+                    <motion.a
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => handleMenuClick(item)}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
+                      className="group text-white text-5xl md:text-6xl font-bold tracking-tight py-3 relative"
+                    >
+                      <span className="relative z-10 inline-block group-hover:translate-x-2 transition-transform duration-300">
+                        {item.label}
+                      </span>
+                      <span className="absolute left-0 bottom-2 w-0 h-px bg-white/30 group-hover:w-full transition-all duration-500" />
+                    </motion.a>
+                  )
                 ))}
               </nav>
 
