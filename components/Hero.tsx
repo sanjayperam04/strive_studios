@@ -49,7 +49,7 @@ export default function Hero() {
       >
         <h1
           className="text-white font-bold leading-none tracking-tight select-none whitespace-nowrap"
-          style={{ fontSize: "clamp(56px, 8.5vw, 130px)" }}
+          style={{ fontSize: "clamp(44px, 6.5vw, 100px)" }}
         >
           Strive Studios
         </h1>

@@ -104,7 +104,7 @@ export default function Home() {
       <section id="services">
         <div className="px-10 md:px-16 pt-32 pb-20">
           <p className="text-white/30 text-xs tracking-[0.3em] uppercase mb-6">Things we do</p>
-          <h2 className="text-5xl md:text-6xl font-bold tracking-tight leading-none">Our services</h2>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-none">Our services</h2>
         </div>
 
         <div className="flex">
@@ -117,13 +117,13 @@ export default function Home() {
                 className="px-10 md:px-16 py-24 border-t border-white/[0.06] min-h-[75vh] flex flex-col justify-center"
               >
                 <span className="text-white/20 text-xs tracking-widest mb-6 block">{s.num}</span>
-                <h3 className="text-5xl md:text-6xl font-bold tracking-tight leading-none">{s.title}</h3>
+                <h3 className="text-3xl md:text-4xl font-bold tracking-tight leading-none">{s.title}</h3>
                 <div className="h-12"></div>
                 <p className="text-white/40 text-base md:text-lg font-light leading-relaxed max-w-md">{s.description}</p>
                 <div className="h-8"></div>
                 <div className="flex flex-wrap gap-3">
                   {s.tags.map((tag) => (
-                    <span key={tag} className="text-base text-white/45 bg-white/[0.03] border-2 border-white/20 px-6 py-3 rounded-full hover:bg-white/[0.06] hover:border-white/30 transition-all">{tag}</span>
+                    <span key={tag} className="text-sm text-white/45 bg-white/[0.03] border border-white/20 px-4 py-2 rounded-full hover:bg-white/[0.06] hover:border-white/30 transition-all">{tag}</span>
                   ))}
                 </div>
               </div>
@@ -162,9 +162,9 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "64px" }}
           >
-            <h2 style={{ fontSize: "clamp(48px, 6vw, 80px)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.02em" }}>
+            <h2 style={{ fontSize: "clamp(36px, 4.5vw, 56px)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.02em" }}>
               Featured<br />projects{" "}
-              <span style={{ fontSize: "clamp(18px, 2vw, 28px)", fontWeight: 400, color: "rgba(255,255,255,0.25)", verticalAlign: "middle", marginLeft: "8px" }}>(0{projects.length})</span>
+              <span style={{ fontSize: "clamp(14px, 1.5vw, 20px)", fontWeight: 400, color: "rgba(255,255,255,0.25)", verticalAlign: "middle", marginLeft: "8px" }}>(0{projects.length})</span>
             </h2>
             <a href="#contact" style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px", display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", paddingBottom: "4px" }}
               onMouseEnter={e => (e.currentTarget.style.color = "white")}
@@ -226,7 +226,7 @@ export default function Home() {
             style={{ marginBottom: "48px" }}
           >
             <p className="text-white/35 text-xs tracking-[0.25em] uppercase mb-4">Why choose us</p>
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">
               Tailored design solutions<br />for every need
             </h2>          </motion.div>
 
@@ -320,7 +320,7 @@ export default function Home() {
       <section id="about-us" className="px-10 md:px-16 pb-32">
 
         <h2
-          className="text-5xl md:text-6xl font-bold tracking-tight leading-none"
+          className="text-3xl md:text-4xl font-bold tracking-tight leading-none"
           style={{ marginBottom: "80px" }}
         >About us</h2>
 
@@ -328,7 +328,7 @@ export default function Home() {
 
           {/* Left — statement + copy */}
           <div>
-            <h2 className="font-bold leading-[1.08] tracking-tight mb-8" style={{ fontSize: "clamp(36px, 4vw, 64px)" }}>
+            <h2 className="font-bold leading-[1.08] tracking-tight mb-8" style={{ fontSize: "clamp(24px, 2.8vw, 40px)" }}>
               We craft bold, purposeful digital experiences that help brands stand out and connect with the right audience.
             </h2>
             <p className="text-white/40 text-lg leading-relaxed mb-8">
@@ -358,7 +358,7 @@ export default function Home() {
                   <p className="text-white text-base font-normal mb-1">{stat.label}</p>
                   <p className="text-white/35 text-sm">{stat.desc}</p>
                 </div>
-                <span className="font-bold leading-none tracking-tight shrink-0 ml-8" style={{ fontSize: "clamp(48px, 5.5vw, 80px)" }}>
+                <span className="font-bold leading-none tracking-tight shrink-0 ml-8" style={{ fontSize: "clamp(36px, 4vw, 56px)" }}>
                   {stat.num}
                 </span>
               </div>
@@ -381,7 +381,7 @@ export default function Home() {
             style={{ marginBottom: "48px" }}
           >
             <p className="text-white/35 text-xs tracking-[0.25em] uppercase mb-4">Our process</p>
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">
               Building websites made<br />simple and stress-free
             </h2>
           </motion.div>

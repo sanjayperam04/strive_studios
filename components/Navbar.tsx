@@ -95,7 +95,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
-                      className="group text-white text-5xl md:text-6xl font-bold tracking-tight py-3 relative text-left"
+                      className="group text-white text-3xl md:text-4xl font-bold tracking-tight py-2 relative text-left"
                     >
                       <span className="relative z-10 inline-block group-hover:translate-x-2 transition-transform duration-300">
                         {item.label}
@@ -110,7 +110,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
-                      className="group text-white text-5xl md:text-6xl font-bold tracking-tight py-3 relative"
+                      className="group text-white text-3xl md:text-4xl font-bold tracking-tight py-2 relative"
                     >
                       <span className="relative z-10 inline-block group-hover:translate-x-2 transition-transform duration-300">
                         {item.label}
