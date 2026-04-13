@@ -98,14 +98,17 @@ export default function Home() {
       <Hero />
       <ContactForm isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
 
-      <div className="h-24" />
+      <div className="h-40" />
 
       {/* ── SERVICES ─────────────────────────────────────────────────────── */}
       <section id="services">
-        <div className="px-10 md:px-16 pt-32 pb-20">
-          <p className="text-white/30 text-xs tracking-[0.3em] uppercase mb-6">Things we do</p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-none">Our services</h2>
+        <div className="pt-40 pb-6" style={{ paddingLeft: "clamp(24px, 3vw, 48px)", paddingRight: "clamp(24px, 3vw, 48px)" }}>
+          <p className="text-white/40 text-xs tracking-[0.25em] uppercase">Things we do</p>
+          <div style={{ height: "32px" }} />
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-none">Our Services</h2>
+          <div style={{ height: "32px" }} />
         </div>
+        <div className="border-t border-white/[0.08]" />
 
         <div className="flex">
           {/* Left scrollable */}
@@ -114,7 +117,8 @@ export default function Home() {
               <div
                 key={s.num}
                 ref={(el) => { serviceRefs.current[i] = el; }}
-                className="px-10 md:px-16 py-24 border-t border-white/[0.06] min-h-[75vh] flex flex-col justify-center"
+                style={{ paddingLeft: "clamp(24px, 3vw, 48px)", paddingRight: "48px", paddingTop: "96px", paddingBottom: "96px" }}
+                className="border-t border-white/[0.06] min-h-[75vh] flex flex-col justify-center"
               >
                 <span className="text-white/20 text-xs tracking-widest mb-6 block">{s.num}</span>
                 <h3 className="text-3xl md:text-4xl font-bold tracking-tight leading-none">{s.title}</h3>
@@ -123,7 +127,7 @@ export default function Home() {
                 <div className="h-8"></div>
                 <div className="flex flex-wrap gap-3">
                   {s.tags.map((tag) => (
-                    <span key={tag} className="text-sm text-white/45 bg-white/[0.03] border border-white/20 px-4 py-2 rounded-full hover:bg-white/[0.06] hover:border-white/30 transition-all">{tag}</span>
+                    <span key={tag} className="text-xs text-white/40 bg-white/[0.03] border border-white/15 px-3 py-1.5 rounded-full hover:bg-white/[0.06] hover:border-white/25 transition-all">{tag}</span>
                   ))}
                 </div>
               </div>
@@ -155,7 +159,7 @@ export default function Home() {
       <div className="h-48" />
 
       {/* ── FEATURED PROJECTS ────────────────────────────────────────────── */}
-      <section id="work" ref={workRef} style={{ padding: "8rem 3% 8rem" }}>
+      <section id="work" ref={workRef} style={{ padding: "8rem 6% 8rem" }}>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={workInView ? { opacity: 1, y: 0 } : {}}
@@ -214,8 +218,8 @@ export default function Home() {
       </section>
 
       {/* ── WHY CHOOSE US ────────────────────────────────────────────────── */}
-      <div className="h-48" />
-      <section id="about" ref={whyRef} style={{ padding: "0 3% 12rem", overflow: "hidden" }}>
+      <div className="h-20" />
+      <section id="about" ref={whyRef} style={{ padding: "0 6% 12rem", overflow: "hidden" }}>
 
           {/* Header */}
           <motion.div
@@ -223,12 +227,15 @@ export default function Home() {
             animate={whyInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7 }}
             className="text-center"
-            style={{ marginBottom: "48px" }}
+            style={{ marginBottom: "32px" }}
           >
-            <p className="text-white/35 text-xs tracking-[0.25em] uppercase mb-4">Why choose us</p>
+            <p className="text-white/35 text-xs tracking-[0.25em] uppercase">Why choose us</p>
+            <div style={{ height: "28px" }} />
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">
               Tailored design solutions<br />for every need
-            </h2>          </motion.div>
+            </h2>
+            <div style={{ height: "28px" }} />
+          </motion.div>
 
           {/* Cards */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
@@ -238,7 +245,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 24 }}
               animate={whyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
-              style={{ position: "relative", borderRadius: "16px", overflow: "hidden", height: "480px" }}
+              style={{ position: "relative", borderRadius: "16px", overflow: "hidden", height: "400px" }}
             >
               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/car-bg.png')" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(23,37,84,0.6), rgba(23,37,84,0.2), rgba(23,37,84,0.5))" }} />
@@ -256,7 +263,7 @@ export default function Home() {
               animate={whyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
               ref={phoneCardRef}
-              style={{ background: "white", borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
+              style={{ background: "white", borderRadius: "16px", overflow: "hidden", position: "relative", height: "400px" }}
             >
               <div style={{ padding: "32px 32px 0" }}>
                 <p style={{ color: "rgba(0,0,0,0.45)", fontSize: "12px", marginBottom: "12px" }}>100% satisfaction</p>
@@ -280,7 +287,7 @@ export default function Home() {
               animate={whyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
               ref={statsCardRef}
-              style={{ background: "#18181b", borderRadius: "16px", overflow: "hidden", height: "480px", display: "flex", flexDirection: "column" }}
+              style={{ background: "#18181b", borderRadius: "16px", overflow: "hidden", height: "400px", display: "flex", flexDirection: "column" }}
             >
               <div style={{ padding: "32px", display: "flex", flexDirection: "column", height: "100%" }}>
                 <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "12px", marginBottom: "12px" }}>Exponential growth</p>
@@ -317,7 +324,7 @@ export default function Home() {
 
       {/* ── ABOUT US ─────────────────────────────────────────────────────── */}
       <div className="h-12" />
-      <section id="about-us" className="px-10 md:px-16 pb-32">
+      <section id="about-us" style={{ paddingLeft: "clamp(24px, 3vw, 48px)", paddingRight: "clamp(24px, 3vw, 48px)", paddingBottom: "8rem" }}>
 
         <h2
           className="text-3xl md:text-4xl font-bold tracking-tight leading-none"
@@ -369,8 +376,8 @@ export default function Home() {
       </section>
 
       {/* ── OUR PROCESS ──────────────────────────────────────────────────── */}
-      <div className="h-48" />
-      <section id="process" ref={aboutRef} style={{ padding: "0 3% 12rem", overflow: "hidden" }}>
+      <div className="h-8" />
+      <section id="process" ref={aboutRef} style={{ padding: "0 6% 12rem", overflow: "hidden" }}>
 
           {/* Header */}
           <motion.div
@@ -378,12 +385,14 @@ export default function Home() {
             animate={aboutInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7 }}
             className="text-center"
-            style={{ marginBottom: "48px" }}
+            style={{ marginBottom: "32px" }}
           >
-            <p className="text-white/35 text-xs tracking-[0.25em] uppercase mb-4">Our process</p>
+            <p className="text-white/35 text-xs tracking-[0.25em] uppercase">Our process</p>
+            <div style={{ height: "28px" }} />
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">
               Building websites made<br />simple and stress-free
             </h2>
+            <div style={{ height: "28px" }} />
           </motion.div>
 
           {/* Cards */}
@@ -394,7 +403,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 24 }}
               animate={aboutInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
-              style={{ borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
+              style={{ borderRadius: "16px", overflow: "hidden", position: "relative", height: "400px" }}
             >
               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/process-bg.jpg')" }} />
               <div className="absolute inset-0 bg-black/40" />
@@ -416,7 +425,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 24 }}
               animate={aboutInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              style={{ borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
+              style={{ borderRadius: "16px", overflow: "hidden", position: "relative", height: "400px" }}
             >
               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/process-bg.jpg')" }} />
               <div className="absolute inset-0 bg-black/40" />
@@ -438,7 +447,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 24 }}
               animate={aboutInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
-              style={{ borderRadius: "16px", overflow: "hidden", position: "relative", height: "480px" }}
+              style={{ borderRadius: "16px", overflow: "hidden", position: "relative", height: "400px" }}
             >
               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/process-bg.jpg')" }} />
               <div className="absolute inset-0 bg-black/40" />
@@ -458,29 +467,25 @@ export default function Home() {
           </div>
 
           {/* Contact Button */}
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "120px" }}>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "60px" }}>
             <button
               onClick={() => setIsContactOpen(true)}
               style={{
                 backgroundColor: "white",
                 color: "black",
-                fontSize: "22px",
-                fontWeight: 600,
-                padding: "24px 80px",
-                borderRadius: "12px",
+                fontSize: "15px",
+                fontWeight: 500,
+                padding: "14px 40px",
+                borderRadius: "999px",
                 border: "none",
                 cursor: "pointer",
                 transition: "all 0.3s",
-                display: "inline-block"
+                letterSpacing: "0.01em"
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.9)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "white";
-              }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.88)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "white"; }}
             >
-              Contact Us
+              Work with us
             </button>
           </div>
       </section>
@@ -522,7 +527,7 @@ export default function Home() {
               <div className="flex flex-col gap-3">
                 <a href="#" className="text-white/40 text-sm hover:text-white transition-colors">Instagram</a>
                 <a href="#" className="text-white/40 text-sm hover:text-white transition-colors">LinkedIn</a>
-                <a href="#" className="text-white/40 text-sm hover:text-white transition-colors">Dribbble</a>
+                <a href="mailto:hello@strivestudios.co" className="text-white/40 text-sm hover:text-white transition-colors">Mail</a>
               </div>
             </div>
 

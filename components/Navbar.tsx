@@ -133,7 +133,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
                     <span className="text-white/40 text-xs uppercase tracking-wider mb-1">Social</span>
                     <a href="#" className="text-white/60 hover:text-white text-sm transition-colors">Instagram</a>
                     <a href="#" className="text-white/60 hover:text-white text-sm transition-colors">LinkedIn</a>
-                    <a href="#" className="text-white/60 hover:text-white text-sm transition-colors">Dribbble</a>
+                    <a href="mailto:hello@strivestudios.co" className="text-white/60 hover:text-white text-sm transition-colors">Mail</a>
                   </div>
                   <div className="flex flex-col gap-3">
                     <span className="text-white/40 text-xs uppercase tracking-wider mb-1">Contact</span>
