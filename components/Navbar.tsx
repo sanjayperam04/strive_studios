@@ -28,11 +28,9 @@ export default function Navbar({ onContactClick }: NavbarProps) {
   const menuLabelStyle = { color: TOKENS.colors.textPrimary };
   const menuLinkStyle = { color: TOKENS.colors.textPrimary };
   const iconButtonClass =
-    "h-10 w-10 rounded-full border flex items-center justify-center transition-all duration-300 hover:scale-95 hover:bg-white hover:text-black";
+    "h-10 w-10 rounded-full border flex items-center justify-center bg-black/40 text-white transition-all duration-300 hover:scale-95 hover:bg-white hover:text-black";
   const iconButtonStyle = {
-    backgroundColor: TOKENS.colors.overlay40,
     borderColor: TOKENS.colors.textMuted20,
-    color: TOKENS.colors.textPrimary,
     boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
   };
 
