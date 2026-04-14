@@ -78,7 +78,7 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
               <div className="mb-16">
                 <p className="text-white/40 text-xs tracking-[0.25em] uppercase mb-5">Get in touch</p>
                 <h2 className="text-white text-4xl font-bold leading-tight">
-                  Have a project in mind?<br />Let's make it happen.
+                  Have a project in mind?<br />Let&apos;s make it happen.
                 </h2>
               </div>
 
