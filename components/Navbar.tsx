@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TOKENS } from "../styles/tokens";
 
@@ -26,11 +26,37 @@ export default function Navbar({ onContactClick }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const shellStyle = { paddingInline: TOKENS.spacing.shellX };
   const menuLabelStyle = { color: TOKENS.colors.textPrimary };
-  const menuMetaLabelStyle = { color: TOKENS.colors.textMuted40 };
   const menuLinkStyle = { color: TOKENS.colors.textPrimary };
-  const menuFooterLinkStyle = { color: TOKENS.colors.textMuted40 };
+  const iconButtonClass =
+    "h-10 w-10 rounded-full border flex items-center justify-center bg-black/40 text-white transition-all duration-300 hover:scale-95 hover:bg-white hover:text-black";
+  const iconButtonStyle = {
+    borderColor: TOKENS.colors.textMuted20,
+    boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+  };
 
   const closeMenu = () => setOpen(false);
+
+  useEffect(() => {
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousBodyTouchAction = document.body.style.touchAction;
+
+    if (open) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+    } else {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.touchAction = previousBodyTouchAction;
+    }
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.touchAction = previousBodyTouchAction;
+    };
+  }, [open]);
 
   const handleMenuClick = (item: MenuItem) => {
     if (item.isContact && onContactClick) {
@@ -55,14 +81,14 @@ export default function Navbar({ onContactClick }: NavbarProps) {
         {/* Hamburger — white circle, three lines */}
         <button
           onClick={() => setOpen(true)}
-          className="w-9 h-9 rounded-full flex items-center justify-center hover:scale-95 transition-transform"
-          style={{ backgroundColor: TOKENS.colors.textPrimary }}
+          className={iconButtonClass}
+          style={iconButtonStyle}
           aria-label="Open menu"
         >
-          <span className="flex flex-col gap-[4px]">
-            <span className="block w-[14px] h-[1.5px]" style={{ backgroundColor: TOKENS.colors.textInverse }} />
-            <span className="block w-[14px] h-[1.5px]" style={{ backgroundColor: TOKENS.colors.textInverse }} />
-            <span className="block w-[14px] h-[1.5px]" style={{ backgroundColor: TOKENS.colors.textInverse }} />
+          <span className="flex flex-col gap-[4px] text-current">
+            <span className="block h-[1.5px] w-[14px] bg-current" />
+            <span className="block h-[1.5px] w-[14px] bg-current" />
+            <span className="block h-[1.5px] w-[14px] bg-current" />
           </span>
         </button>
       </nav>
@@ -88,26 +114,24 @@ export default function Navbar({ onContactClick }: NavbarProps) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", ease: [0.76, 0, 0.24, 1], duration: 0.5 }}
-              className="fixed top-0 right-0 h-full w-full md:w-[50%] lg:w-[40%] z-50 flex flex-col"
+              className="fixed top-0 right-0 h-full w-full overflow-hidden md:w-[50%] lg:w-[40%] z-50"
               style={{ backgroundColor: TOKENS.colors.background }}
             >
-              {/* Top bar with close button */}
-              <div className="flex h-16 items-center justify-between border-b" style={{ borderColor: TOKENS.colors.textMuted10, ...shellStyle }}>
-                <span className="text-base font-medium" style={menuLabelStyle}>Menu</span>
+              <div className="absolute right-0 top-0 z-10 flex h-16 items-center justify-end" style={shellStyle}>
                 <button
                   onClick={closeMenu}
-                  className="w-10 h-10 rounded-full flex items-center justify-center hover:scale-95 transition-transform"
-                  style={{ backgroundColor: TOKENS.colors.textPrimary }}
+                  className={iconButtonClass}
+                  style={iconButtonStyle}
                   aria-label="Close menu"
                 >
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 1L13 13M13 1L1 13" stroke={TOKENS.colors.textInverse} strokeWidth="1.5" strokeLinecap="round" />
+                    <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                   </svg>
                 </button>
               </div>
 
               {/* Nav links */}
-              <nav className="flex flex-1 flex-col justify-center gap-6" style={shellStyle}>
+              <nav className="flex h-full flex-col justify-center gap-6" style={shellStyle}>
                 {menuItems.map((item, i) => (
                   item.isContact ? (
                     <motion.button
@@ -116,14 +140,14 @@ export default function Navbar({ onContactClick }: NavbarProps) {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
-                      className="group relative py-2 text-left text-3xl font-bold tracking-tight md:text-4xl"
+                      className="group relative pb-4 pt-1 text-left text-3xl font-bold tracking-tight md:text-4xl"
                       style={menuLinkStyle}
                     >
                       <span className="relative z-10 inline-block group-hover:translate-x-2 transition-transform duration-300">
                         {item.label}
                       </span>
                       <span
-                        className="absolute left-0 bottom-2 h-px w-0 transition-all duration-500 group-hover:w-full"
+                        className="pointer-events-none absolute bottom-0 left-0 h-px w-0 transition-all duration-500 group-hover:w-full"
                         style={{ backgroundColor: TOKENS.colors.textMuted30 }}
                       />
                     </motion.button>
@@ -135,43 +159,20 @@ export default function Navbar({ onContactClick }: NavbarProps) {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
-                      className="group relative py-2 text-3xl font-bold tracking-tight md:text-4xl"
+                      className="group relative pb-4 pt-1 text-3xl font-bold tracking-tight md:text-4xl"
                       style={menuLinkStyle}
                     >
                       <span className="relative z-10 inline-block group-hover:translate-x-2 transition-transform duration-300">
                         {item.label}
                       </span>
                       <span
-                        className="absolute left-0 bottom-2 h-px w-0 transition-all duration-500 group-hover:w-full"
+                        className="pointer-events-none absolute bottom-0 left-0 h-px w-0 transition-all duration-500 group-hover:w-full"
                         style={{ backgroundColor: TOKENS.colors.textMuted30 }}
                       />
                     </motion.a>
                   )
                 ))}
               </nav>
-
-              {/* Footer info */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="border-t py-8"
-                style={{ borderColor: TOKENS.colors.textMuted10, ...shellStyle }}
-              >
-                <div className="grid grid-cols-2 gap-8">
-                  <div className="flex flex-col gap-3">
-                    <span className="mb-1 text-xs uppercase tracking-wider" style={menuMetaLabelStyle}>Social</span>
-                    <a href="#" className="text-sm transition-colors hover:text-white" style={menuFooterLinkStyle}>Instagram</a>
-                    <a href="#" className="text-sm transition-colors hover:text-white" style={menuFooterLinkStyle}>LinkedIn</a>
-                    <a href="mailto:hello@strivestudios.co" className="text-sm transition-colors hover:text-white" style={menuFooterLinkStyle}>Mail</a>
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    <span className="mb-1 text-xs uppercase tracking-wider" style={menuMetaLabelStyle}>Contact</span>
-                    <a href="mailto:hello@strivestudios.co" className="text-sm transition-colors hover:text-white" style={menuFooterLinkStyle}>hello@strivestudios.co</a>
-                    <a href="tel:+14065550120" className="text-sm transition-colors hover:text-white" style={menuFooterLinkStyle}>+1 (406) 555-0120</a>
-                  </div>
-                </div>
-              </motion.div>
             </motion.div>
           </>
         )}
