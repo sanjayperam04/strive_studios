@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { TOKENS } from "../styles/tokens";
 
 export default function Hero() {
   return (
@@ -16,10 +17,10 @@ export default function Hero() {
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="absolute left-8 md:left-10"
-        style={{ top: "38%" }}
+        className="absolute"
+        style={{ top: "38%", left: TOKENS.spacing.shellX, right: TOKENS.spacing.shellX }}
       >
-        <p className="text-white text-[20px] md:text-[23px] font-normal leading-[1.75] mb-8">
+        <p className="max-w-xl text-white text-[20px] md:text-[23px] font-normal leading-[1.75] mb-8">
           We craft bold, unforgettable digital<br />
           experiences that captivate and inspire.
         </p>
@@ -45,7 +46,8 @@ export default function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-8 right-0 pr-8 md:pr-12 overflow-hidden"
+        className="absolute bottom-8 right-0 overflow-hidden"
+        style={{ paddingRight: TOKENS.spacing.shellX }}
       >
         <h1
           className="text-white font-bold leading-none tracking-tight select-none whitespace-nowrap"
