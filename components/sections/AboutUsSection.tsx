@@ -22,9 +22,9 @@ export default function AboutUsSection({ onContactClick }: AboutUsSectionProps) 
 
       <div className="grid items-start gap-20 md:grid-cols-2">
         <div>
-          <h2 className="mb-8 font-bold leading-[1.08] tracking-tight" style={{ fontSize: TOKENS.type.h3Fluid }}>
+          <h3 className="mb-8 font-bold leading-[1.08] tracking-tight" style={{ fontSize: TOKENS.type.h3Fluid }}>
             We craft bold, purposeful digital experiences that help brands stand out and connect with the right audience.
-          </h2>
+          </h3>
           <p className="mb-8 text-lg leading-relaxed text-white/40">
             Good design isn&apos;t just about looking great - it&apos;s about telling a story, building trust, and making a lasting impression.
           </p>

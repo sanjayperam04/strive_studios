@@ -82,39 +82,61 @@ export default function FeaturedProjectsSection({ onContactClick }: FeaturedProj
       </motion.div>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        {projects.map((p, i) => (
-          <motion.a
-            key={p.title}
-            href={p.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 28 }}
-            animate={workInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, delay: i * 0.1 }}
-            className="group block cursor-pointer"
-          >
-            <div className="relative overflow-hidden rounded-2xl bg-zinc-900" style={{ aspectRatio: "16/9" }}>
-              <img src={p.image} alt={p.title} className="h-full w-full object-cover" />
-              {p.url && (
-                <div className="absolute right-4 top-4 flex h-8 w-8 translate-y-1 items-center justify-center rounded-full bg-black/60 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                    <path d="M2 10L10 2M10 2H4M10 2V8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-              )}
-            </div>
-            <div className="mt-3 flex items-start justify-between px-1">
-              <span className="text-sm font-normal text-white">{p.title}</span>
-              <div className="flex flex-col items-end gap-0.5 pt-0.5">
-                {p.tags.map((tag) => (
-                  <span key={tag} className="text-xs leading-relaxed text-white/35">
-                    {tag}
-                  </span>
-                ))}
+        {projects.map((p, i) => {
+          const card = (
+            <>
+              <div className="relative overflow-hidden rounded-2xl bg-zinc-900" style={{ aspectRatio: "16/9" }}>
+                <img src={p.image} alt={p.title} className="h-full w-full object-cover" />
+                {p.url && (
+                  <div className="absolute right-4 top-4 flex h-8 w-8 translate-y-1 items-center justify-center rounded-full bg-black/60 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                      <path d="M2 10L10 2M10 2H4M10 2V8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                )}
               </div>
-            </div>
-          </motion.a>
-        ))}
+              <div className="mt-3 flex items-start justify-between px-1">
+                <span className="text-sm font-normal text-white">{p.title}</span>
+                <div className="flex flex-col items-end gap-0.5 pt-0.5">
+                  {p.tags.map((tag) => (
+                    <span key={tag} className="text-xs leading-relaxed text-white/35">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </>
+          );
+
+          if (!p.url) {
+            return (
+              <motion.div
+                key={p.title}
+                initial={{ opacity: 0, y: 28 }}
+                animate={workInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.65, delay: i * 0.1 }}
+                className="group block"
+              >
+                {card}
+              </motion.div>
+            );
+          }
+
+          return (
+            <motion.a
+              key={p.title}
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 28 }}
+              animate={workInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.65, delay: i * 0.1 }}
+              className="group block cursor-pointer"
+            >
+              {card}
+            </motion.a>
+          );
+        })}
       </div>
     </section>
   );

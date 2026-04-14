@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import ContactForm from "../components/ContactForm";
-import ServicesSection from "../components/sections/ServicesSection";
-import FeaturedProjectsSection from "../components/sections/FeaturedProjectsSection";
-import WhyChooseUsSection from "../components/sections/WhyChooseUsSection";
-import AboutUsSection from "../components/sections/AboutUsSection";
-import ProcessSection from "../components/sections/ProcessSection";
-import SiteFooter from "../components/sections/SiteFooter";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import ContactForm from "@/components/ContactForm";
+import ServicesSection from "@/components/sections/ServicesSection";
+import FeaturedProjectsSection from "@/components/sections/FeaturedProjectsSection";
+import WhyChooseUsSection from "@/components/sections/WhyChooseUsSection";
+import AboutUsSection from "@/components/sections/AboutUsSection";
+import ProcessSection from "@/components/sections/ProcessSection";
+import SiteFooter from "@/components/sections/SiteFooter";
 
 export default function Home() {
   const [isContactOpen, setIsContactOpen] = useState(false);

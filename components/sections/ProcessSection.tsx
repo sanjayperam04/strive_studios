@@ -77,6 +77,7 @@ export default function ProcessSection({ onContactClick }: ProcessSectionProps) 
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: "60px" }}>
         <button
+          type="button"
           onClick={onContactClick}
           style={{
             backgroundColor: TOKENS.colors.textPrimary,
