@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { google } from "googleapis";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 async function appendToSheet(row: string[]) {
   const auth = new google.auth.GoogleAuth({
     credentials: {
@@ -52,6 +50,8 @@ export async function POST(request: Request) {
     });
 
     const fullMessage = `${company ? `Company: ${company}\n` : ""}${services?.length ? `Services: ${services.join(", ")}\n` : ""}${message}`;
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     // Run Resend + Sheets in parallel — a failure in Sheets won't block the email
     const [emailResult, sheetsResult] = await Promise.allSettled([
