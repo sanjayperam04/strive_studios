@@ -5,13 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { TOKENS } from "../styles/tokens";
 
 interface NavbarProps {
-  onContactClick?: () => void;
 }
 
 type MenuItem = {
   label: string;
   href: string;
-  isContact?: boolean;
 };
 
 const menuItems: MenuItem[] = [
@@ -19,10 +17,10 @@ const menuItems: MenuItem[] = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "About us", href: "#about-us" },
-  { label: "Contact", href: "#contact", isContact: true },
+  { label: "Contact", href: "#contact" },
 ];
 
-export default function Navbar({ onContactClick }: NavbarProps) {
+export default function Navbar({}: NavbarProps) {
   const [open, setOpen] = useState(false);
   const shellStyle = { paddingInline: TOKENS.spacing.shellX };
   const menuLabelStyle = { color: TOKENS.colors.textPrimary };
@@ -58,13 +56,8 @@ export default function Navbar({ onContactClick }: NavbarProps) {
     };
   }, [open]);
 
-  const handleMenuClick = (item: MenuItem) => {
-    if (item.isContact && onContactClick) {
-      onContactClick();
-      closeMenu();
-    } else {
-      closeMenu();
-    }
+  const handleMenuClick = () => {
+    closeMenu();
   };
 
   return (
@@ -133,44 +126,24 @@ export default function Navbar({ onContactClick }: NavbarProps) {
               {/* Nav links */}
               <nav className="flex h-full flex-col justify-center gap-6" style={shellStyle}>
                 {menuItems.map((item, i) => (
-                  item.isContact ? (
-                    <motion.button
-                      key={item.label}
-                      onClick={() => handleMenuClick(item)}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
-                      className="group relative pb-4 pt-1 text-left text-3xl font-bold tracking-tight md:text-4xl"
-                      style={menuLinkStyle}
-                    >
-                      <span className="relative z-10 inline-block group-hover:translate-x-2 transition-transform duration-300">
-                        {item.label}
-                      </span>
-                      <span
-                        className="pointer-events-none absolute bottom-0 left-0 h-px w-0 transition-all duration-500 group-hover:w-full"
-                        style={{ backgroundColor: TOKENS.colors.textMuted30 }}
-                      />
-                    </motion.button>
-                  ) : (
-                    <motion.a
-                      key={item.label}
-                      href={item.href}
-                      onClick={() => handleMenuClick(item)}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
-                      className="group relative pb-4 pt-1 text-3xl font-bold tracking-tight md:text-4xl"
-                      style={menuLinkStyle}
-                    >
-                      <span className="relative z-10 inline-block group-hover:translate-x-2 transition-transform duration-300">
-                        {item.label}
-                      </span>
-                      <span
-                        className="pointer-events-none absolute bottom-0 left-0 h-px w-0 transition-all duration-500 group-hover:w-full"
-                        style={{ backgroundColor: TOKENS.colors.textMuted30 }}
-                      />
-                    </motion.a>
-                  )
+                  <motion.a
+                    key={item.label}
+                    href={item.href}
+                    onClick={handleMenuClick}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
+                    className="group relative pb-4 pt-1 text-3xl font-bold tracking-tight md:text-4xl"
+                    style={menuLinkStyle}
+                  >
+                    <span className="relative z-10 inline-block group-hover:translate-x-2 transition-transform duration-300">
+                      {item.label}
+                    </span>
+                    <span
+                      className="pointer-events-none absolute bottom-0 left-0 h-px w-0 transition-all duration-500 group-hover:w-full"
+                      style={{ backgroundColor: TOKENS.colors.textMuted30 }}
+                    />
+                  </motion.a>
                 ))}
               </nav>
             </motion.div>
