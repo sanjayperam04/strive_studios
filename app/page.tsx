@@ -27,7 +27,7 @@ export default function Home() {
       <div className="h-40" />
       <ServicesSection />
 
-      <div className="h-48" />
+      <div className="h-20" />
       <FeaturedProjectsSection onContactClick={handleContactClick} />
 
       <div className="h-20" />
