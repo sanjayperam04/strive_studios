@@ -26,11 +26,13 @@ const STEPS = [
   },
 ];
 
+const easeOut = [0.22, 1, 0.36, 1] as const;
+
 function fadeUp(delay = 0) {
   return {
     initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1], delay },
+    transition: { duration: 0.8, ease: easeOut, delay },
   };
 }
 
