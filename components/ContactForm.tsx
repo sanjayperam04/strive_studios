@@ -54,15 +54,15 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
             onClick={onClose}
           />
 
-          {/* Panel */}
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed top-0 right-0 h-full w-full md:w-[48%] bg-[#0c0c0c] z-[70] overflow-y-auto"
-          >
-            {/* Close */}
+            {/* Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed top-0 right-0 h-full w-full md:w-[60%] bg-[#0c0c0c] z-[70] overflow-y-auto"
+            >
+              {/* Close */}
             <button
               onClick={onClose}
               className="absolute top-8 right-8 w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-all z-10"
@@ -72,7 +72,7 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
               </svg>
             </button>
 
-            <div className="px-10 md:px-14 pt-20 pb-16 flex flex-col h-full">
+            <div className="px-12 md:px-16 pt-24 pb-20 flex flex-col h-full">
 
               {/* Header */}
               <div className="mb-16">

@@ -1,0 +1,19 @@
+Add these to .env.local:
+  GOOGLE_SERVICE_ACCOUNT_EMAIL=your-service-account@project.iam.gserviceaccount.com
+  GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+  GOOGLE_SHEET_ID=your_spreadsheet_id_from_the_url
+
+  Setup steps:
+  1. Go to https://console.cloud.google.com → create a project → enable Google Sheets API
+  2. Create a Service Account → generate a JSON key → copy client_email and private_key into env vars
+  3. Create a Google Sheet → share it with the service account email (Editor access)
+  4. Copy the Sheet ID from the URL: docs.google.com/spreadsheets/d/**THIS_PART**/edit
+
+  A Sheets failure won't break the form — it logs the error server-side but still returns success as long as the Resend email went through.
+
+
+
+----------
+
+Create a new Resend Account with Agency Mail
+Use this mail id get api. 

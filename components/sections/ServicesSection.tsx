@@ -30,15 +30,27 @@ const services = [
 
 const serviceVisuals = [
   <div key="1" className="relative h-full w-full">
-    <img src="/service-1.jpg" alt="Website Design" className="h-full w-full object-cover" />
+    <img
+      src="/service-1.jpg"
+      alt="Website Design"
+      className="h-full w-full object-cover"
+    />
     <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
   </div>,
   <div key="2" className="relative h-full w-full">
-    <img src="/service-2.jpg" alt="Development & Hosting" className="h-full w-full object-cover" />
+    <img
+      src="/service-2.jpg"
+      alt="Development & Hosting"
+      className="h-full w-full object-cover"
+    />
     <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
   </div>,
   <div key="3" className="relative h-full w-full">
-    <img src="/service-3.jpg" alt="Branding" className="h-full w-full object-cover" />
+    <img
+      src="/service-3.jpg"
+      alt="Branding"
+      className="h-full w-full object-cover"
+    />
     <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
   </div>,
 ];
@@ -68,12 +80,19 @@ export default function ServicesSection() {
   return (
     <section id="services">
       <div
-        className="pb-6 pt-40"
-        style={{ paddingLeft: TOKENS.spacing.shellX, paddingRight: TOKENS.spacing.shellX }}
+        className="pb-6 pt-40 text-center"
+        style={{
+          paddingLeft: TOKENS.spacing.shellX,
+          paddingRight: TOKENS.spacing.shellX,
+        }}
       >
-        <p className="text-xs uppercase tracking-[0.25em] text-white/40">Things we do</p>
+        <p className="text-xs uppercase tracking-[0.25em] text-white/40">
+          Things we do
+        </p>
         <div style={{ height: "32px" }} />
-        <h2 className="text-4xl font-bold leading-none tracking-tight md:text-5xl">Our Services</h2>
+        <h2 className="text-4xl font-bold leading-none tracking-tight md:text-5xl">
+          Our Services
+        </h2>
         <div style={{ height: "32px" }} />
       </div>
       <div className="border-t border-white/[0.08]" />
@@ -94,10 +113,16 @@ export default function ServicesSection() {
               }}
               className="flex min-h-[75vh] flex-col justify-center border-t border-white/[0.06]"
             >
-              <span className="mb-6 block text-xs tracking-widest text-white/20">{s.num}</span>
-              <h3 className="text-3xl font-bold leading-none tracking-tight md:text-4xl">{s.title}</h3>
+              <span className="mb-6 block text-xs tracking-widest text-white/20">
+                {s.num}
+              </span>
+              <h3 className="text-3xl font-bold leading-none tracking-tight md:text-4xl">
+                {s.title}
+              </h3>
               <div className="h-12" />
-              <p className="max-w-md text-base font-light leading-relaxed text-white/40 md:text-lg">{s.description}</p>
+              <p className="max-w-md text-base font-light leading-relaxed text-white/40 md:text-lg">
+                {s.description}
+              </p>
               <div className="h-8" />
               <div className="flex flex-wrap gap-3">
                 {s.tags.map((tag) => (
@@ -125,8 +150,13 @@ export default function ServicesSection() {
             >
               <div className="flex-1">{serviceVisuals[activeService]}</div>
               <div className="flex items-center justify-between border-t border-white/[0.06] px-10 py-5">
-                <span className="text-xs uppercase tracking-[0.2em] text-white/20">{services[activeService].title}</span>
-                <span className="text-xs" style={{ color: TOKENS.colors.textMuted15 }}>
+                <span className="text-xs uppercase tracking-[0.2em] text-white/20">
+                  {services[activeService].title}
+                </span>
+                <span
+                  className="text-xs"
+                  style={{ color: TOKENS.colors.textMuted15 }}
+                >
                   {services[activeService].num} / 0{services.length}
                 </span>
               </div>
