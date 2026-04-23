@@ -74,7 +74,7 @@ export default function ProcessSection({
               initial={fadeUp(0.1).initial}
               animate={inView ? fadeUp(0.1).animate : fadeUp(0.1).initial}
               transition={fadeUp(0.1).transition}
-              className="text-4xl font-bold leading-[1.1] tracking-tight text-white md:text-5xl lg:text-6xl"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight text-white"
             >
               Building <br className="hidden md:block" />
               websites made <br className="hidden md:block" />

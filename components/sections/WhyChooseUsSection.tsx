@@ -41,12 +41,13 @@ export default function WhyChooseUsSection() {
         <div style={{ height: "28px" }} />
       </motion.div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={whyInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
-          style={{ position: "relative", borderRadius: TOKENS.radius.card, overflow: "hidden", height: "400px" }}
+          className="md:h-[400px]"
+          style={{ position: "relative", borderRadius: TOKENS.radius.card, overflow: "hidden", minHeight: "280px" }}
         >
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/car-bg.png')" }} />
           <div
@@ -67,8 +68,9 @@ export default function WhyChooseUsSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={whyInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
+          className="md:h-[400px]"
           ref={phoneCardRef}
-          style={{ background: TOKENS.colors.textPrimary, borderRadius: TOKENS.radius.card, overflow: "hidden", position: "relative", height: "400px" }}
+          style={{ background: TOKENS.colors.textPrimary, borderRadius: TOKENS.radius.card, overflow: "hidden", position: "relative", minHeight: "280px" }}
         >
           <div style={{ padding: "32px 32px 0" }}>
             <p style={{ color: TOKENS.colors.inverseMuted45, fontSize: "12px", marginBottom: "12px" }}>100% satisfaction</p>
@@ -79,7 +81,7 @@ export default function WhyChooseUsSection() {
             </h3>
           </div>
           <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-            <motion.img src="/phone-mockup.png" alt="Phone mockup" style={{ width: "220px", objectFit: "contain", objectPosition: "top", y: phoneY }} />
+            <motion.img src="/phone-mockup.png" alt="Phone mockup" style={{ width: "clamp(140px, 40%, 220px)", objectFit: "contain", objectPosition: "top", y: phoneY }} />
           </div>
         </motion.div>
 
@@ -87,8 +89,9 @@ export default function WhyChooseUsSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={whyInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
+          className="md:h-[400px]"
           ref={statsCardRef}
-          style={{ background: TOKENS.colors.surface, borderRadius: TOKENS.radius.card, overflow: "hidden", height: "400px", display: "flex", flexDirection: "column" }}
+          style={{ background: TOKENS.colors.surface, borderRadius: TOKENS.radius.card, overflow: "hidden", minHeight: "280px", display: "flex", flexDirection: "column" }}
         >
           <div style={{ padding: "32px", display: "flex", flexDirection: "column", height: "100%" }}>
             <p style={{ color: TOKENS.colors.textMuted35, fontSize: "12px", marginBottom: "12px" }}>Exponential growth</p>

@@ -29,7 +29,7 @@ export default function SiteFooter() {
         <div className="grid grid-cols-1 gap-12 pt-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-start lg:gap-20">
           <div className="lg:max-w-md">
             <p className="text-xs font-medium uppercase tracking-[0.2em]" style={{ color: TOKENS.colors.textMuted30 }}>
-              Strive Studios
+              Summit Studios
             </p>
             <div className="h-5" />
             <p className="text-base leading-relaxed" style={{ color: TOKENS.colors.textMuted40 }}>
@@ -83,7 +83,7 @@ export default function SiteFooter() {
 
         <div className="flex flex-col items-start justify-between gap-4 text-left sm:flex-row sm:items-center sm:gap-6">
           <span className="text-xs" style={{ color: TOKENS.colors.textMuted30 }}>
-            © {currentYear} Strive Studios. All rights reserved.
+            © {currentYear} Summit Studios. All rights reserved.
           </span>
           <div className="flex flex-wrap items-center gap-4 sm:justify-end">
             {footerLegalLinks.map((item) => (

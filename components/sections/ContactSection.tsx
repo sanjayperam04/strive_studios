@@ -201,7 +201,7 @@ export default function ContactSection() {
                 {...fadeUp(0.1)}
                 animate={inView ? fadeUp(0.1).animate : fadeUp(0.1).initial}
                 style={{
-                  fontSize: "clamp(48px, 7vw, 108px)",
+                  fontSize: "clamp(32px, 6vw, 108px)",
                   fontWeight: 700,
                   lineHeight: 1,
                   letterSpacing: "-0.03em",

@@ -24,24 +24,26 @@ export default function Home() {
       <Navbar />
       <Hero />
 
-      <div className="h-40" />
       <ServicesSection />
 
-      <div className="h-20" />
-      <FeaturedProjectsSection onContactClick={handleContactClick} />
+      {/* Isolation wrapper — prevents sticky cards from bleeding into next section */}
+      <div className="relative z-10 bg-black">
+        <div className="h-12 md:h-24" />
+        <FeaturedProjectsSection onContactClick={handleContactClick} />
 
-      <div className="h-20" />
-      <WhyChooseUsSection />
+        <div className="h-10 md:h-20" />
+        <WhyChooseUsSection />
 
-      <div className="h-12" />
-      <AboutUsSection onContactClick={handleContactClick} />
+        <div className="h-8 md:h-12" />
+        <AboutUsSection onContactClick={handleContactClick} />
 
-      <div className="h-8" />
-      <ProcessSection onContactClick={handleContactClick} />
+        <div className="h-4 md:h-8" />
+        <ProcessSection onContactClick={handleContactClick} />
 
-      <ContactSection />
+        <ContactSection />
 
-      <SiteFooter />
+        <SiteFooter />
+      </div>
     </main>
   );
 }

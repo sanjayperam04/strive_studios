@@ -56,7 +56,7 @@ export async function POST(request: Request) {
     // Run Resend + Sheets in parallel — a failure in Sheets won't block the email
     const [emailResult, sheetsResult] = await Promise.allSettled([
       resend.emails.send({
-        from: "Strive Studios Form <onboarding@resend.dev>",
+        from: "Summit Studios Form <onboarding@resend.dev>",
         to: ["hello@strivestudios.co"],
         replyTo: email,
         subject: `New Project Inquiry from ${name}`,

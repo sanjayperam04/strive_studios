@@ -50,3 +50,8 @@ body {
 section[id] {
   scroll-margin-top: 72px;
 }
+
+@keyframes projectsMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

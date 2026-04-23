@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Strive Studios — Digital Agency",
+  title: "Summit Studios — Digital Agency",
   description: "We craft bold, unforgettable digital experiences that captivate and inspire.",
 };
 

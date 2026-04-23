@@ -53,7 +53,7 @@ export default function Hero() {
           className="text-white font-bold leading-none tracking-tight select-none whitespace-nowrap"
           style={{ fontSize: "clamp(44px, 6.5vw, 100px)" }}
         >
-          Strive Studios
+          Summit Studios
         </h1>
       </motion.div>
 

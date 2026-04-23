@@ -22,6 +22,17 @@ const menuItems: MenuItem[] = [
 
 export default function Navbar({}: NavbarProps) {
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(true);
+
+  // Show navbar only when scrolled within the hero (100vh)
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroHeight = window.innerHeight;
+      setVisible(window.scrollY < heroHeight - 80);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   const shellStyle = { paddingInline: TOKENS.spacing.shellX };
   const menuLabelStyle = { color: TOKENS.colors.textPrimary };
   const menuLinkStyle = { color: TOKENS.colors.textPrimary };
@@ -63,12 +74,14 @@ export default function Navbar({}: NavbarProps) {
   return (
     <>
       {/* Top black bar */}
-      <nav
+      <motion.nav
+        animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -16 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className="fixed top-0 left-0 right-0 z-50 flex h-16 items-center justify-between"
-        style={{ backgroundColor: TOKENS.colors.background, ...shellStyle }}
+        style={{ backgroundColor: TOKENS.colors.background, ...shellStyle, pointerEvents: visible ? "auto" : "none" }}
       >
         <span className="text-base font-medium" style={menuLabelStyle}>
-          Strive Studios
+          Summit Studios
         </span>
 
         {/* Hamburger — white circle, three lines */}
@@ -84,7 +97,7 @@ export default function Navbar({}: NavbarProps) {
             <span className="block h-[1.5px] w-[14px] bg-current" />
           </span>
         </button>
-      </nav>
+      </motion.nav>
 
       {/* Overlay */}
       <AnimatePresence>
