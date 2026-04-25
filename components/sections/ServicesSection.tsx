@@ -18,12 +18,12 @@ const services = [
     description:
       "Build a brand that resonates with your audience through strategic positioning and compelling visual identity systems.",
     image: "/service-brand.png",
-    bg: "#1a1815",
+    bg: "#000000",
     text: "#ffffff",
-    muted: "rgba(255,255,255,0.6)",
-    border: "rgba(255,255,255,0.12)",
-    numColor: "rgba(212,175,55,0.2)",
-    accent: "#d4af37",
+    muted: "rgba(255,255,255,0.55)",
+    border: "rgba(255,255,255,0.08)",
+    numColor: "rgba(255,255,255,0.06)",
+    accent: "#c0392b",
   },
   {
     num: "02",
@@ -37,12 +37,12 @@ const services = [
     description:
       "Create intuitive, beautiful websites that guide visitors toward action while performing flawlessly on every device.",
     image: "/service-web-design.png",
-    bg: "#f8f6f1",
-    text: "#1a1815",
-    muted: "rgba(26,24,21,0.55)",
-    border: "rgba(26,24,21,0.1)",
-    numColor: "rgba(26,24,21,0.15)",
-    accent: "#1a1815",
+    bg: "#000000",
+    text: "#ffffff",
+    muted: "rgba(255,255,255,0.55)",
+    border: "rgba(255,255,255,0.08)",
+    numColor: "rgba(255,255,255,0.06)",
+    accent: "#c0392b",
   },
   {
     num: "03",
@@ -56,12 +56,12 @@ const services = [
     description:
       "Robust technical implementation with performance, security, and scalability built in from day one.",
     image: "/service-dev.png",
-    bg: "#0f1115",
-    text: "#e2e8f0",
-    muted: "rgba(226,232,240,0.6)",
-    border: "rgba(226,232,240,0.12)",
-    numColor: "rgba(96,165,250,0.2)",
-    accent: "#60a5fa",
+    bg: "#000000",
+    text: "#ffffff",
+    muted: "rgba(255,255,255,0.55)",
+    border: "rgba(255,255,255,0.08)",
+    numColor: "rgba(255,255,255,0.06)",
+    accent: "#c0392b",
   },
 ];
 
@@ -127,7 +127,7 @@ function ServicesHeader() {
                 }}
               >
                 <div className="flex items-center gap-6 md:gap-8">
-                  <span className="font-mono text-sm text-white/30 shrink-0 transition-colors group-hover:text-white/60">
+                  <span className="font-mono text-sm text-white/30 shrink-0 transition-colors group-hover:text-[#c0392b]/70">
                     {s.num}
                   </span>
                   <span
@@ -137,7 +137,7 @@ function ServicesHeader() {
                     {s.title.replace("\n", " ")}
                   </span>
                 </div>
-                <span className="text-white/20 transition-transform duration-300 group-hover:translate-x-2 md:group-hover:text-white/50 hidden md:block">
+                <span className="text-white/20 transition-all duration-300 group-hover:translate-x-2 md:group-hover:text-[#c0392b]/60 hidden md:block">
                   <svg
                     width="28"
                     height="28"

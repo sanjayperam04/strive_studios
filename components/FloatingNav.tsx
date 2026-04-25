@@ -79,8 +79,8 @@ export default function FloatingNav({ onContactClick }: FloatingNavProps) {
         transition: "all 220ms ease",
       }}
     >
-      <span style={{ color: "white", fontSize: "13px", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>
-        Summit Studios
+      <span style={{ color: "white", fontSize: "13px", fontWeight: 600, letterSpacing: "0.08em" }}>
+        SUMMIT STUDIO
       </span>
 
       <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", justifyContent: "flex-end" }}>

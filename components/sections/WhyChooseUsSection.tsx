@@ -31,7 +31,7 @@ export default function WhyChooseUsSection() {
         className="text-center"
         style={{ marginBottom: "32px" }}
       >
-        <p className="text-xs uppercase tracking-[0.25em] text-white/35">Why choose us</p>
+        <p className="text-xs uppercase tracking-[0.25em] text-[#c0392b]/70">Why choose us</p>
         <div style={{ height: "28px" }} />
         <h2 className="text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl">
           Tailored design solutions for every need.

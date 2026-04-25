@@ -153,7 +153,7 @@ export default function FeaturedProjectsSection() {
           className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
         >
           <div>
-            <p className="text-xs uppercase tracking-[0.25em] text-white/35">
+            <p className="text-xs uppercase tracking-[0.25em] text-[#c0392b]/70">
               Selected work
             </p>
             <div className="h-5" />

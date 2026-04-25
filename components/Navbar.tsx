@@ -77,7 +77,7 @@ export default function Navbar() {
         style={{ backgroundColor: TOKENS.colors.background, ...shellStyle, pointerEvents: visible ? "auto" : "none" }}
       >
         <span className="text-base font-medium" style={menuLabelStyle}>
-          Summit Studios
+          SUMMIT STUDIO
         </span>
 
         {/* Hamburger — white circle, three lines */}
@@ -150,7 +150,7 @@ export default function Navbar() {
                     </span>
                     <span
                       className="pointer-events-none absolute bottom-0 left-0 h-px w-0 transition-all duration-500 group-hover:w-full"
-                      style={{ backgroundColor: TOKENS.colors.textMuted30 }}
+                      style={{ backgroundColor: TOKENS.colors.accentRed }}
                     />
                   </motion.a>
                 ))}

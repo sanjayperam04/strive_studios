@@ -18,8 +18,8 @@ body {
 }
 
 ::selection {
-    background: #fff;
-    color: #000;
+    background: #c0392b;
+    color: #fff;
 }
 
 .menu-link {
@@ -71,4 +71,20 @@ section[id] {
 
 .no-scrollbar::-webkit-scrollbar {
     display: none;
+}
+
+.contact-input::placeholder,
+.contact-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.contact-select option {
+    background: #111111;
+    color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    .contact-form-grid {
+        grid-template-columns: 1fr !important;
+    }
 }

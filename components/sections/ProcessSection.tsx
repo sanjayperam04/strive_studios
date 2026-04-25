@@ -62,8 +62,8 @@ export default function ProcessSection({
       {/* Header row */}
       <div
         style={{
-          paddingLeft: "clamp(32px, 8vw, 120px)",
-          paddingRight: "clamp(32px, 8vw, 120px)",
+          paddingLeft: TOKENS.spacing.shellX,
+          paddingRight: TOKENS.spacing.shellX,
         }}
         className="flex items-end justify-between gap-8 flex-wrap"
       >
@@ -75,7 +75,7 @@ export default function ProcessSection({
           <p
             className="text-xs uppercase tracking-[0.28em]"
             style={{
-              color: TOKENS.colors.textMuted35,
+              color: TOKENS.colors.accentRedSoft,
               marginBottom: "1.25rem",
             }}
           >
@@ -84,9 +84,9 @@ export default function ProcessSection({
           <h2
             className="font-bold tracking-tight"
             style={{
-              fontSize: "clamp(32px, 5vw, 72px)",
+              fontSize: TOKENS.type.h2Fluid,
               color: TOKENS.colors.textPrimary,
-              lineHeight: 0.95,
+              lineHeight: 1.05,
             }}
           >
             From idea
@@ -114,13 +114,13 @@ export default function ProcessSection({
             }}
           >
             <div
-              className="grid grid-cols-1 lg:grid-cols-[clamp(48px,6vw,96px)_1fr_1.5fr_auto] items-start lg:items-center transition-colors duration-300"
+              className="grid grid-cols-1 lg:grid-cols-[clamp(36px,4vw,64px)_1fr_1.5fr_auto] items-start lg:items-center transition-colors duration-300"
               style={{
-                paddingLeft: "clamp(32px, 8vw, 120px)",
-                paddingRight: "clamp(32px, 8vw, 120px)",
-                paddingTop: "clamp(32px, 5vw, 64px)",
-                paddingBottom: "clamp(32px, 5vw, 64px)",
-                gap: "clamp(16px, 4vw, 48px)",
+                paddingLeft: TOKENS.spacing.shellX,
+                paddingRight: TOKENS.spacing.shellX,
+                paddingTop: "clamp(20px, 3vw, 36px)",
+                paddingBottom: "clamp(20px, 3vw, 36px)",
+                gap: "clamp(14px, 3vw, 36px)",
                 background:
                   activeStep === index
                     ? TOKENS.colors.textMuted5
@@ -131,11 +131,11 @@ export default function ProcessSection({
               <span
                 className="font-mono pt-1 lg:pt-0"
                 style={{
-                  fontSize: "clamp(24px, 3vw, 40px)",
+                  fontSize: "clamp(14px, 1.8vw, 22px)",
                   fontWeight: 700,
                   color:
                     activeStep === index
-                      ? TOKENS.colors.textMuted35
+                      ? TOKENS.colors.accentRedSoft
                       : TOKENS.colors.textMuted10,
                   lineHeight: 1,
                   transition: "color 0.3s",
@@ -148,7 +148,7 @@ export default function ProcessSection({
               <h3
                 className="font-bold tracking-tight"
                 style={{
-                  fontSize: "clamp(26px, 4vw, 52px)",
+                  fontSize: "clamp(20px, 2.8vw, 36px)",
                   color:
                     activeStep === index
                       ? TOKENS.colors.textPrimary
