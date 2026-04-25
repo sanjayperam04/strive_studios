@@ -187,8 +187,9 @@ export default function ContactSection() {
             textAlign: "center",
           }}
         >
-          Let&apos;s work together
+          Project inquiry
         </motion.p>
+        <br />
 
         {/* ── Headline ── */}
         <div>
@@ -201,7 +202,7 @@ export default function ContactSection() {
                 {...fadeUp(0.1)}
                 animate={inView ? fadeUp(0.1).animate : fadeUp(0.1).initial}
                 style={{
-                  fontSize: "clamp(32px, 6vw, 108px)",
+                  fontSize: "clamp(32px, 5vw, 72px)",
                   fontWeight: 700,
                   lineHeight: 1,
                   letterSpacing: "-0.03em",
@@ -209,11 +210,8 @@ export default function ContactSection() {
                   marginBottom: "clamp(48px, 6vw, 96px)",
                 }}
               >
-                Start a
-                <br />
-                <span style={{ color: TOKENS.colors.textMuted20 }}>
-                  project.
-                </span>
+                Contact
+                <span style={{ color: TOKENS.colors.textMuted20 }}> Us.</span>
               </motion.h2>
 
               {/* Left — info */}
@@ -222,39 +220,7 @@ export default function ContactSection() {
                 animate={inView ? fadeUp(0.2).animate : fadeUp(0.2).initial}
                 style={{ width: "100%" }}
               >
-                {/* Availability badge */}
-                <div
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    border: `1px solid ${TOKENS.colors.textMuted10}`,
-                    borderRadius: TOKENS.radius.pill,
-                    padding: "8px 16px",
-                    marginBottom: "clamp(32px, 4vw, 48px)",
-                  }}
-                >
-                  <span
-                    style={{
-                      width: "7px",
-                      height: "7px",
-                      borderRadius: "50%",
-                      background: "#4ade80",
-                      display: "inline-block",
-                      boxShadow: "0 0 6px #4ade80",
-                      flexShrink: 0,
-                    }}
-                  />
-                  <span
-                    style={{
-                      fontSize: "12px",
-                      color: TOKENS.colors.textMuted40,
-                      letterSpacing: "0.08em",
-                    }}
-                  >
-                    Accepting new projects
-                  </span>
-                </div>
+                
 
                 {/* Info rows */}
                 <div

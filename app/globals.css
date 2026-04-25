@@ -1,57 +1,74 @@
 @import "tailwindcss";
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-inter), sans-serif;
-  background: #000;
-  color: #fff;
-  overflow-x: hidden;
+    font-family: var(--font-inter), sans-serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
 }
 
 ::selection {
-  background: #fff;
-  color: #000;
+    background: #fff;
+    color: #000;
 }
 
 .menu-link {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .menu-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: #000;
-  transition: width 0.3s ease;
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #000;
+    transition: width 0.3s ease;
 }
 
 .menu-link:hover::after {
-  width: 100%;
+    width: 100%;
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 section[id] {
-  scroll-margin-top: 72px;
+    scroll-margin-top: 72px;
 }
 
 @keyframes projectsMarquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
 }

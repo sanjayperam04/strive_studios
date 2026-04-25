@@ -12,7 +12,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Summit Studios — Digital Agency",
-  description: "We craft bold, unforgettable digital experiences that captivate and inspire.",
+  description:
+    "We craft bold, unforgettable digital experiences that captivate and inspire.",
 };
 
 export default function RootLayout({
@@ -22,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning>
         <SmoothScroll />
         {children}
       </body>

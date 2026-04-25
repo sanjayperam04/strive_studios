@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { TOKENS } from "../../styles/tokens";
 
@@ -8,169 +8,191 @@ interface ProcessSectionProps {
   onContactClick: () => void;
 }
 
-const STEPS = [
+const processSteps = [
   {
     num: "01",
-    title: "Discovery & Strategy",
-    text: "We dive deep into your brand, understanding your goals, audience, and market landscape to craft a strategic foundation that sets the trajectory for success.",
+    title: "Strategy",
+    subtitle: "Find the sharp angle",
+    description:
+      "Clarify your offer, audience, and competitive edge. Map the visitor journey before designing screens.",
   },
   {
     num: "02",
-    title: "Design & Prototyping",
-    text: "Translating strategy into visual language. We create pixel-perfect, interactive prototypes that bring your vision to life before a single line of code is written.",
+    title: "Brand",
+    subtitle: "Shape the language",
+    description:
+      "Logo, type, color — a system that works beyond the homepage and scales with your growth.",
   },
   {
     num: "03",
-    title: "Development & Launch",
-    text: "Our engineers build scalable, lightning-fast digital experiences using cutting-edge tech. We rigorously test and seamlessly launch your project to the world.",
+    title: "Design",
+    subtitle: "Experience architecture",
+    description:
+      "High-converting page layouts for mobile and desktop. Prototyped interactions, nothing guessed.",
+  },
+  {
+    num: "04",
+    title: "Delivery",
+    subtitle: "Build, test, launch",
+    description:
+      "Clean Next.js code, hosting, and launch QA. No agency maze — just your website going live.",
   },
 ];
 
-const easeOut = [0.22, 1, 0.36, 1] as const;
-
-function fadeUp(delay = 0) {
-  return {
-    initial: { opacity: 0, y: 30 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, ease: easeOut, delay },
-  };
-}
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function ProcessSection({
   onContactClick,
 }: ProcessSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-10%" });
+  const [activeStep, setActiveStep] = useState<number | null>(null);
 
   return (
     <section
       id="process"
       ref={sectionRef}
+      className="w-full"
       style={{
-        paddingLeft: TOKENS.spacing.shellX,
-        paddingRight: TOKENS.spacing.shellX,
+        backgroundColor: TOKENS.colors.background,
+        paddingTop: TOKENS.spacing.sectionTopMd,
         paddingBottom: TOKENS.spacing.sectionBottomLg,
       }}
-      className="relative bg-black"
     >
-      <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
-        {/* ── Top Label ── */}
+      {/* Header row */}
+      <div
+        style={{
+          paddingLeft: "clamp(32px, 8vw, 120px)",
+          paddingRight: "clamp(32px, 8vw, 120px)",
+        }}
+        className="flex items-end justify-between gap-8 flex-wrap"
+      >
         <motion.div
-          initial={fadeUp(0).initial}
-          animate={inView ? fadeUp(0).animate : fadeUp(0).initial}
-          transition={fadeUp(0).transition}
-          className="mb-16 text-center md:mb-32"
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease }}
         >
-          <p className="text-xs uppercase tracking-[0.25em] text-white/35">
-            Our process
+          <p
+            className="text-xs uppercase tracking-[0.28em]"
+            style={{
+              color: TOKENS.colors.textMuted35,
+              marginBottom: "1.25rem",
+            }}
+          >
+            How we work
           </p>
+          <h2
+            className="font-bold tracking-tight"
+            style={{
+              fontSize: "clamp(32px, 5vw, 72px)",
+              color: TOKENS.colors.textPrimary,
+              lineHeight: 0.95,
+            }}
+          >
+            From idea
+            <span style={{ color: TOKENS.colors.textMuted25 }}> to launch.</span>
+          </h2>
         </motion.div>
+      </div>
 
-        {/* ── 2-Column Sticky Layout ── */}
-        <div className="flex flex-col gap-16 md:flex-row md:items-start md:gap-24">
-          {/* Left: Sticky Header */}
-          <div className="md:sticky md:top-32 md:w-5/12 lg:w-1/3">
-            <motion.h2
-              initial={fadeUp(0.1).initial}
-              animate={inView ? fadeUp(0.1).animate : fadeUp(0.1).initial}
-              transition={fadeUp(0.1).transition}
-              className="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight text-white"
+      {/* Steps — full width rows separated by lines */}
+      <div style={{ marginTop: TOKENS.spacing.sectionHeaderGap }}>
+        {processSteps.map((step, index) => (
+          <motion.div
+            key={step.num}
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, ease, delay: 0.15 + index * 0.1 }}
+            onHoverStart={() => setActiveStep(index)}
+            onHoverEnd={() => setActiveStep(null)}
+            className="group cursor-default"
+            style={{
+              borderTop: `1px solid ${TOKENS.colors.textMuted10}`,
+              ...(index === processSteps.length - 1
+                ? { borderBottom: `1px solid ${TOKENS.colors.textMuted10}` }
+                : {}),
+            }}
+          >
+            <div
+              className="grid grid-cols-1 lg:grid-cols-[clamp(48px,6vw,96px)_1fr_1.5fr_auto] items-start lg:items-center transition-colors duration-300"
+              style={{
+                paddingLeft: "clamp(32px, 8vw, 120px)",
+                paddingRight: "clamp(32px, 8vw, 120px)",
+                paddingTop: "clamp(32px, 5vw, 64px)",
+                paddingBottom: "clamp(32px, 5vw, 64px)",
+                gap: "clamp(16px, 4vw, 48px)",
+                background:
+                  activeStep === index
+                    ? TOKENS.colors.textMuted5
+                    : "transparent",
+              }}
             >
-              Building <br className="hidden md:block" />
-              websites made <br className="hidden md:block" />
-              <span className="text-white/30">simple and stress-free.</span>
-            </motion.h2>
-
-            {/* Desktop Action Button */}
-            <motion.button
-              initial={fadeUp(0.2).initial}
-              animate={inView ? fadeUp(0.2).animate : fadeUp(0.2).initial}
-              transition={fadeUp(0.2).transition}
-              type="button"
-              onClick={onContactClick}
-              className="group mt-12 hidden items-center gap-4 text-sm font-medium tracking-wide text-white/60 transition-colors hover:text-white md:inline-flex"
-            >
-              Start a project
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 transition-all group-hover:border-white group-hover:bg-white">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  className="transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                >
-                  <path
-                    d="M4 12L12 4M12 4H6M12 4V10"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="group-hover:stroke-black"
-                  />
-                </svg>
-              </span>
-            </motion.button>
-          </div>
-
-          {/* Right: Scrolling Steps */}
-          <div className="flex w-full flex-col gap-12 md:w-7/12 md:gap-24 lg:w-2/3 lg:pl-12">
-            {STEPS.map((step, i) => (
-              <motion.div
-                key={step.num}
-                initial={fadeUp(0.15 + i * 0.1).initial}
-                animate={
-                  inView
-                    ? fadeUp(0.15 + i * 0.1).animate
-                    : fadeUp(0.15 + i * 0.1).initial
-                }
-                transition={fadeUp(0.15 + i * 0.1).transition}
-                className="group relative flex flex-col gap-6 border-t border-white/10 pt-8 transition-colors hover:border-white/30 md:pt-12"
+              {/* Step number */}
+              <span
+                className="font-mono pt-1 lg:pt-0"
+                style={{
+                  fontSize: "clamp(24px, 3vw, 40px)",
+                  fontWeight: 700,
+                  color:
+                    activeStep === index
+                      ? TOKENS.colors.textMuted35
+                      : TOKENS.colors.textMuted10,
+                  lineHeight: 1,
+                  transition: "color 0.3s",
+                }}
               >
-                <div className="flex items-center gap-6">
-                  <span className="font-mono text-sm tracking-[0.2em] text-white/30 transition-colors group-hover:text-white/60">
-                    {step.num}
-                  </span>
-                </div>
-                <h3 className="text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl">
-                  {step.title}
-                </h3>
-                <p className="max-w-xl text-base leading-relaxed text-white/50 md:text-lg">
-                  {step.text}
-                </p>
-              </motion.div>
-            ))}
-
-            {/* Mobile Action Button */}
-            <motion.button
-              initial={fadeUp(0.4).initial}
-              animate={inView ? fadeUp(0.4).animate : fadeUp(0.4).initial}
-              transition={fadeUp(0.4).transition}
-              type="button"
-              onClick={onContactClick}
-              className="group mt-4 inline-flex items-center gap-4 text-sm font-medium tracking-wide text-white/60 transition-colors hover:text-white md:hidden"
-            >
-              Start a project
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 transition-all group-hover:border-white group-hover:bg-white">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  className="transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                >
-                  <path
-                    d="M4 12L12 4M12 4H6M12 4V10"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="group-hover:stroke-black"
-                  />
-                </svg>
+                {step.num}
               </span>
-            </motion.button>
-          </div>
-        </div>
+
+              {/* Title */}
+              <h3
+                className="font-bold tracking-tight"
+                style={{
+                  fontSize: "clamp(26px, 4vw, 52px)",
+                  color:
+                    activeStep === index
+                      ? TOKENS.colors.textPrimary
+                      : TOKENS.colors.textMuted40,
+                  lineHeight: 1,
+                  transition: "color 0.3s",
+                }}
+              >
+                {step.title}
+              </h3>
+
+              {/* Description — reveals on hover on desktop, always visible on mobile */}
+              <p
+                className={`text-[15px] lg:text-[16px] leading-relaxed max-w-xl opacity-100 translate-y-0 ${
+                  activeStep === index
+                    ? "lg:opacity-100 lg:translate-y-0"
+                    : "lg:opacity-0 lg:translate-y-2"
+                }`}
+                style={{
+                  color: TOKENS.colors.textMuted40,
+                  transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                {step.description}
+              </p>
+
+              {/* Subtitle tag */}
+              <div className="flex lg:justify-end pt-2 lg:pt-0">
+                <span
+                  className="uppercase tracking-[0.15em] text-[11px] lg:text-xs font-medium"
+                  style={{
+                    color:
+                      activeStep === index
+                        ? TOKENS.colors.textMuted40
+                        : TOKENS.colors.textMuted20,
+                    transition: "color 0.3s",
+                  }}
+                >
+                  {step.subtitle}
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

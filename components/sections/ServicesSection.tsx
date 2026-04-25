@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 
 // ── DATA ─────────────────────────────────────────────────────────────────────
@@ -8,45 +8,60 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 const services = [
   {
     num: "01",
-    title: "Website\nDesign",
-    approach: "Approach",
-    col1: "We design stunning, pixel-perfect websites by structuring digital products around clarity, usability, and strong visual systems.\n\nOur process begins by defining how the product should work — shaping navigation, hierarchy, and interactions before translating it into refined visual design.",
-    col2: "Through wireframes, layout systems, and thoughtful visual direction, we align user needs with product logic and business goals.\n\nThe result is a clear, structured digital experience that feels modern, purposeful, and easy to navigate across devices.",
-    cta: "Discuss design",
-    image: "/service-web-design.png",
-    bg: "#ffffff",
-    text: "#0a0a0a",
-    muted: "rgba(0,0,0,0.45)",
-    border: "rgba(0,0,0,0.1)",
-    numColor: "rgba(0,0,0,0.15)",
+    title: "Branding",
+    bullets: [
+      "Positioning that explains why you exist",
+      "Logo, colour, and type systems that scale",
+      "Brand guidelines your team can actually use",
+      "Launch-ready assets for web, social, and pitch decks",
+    ],
+    description:
+      "Build a brand that resonates with your audience through strategic positioning and compelling visual identity systems.",
+    image: "/service-brand.png",
+    bg: "#1a1815",
+    text: "#ffffff",
+    muted: "rgba(255,255,255,0.6)",
+    border: "rgba(255,255,255,0.12)",
+    numColor: "rgba(212,175,55,0.2)",
+    accent: "#d4af37",
   },
   {
     num: "02",
-    title: "Development\n& Hosting",
-    approach: "Approach",
-    col1: "We build clean, fast, production-ready code with seamless deployment. Using Next.js and modern tooling, we turn designs into fully functional websites.\n\nEvery project is engineered for performance — optimised load times, responsive layouts, and scalable architecture from day one.",
-    col2: "We handle hosting setup, domain configuration, and ongoing maintenance so you never have to think about infrastructure.\n\nThe result is a website that runs reliably, loads fast, and is ready to grow with your business.",
-    cta: "Discuss development",
-    image: "/service-dev.png",
-    bg: "#818181",
-    text: "#0a0a0a",
-    muted: "rgba(0,0,0,0.45)",
-    border: "rgba(0,0,0,0.1)",
-    numColor: "rgba(0,0,0,0.15)",
+    title: "Website Design",
+    bullets: [
+      "Clear page flow from first impression to inquiry",
+      "Responsive UI systems for mobile and desktop",
+      "SEO-friendly content structure and headings",
+      "High-impact visuals without hurting usability",
+    ],
+    description:
+      "Create intuitive, beautiful websites that guide visitors toward action while performing flawlessly on every device.",
+    image: "/service-web-design.png",
+    bg: "#f8f6f1",
+    text: "#1a1815",
+    muted: "rgba(26,24,21,0.55)",
+    border: "rgba(26,24,21,0.1)",
+    numColor: "rgba(26,24,21,0.15)",
+    accent: "#1a1815",
   },
   {
     num: "03",
-    title: "Branding",
-    approach: "Approach",
-    col1: "We build brand identities that are bold, memorable, and built to last. From logo systems to full visual languages, we craft brands that mean something.\n\nOur branding process starts with understanding your business, your audience, and what sets you apart.",
-    col2: "We translate that understanding into a cohesive visual identity — logo, colour, typography, and guidelines that work across every touchpoint.\n\nThe result is a brand that communicates clearly, builds trust, and leaves a lasting impression.",
-    cta: "Discuss branding",
-    image: "/service-brand.png",
-    bg: "#3a3a3a",
-    text: "#ffffff",
-    muted: "rgba(255,255,255,0.5)",
-    border: "rgba(255,255,255,0.12)",
-    numColor: "rgba(255,255,255,0.15)",
+    title: "Development & Hosting",
+    bullets: [
+      "Next.js builds tuned for speed and stability",
+      "Hosting, domains, analytics, and forms handled",
+      "Launch QA across devices and browsers",
+      "Maintenance support after the site goes live",
+    ],
+    description:
+      "Robust technical implementation with performance, security, and scalability built in from day one.",
+    image: "/service-dev.png",
+    bg: "#0f1115",
+    text: "#e2e8f0",
+    muted: "rgba(226,232,240,0.6)",
+    border: "rgba(226,232,240,0.12)",
+    numColor: "rgba(96,165,250,0.2)",
+    accent: "#60a5fa",
   },
 ];
 
@@ -54,65 +69,93 @@ const services = [
 
 function ServicesHeader() {
   const ref = useRef<HTMLDivElement>(null);
-  // Trigger only when the section is well into view — not on page load
   const inView = useInView(ref, { once: true, margin: "0px 0px -30% 0px" });
 
   return (
     <div
       ref={ref}
-      className="h-screen flex flex-col justify-center bg-black overflow-hidden"
-      style={{ padding: "clamp(32px, 5vw, 80px)" }}
+      className="flex flex-col justify-center bg-black"
+      style={{
+        paddingLeft: "clamp(32px, 8vw, 120px)",
+        paddingRight: "clamp(32px, 8vw, 120px)",
+        paddingTop: "clamp(48px, 6vw, 80px)",
+        paddingBottom: "clamp(48px, 6vw, 80px)",
+      }}
     >
-      <div className="flex flex-col md:flex-row items-start md:justify-between gap-8 md:gap-16 w-full">
-
-        {/* Left — slides in from the left */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-16 w-full items-center">
+        {/* Left — main heading */}
         <motion.div
-          className="flex-1"
+          className="w-full"
           initial={{ x: "-60px", opacity: 0 }}
           animate={inView ? { x: 0, opacity: 1 } : {}}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         >
-          <p className="text-xs uppercase tracking-[0.3em] text-white/30">
-            Things we do
-          </p>
 
-          <div style={{ height: "48px" }} />
 
           <h2
-            className="font-bold leading-[1.0] tracking-tight text-white"
-            style={{ fontSize: "clamp(32px, 4.5vw, 64px)" }}
+            className="font-bold leading-[0.95] tracking-tight text-white"
+            style={{ fontSize: "clamp(32px, 5vw, 72px)" }}
           >
             Our Services
           </h2>
         </motion.div>
 
-        {/* Right — slides in from the right, staggered list */}
-        <div className="w-full md:flex-1 flex flex-col justify-center pl-0 md:pl-12">
-          {services.map((s, i) => (
-            <motion.div
-              key={s.num}
-              initial={{ x: "60px", opacity: 0 }}
-              animate={inView ? { x: 0, opacity: 1 } : {}}
-              transition={{
-                duration: 0.85,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.15 + i * 0.1,
-              }}
-              className="flex items-center gap-6 py-4 group"
-            >
-              <span className="text-xs text-white/25 tracking-widest font-mono w-6 shrink-0">
-                {s.num}
-              </span>
-              <span
-                className="font-semibold tracking-tight text-white/70 group-hover:text-white transition-colors"
-                style={{ fontSize: "clamp(18px, 2vw, 28px)" }}
+        {/* Right — navigation list */}
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, y: 40 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+        >
+          <div className="flex flex-col border-t border-white/10 mt-8 lg:mt-0">
+            {services.map((s, i) => (
+              <motion.div
+                key={s.num}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{
+                  duration: 0.7,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: 0.2 + i * 0.1,
+                }}
+                className="group cursor-default flex items-center justify-between border-b border-white/10 transition-colors hover:bg-white/[0.02]"
+                style={{
+                  paddingTop: "clamp(16px, 2vw, 24px)",
+                  paddingBottom: "clamp(16px, 2vw, 24px)",
+                  paddingLeft: "clamp(16px, 2vw, 32px)",
+                  paddingRight: "clamp(16px, 2vw, 32px)",
+                }}
               >
-                {s.title.replace("\n", " ")}
-              </span>
-            </motion.div>
-          ))}
-        </div>
-
+                <div className="flex items-center gap-6 md:gap-8">
+                  <span className="font-mono text-sm text-white/30 shrink-0 transition-colors group-hover:text-white/60">
+                    {s.num}
+                  </span>
+                  <span
+                    className="font-medium tracking-tight text-white/70 transition-colors group-hover:text-white"
+                    style={{ fontSize: "clamp(18px, 2.5vw, 28px)" }}
+                  >
+                    {s.title.replace("\n", " ")}
+                  </span>
+                </div>
+                <span className="text-white/20 transition-transform duration-300 group-hover:translate-x-2 md:group-hover:text-white/50 hidden md:block">
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </div>
   );
@@ -130,6 +173,8 @@ function ServiceCard({
   containerRef: React.RefObject<HTMLDivElement>;
 }) {
   const total = services.length;
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -140,113 +185,178 @@ function ServiceCard({
   const segMid = (index + 0.6) / total;
   const segEnd = (index + 1) / total;
 
-  const scale = useTransform(scrollYProgress, [segStart, segMid, segEnd], [1, 1, 0.85]);
-  const borderRadius = useTransform(scrollYProgress, [segMid, segEnd], [0, 20]);
-  const y = useTransform(scrollYProgress, [segMid, segEnd], ["0%", "-4%"]);
-  const opacity = useTransform(scrollYProgress, [segMid, segEnd], [1, 0.7]);
+  const scale = useTransform(
+    scrollYProgress,
+    [segStart, segMid, segEnd],
+    [1, 1, 0.92],
+  );
+  const y = useTransform(scrollYProgress, [segMid, segEnd], ["0%", "-6%"]);
+  const opacity = useTransform(scrollYProgress, [segStart, segEnd], [1, 1]);
 
   const titleLines = service.title.split("\n");
 
   return (
-    <div className="sticky top-0 h-screen w-full" style={{ zIndex: index + 1 }}>
+    <div className="sticky top-0 h-[90vh] w-full" style={{ zIndex: index + 1 }}>
       <motion.div
         style={{
           scale,
-          borderRadius,
           y,
           opacity,
           transformOrigin: "top center",
           height: "100%",
           width: "100%",
-          overflow: "hidden",
-          willChange: "transform",
           backgroundColor: service.bg,
+          boxShadow: index > 0 ? "0 -30px 60px -15px rgba(0,0,0,0.5)" : "none",
         }}
-        className="relative flex h-full w-full flex-col"
+        className="relative flex h-full w-full flex-col overflow-hidden rounded-t-[1.5rem] md:rounded-t-[2.5rem]"
       >
         {/* Title + Number */}
         <div
-          className="flex items-start justify-between"
-          style={{ padding: "clamp(16px, 2vw, 32px)" }}
+          className="flex flex-row items-start justify-between gap-6"
+          style={{
+            paddingLeft: "clamp(32px, 8vw, 120px)",
+            paddingRight: "clamp(32px, 8vw, 120px)",
+            paddingTop: "clamp(48px, 8vw, 96px)",
+            paddingBottom: "clamp(16px, 2vw, 24px)",
+          }}
         >
           <h3
-            className="font-bold leading-[0.9] tracking-tight"
-            style={{ fontSize: "clamp(32px, 5vw, 72px)", color: service.text }}
+            className="font-bold tracking-tight flex-1 min-w-0"
+            style={{ fontSize: "clamp(26px, 4vw, 52px)", color: service.text }}
           >
             {titleLines.map((line, i) => (
-              <span key={i} className="block">{line}</span>
+              <span key={i} className="block leading-tight">
+                {line}
+              </span>
             ))}
           </h3>
           <span
-            className="font-bold leading-none select-none"
-            style={{ fontSize: "clamp(40px, 6vw, 88px)", color: service.numColor }}
+            className="font-bold leading-none select-none shrink-0"
+            style={{
+              fontSize: "clamp(24px, 3vw, 40px)",
+              color: service.numColor,
+            }}
           >
             {service.num}
           </span>
         </div>
 
         {/* Divider */}
-        <div className="mx-4" style={{ borderTop: `1px solid ${service.border}` }} />
+        <div
+          style={{
+            marginLeft: "clamp(32px, 8vw, 120px)",
+            marginRight: "clamp(32px, 8vw, 120px)",
+            borderTop: `1px solid ${service.border}`,
+          }}
+        />
 
         {/* Content row */}
         <div
-          className="flex flex-col md:flex-row flex-1 gap-4 md:gap-8"
-          style={{ padding: "clamp(24px, 3vw, 48px)", paddingTop: "clamp(20px, 2.5vw, 36px)" }}
+          className="flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-24"
+          style={{
+            paddingLeft: "clamp(32px, 8vw, 120px)",
+            paddingRight: "clamp(32px, 8vw, 120px)",
+            paddingTop: "clamp(48px, 6vw, 80px)",
+            paddingBottom: "clamp(48px, 8vw, 120px)",
+          }}
         >
-          {/* Label */}
-          <div className="hidden md:block w-[10%] shrink-0">
-            <p className="text-xs tracking-wide" style={{ color: service.muted }}>{service.approach}</p>
+          {/* Left side - Service details with expandable rows */}
+          <div className="flex-1 min-w-0 w-full lg:w-1/2">
+            <div className="flex flex-col gap-6 lg:gap-10">
+              {service.bullets.map((bullet, i) => {
+                const isExpanded = expandedIndex === i;
+
+                return (
+                  <div key={i} className="group">
+                    {/* Clickable row header */}
+                    <div
+                      className="w-full flex items-center justify-between cursor-pointer py-6 px-6 -mx-6 rounded-xl transition-all duration-300"
+                      onClick={() => setExpandedIndex(isExpanded ? null : i)}
+                      aria-expanded={isExpanded}
+                      onMouseEnter={() => {
+                        setHoveredIndex(i);
+                        setExpandedIndex(i);
+                      }}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                    >
+                      <p
+                        className="text-[16px] md:text-[18px] leading-relaxed font-medium transition-opacity duration-300"
+                        style={{
+                          color: service.text,
+                          opacity: isExpanded || hoveredIndex === i ? 1 : 0.6,
+                        }}
+                      >
+                        {bullet}
+                      </p>
+                      {/* Chevron arrow on the right side */}
+                      <span
+                        className="ml-4 flex-shrink-0 transition-all duration-300 ease-[0.16,1,0.3,1]"
+                        style={{
+                          color: service.text,
+                          opacity: isExpanded ? 1 : 0.3,
+                          transform: isExpanded
+                            ? "rotate(180deg)"
+                            : "rotate(0deg)",
+                        }}
+                      >
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="m6 9 6 6 6-6" />
+                        </svg>
+                      </span>
+                    </div>
+
+                    {/* Expandable detail panel */}
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: isExpanded ? "auto" : "0px",
+                        opacity: isExpanded ? 1 : 0,
+                      }}
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <p
+                        className="text-[15px] leading-relaxed px-6 pb-6 pt-3"
+                        style={{
+                          color: service.text,
+                          opacity: 0.7,
+                        }}
+                      >
+                        {service.description}
+                      </p>
+                    </motion.div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Description col 1 */}
-          <div className="w-full md:w-[22%] shrink-0">
-            {service.col1.split("\n\n").map((para, i) => (
-              <p key={i} className="mb-4 text-sm leading-relaxed last:mb-0" style={{ color: service.muted }}>
-                {para}
-              </p>
-            ))}
-          </div>
-
-          {/* Description col 2 */}
-          <div className="hidden md:block w-[22%] shrink-0">
-            {service.col2.split("\n\n").map((para, i) => (
-              <p key={i} className="mb-4 text-sm leading-relaxed last:mb-0" style={{ color: service.muted }}>
-                {para}
-              </p>
-            ))}
-          </div>
-
-          {/* Image */}
-          <div className="w-full md:flex-1 overflow-hidden rounded-xl" style={{ height: "clamp(200px, 35vw, 400px)" }}>
+          {/* Right side - Image */}
+          <div className="flex-1 w-full lg:w-1/2 overflow-hidden rounded-2xl lg:rounded-3xl min-h-[300px] lg:min-h-[450px] aspect-[4/3] relative group shadow-2xl">
+            <motion.div
+              className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out"
+              style={{
+                background: `linear-gradient(to top, ${service.bg} 0%, transparent 40%)`,
+              }}
+            />
             <img
               src={service.image}
               alt={service.title}
-              className="h-full w-full object-cover"
-              style={{ filter: "brightness(0.95)" }}
+              className="h-full w-full object-cover transition-transform duration-1000 ease-[0.16,1,0.3,1] group-hover:scale-105"
+              style={{
+                filter: "brightness(0.95)",
+              }}
             />
           </div>
-        </div>
-
-        {/* CTA */}
-        <div
-          style={{
-            borderTop: `1px solid ${service.border}`,
-            padding: "clamp(16px, 2vw, 28px)",
-            paddingLeft: "clamp(28px, 4vw, 60px)",
-            paddingRight: "clamp(28px, 4vw, 60px)",
-          }}
-        >
-          <button className="group flex items-center gap-2 text-sm transition-colors"
-            style={{ color: service.muted }}
-          >
-            <span className="relative">
-              {service.cta}
-              <span className="absolute bottom-0 left-0 h-px w-0 transition-all duration-300 group-hover:w-full"
-                style={{ backgroundColor: service.text }}
-              />
-            </span>
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
-          </button>
         </div>
       </motion.div>
     </div>

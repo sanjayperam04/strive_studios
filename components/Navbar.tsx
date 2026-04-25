@@ -4,9 +4,6 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TOKENS } from "../styles/tokens";
 
-interface NavbarProps {
-}
-
 type MenuItem = {
   label: string;
   href: string;
@@ -16,11 +13,10 @@ const menuItems: MenuItem[] = [
   { label: "Home", href: "#home" },
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
-  { label: "About us", href: "#about-us" },
   { label: "Contact", href: "#contact" },
 ];
 
-export default function Navbar({}: NavbarProps) {
+export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(true);
 

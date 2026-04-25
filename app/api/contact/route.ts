@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 import { google } from "googleapis";
 
 async function appendToSheet(row: string[]) {
@@ -19,6 +18,47 @@ async function appendToSheet(row: string[]) {
     valueInputOption: "USER_ENTERED",
     requestBody: { values: [row] },
   });
+}
+
+async function sendEmail({
+  name,
+  email,
+  fullMessage,
+}: {
+  name: string;
+  email: string;
+  fullMessage: string;
+}) {
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("Missing RESEND_API_KEY");
+  }
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: "Summit Studios Form <onboarding@resend.dev>",
+      to: ["hello@strivestudios.co"],
+      reply_to: email,
+      subject: `New Project Inquiry from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\n${fullMessage}`,
+    }),
+  });
+
+  const data = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    throw new Error(
+      `Resend API error: ${response.status} ${JSON.stringify(data)}`
+    );
+  }
+
+  return data;
 }
 
 export async function POST(request: Request) {
@@ -51,16 +91,12 @@ export async function POST(request: Request) {
 
     const fullMessage = `${company ? `Company: ${company}\n` : ""}${services?.length ? `Services: ${services.join(", ")}\n` : ""}${message}`;
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
-
     // Run Resend + Sheets in parallel — a failure in Sheets won't block the email
     const [emailResult, sheetsResult] = await Promise.allSettled([
-      resend.emails.send({
-        from: "Summit Studios Form <onboarding@resend.dev>",
-        to: ["hello@strivestudios.co"],
-        replyTo: email,
-        subject: `New Project Inquiry from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\n\n${fullMessage}`,
+      sendEmail({
+        name,
+        email,
+        fullMessage,
       }),
       appendToSheet([
         timestamp,
@@ -74,11 +110,6 @@ export async function POST(request: Request) {
 
     if (emailResult.status === "rejected") {
       console.error("Resend error:", emailResult.reason);
-      return NextResponse.json({ message: "Failed to send email." }, { status: 500 });
-    }
-
-    if (emailResult.value.error) {
-      console.error("Resend API error:", emailResult.value.error);
       return NextResponse.json({ message: "Failed to send email." }, { status: 500 });
     }
 
