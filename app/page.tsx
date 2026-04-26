@@ -23,19 +23,13 @@ export default function Home() {
       <Navbar />
       <Hero />
 
-      <ServicesSection />
-
-      {/* Isolation wrapper — prevents sticky cards from bleeding into next section */}
+      {/* Slides over the sticky hero as user scrolls — card edge on top */}
       <div className="relative z-10 bg-black">
+        <ServicesSection />
         <FeaturedProjectsSection />
-
         <WhyChooseUsSection />
-
-
         <ProcessSection onContactClick={handleContactClick} />
-
         <ContactSection />
-
         <SiteFooter />
       </div>
     </main>
