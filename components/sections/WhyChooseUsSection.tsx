@@ -22,8 +22,10 @@ export default function WhyChooseUsSection() {
     <section
       id="about"
       ref={whyRef}
-      style={{ padding: `0 ${TOKENS.spacing.sectionX} ${TOKENS.spacing.sectionBottomLg}`, overflow: "hidden" }}
+      style={{ paddingTop: TOKENS.spacing.sectionTopMd, paddingBottom: TOKENS.spacing.sectionBottomLg, paddingLeft: TOKENS.spacing.shellX, paddingRight: TOKENS.spacing.shellX, overflow: "hidden", position: "relative" }}
     >
+      <div aria-hidden style={{ position: "absolute", top: "-15%", left: "-5%", width: "45%", height: "65%", background: "radial-gradient(ellipse at top left, rgba(192,57,43,0.18) 0%, transparent 58%)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", bottom: "-10%", right: "-5%", width: "40%", height: "60%", background: "radial-gradient(ellipse at bottom right, rgba(192,57,43,0.13) 0%, transparent 55%)", pointerEvents: "none" }} />
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={whyInView ? { opacity: 1, y: 0 } : {}}
@@ -31,7 +33,7 @@ export default function WhyChooseUsSection() {
         className="text-center"
         style={{ marginBottom: "32px" }}
       >
-        <p className="text-xs uppercase tracking-[0.25em] text-[#c0392b]/70">Why choose us</p>
+        <p className="text-xs uppercase tracking-[0.25em] text-white/40">Why choose us</p>
         <div style={{ height: "28px" }} />
         <h2 className="text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl">
           Tailored design solutions for every need.

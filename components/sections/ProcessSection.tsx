@@ -57,8 +57,12 @@ export default function ProcessSection({
         backgroundColor: TOKENS.colors.background,
         paddingTop: TOKENS.spacing.sectionTopMd,
         paddingBottom: TOKENS.spacing.sectionBottomLg,
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      <div aria-hidden style={{ position: "absolute", top: "-20%", right: "-8%", width: "50%", height: "80%", background: "radial-gradient(ellipse at top right, rgba(192,57,43,0.16) 0%, transparent 60%)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", bottom: "-15%", left: "5%", width: "40%", height: "65%", background: "radial-gradient(ellipse at bottom left, rgba(192,57,43,0.12) 0%, transparent 55%)", pointerEvents: "none" }} />
       {/* Header row */}
       <div
         style={{
@@ -75,7 +79,7 @@ export default function ProcessSection({
           <p
             className="text-xs uppercase tracking-[0.28em]"
             style={{
-              color: TOKENS.colors.accentRedSoft,
+              color: TOKENS.colors.textMuted40,
               marginBottom: "1.25rem",
             }}
           >

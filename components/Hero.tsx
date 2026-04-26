@@ -31,8 +31,9 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="group inline-flex items-center gap-2 text-white text-sm font-normal tracking-wide"
+          className="group inline-flex items-center gap-0 text-white text-sm font-normal tracking-wide"
         >
+          <br />
           <br />
           <span className="relative">
             Get started

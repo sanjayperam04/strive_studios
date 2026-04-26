@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { TOKENS } from "../../styles/tokens";
 
 // ── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -76,12 +77,16 @@ function ServicesHeader() {
       ref={ref}
       className="flex flex-col justify-center bg-black"
       style={{
-        paddingLeft: "clamp(32px, 8vw, 120px)",
-        paddingRight: "clamp(32px, 8vw, 120px)",
-        paddingTop: "clamp(48px, 6vw, 80px)",
-        paddingBottom: "clamp(48px, 6vw, 80px)",
+        position: "relative",
+        overflow: "hidden",
+        paddingLeft: TOKENS.spacing.shellX,
+        paddingRight: TOKENS.spacing.shellX,
+        paddingTop: "clamp(80px, 9vw, 128px)",
+        paddingBottom: "clamp(80px, 9vw, 128px)",
       }}
     >
+      <div aria-hidden style={{ position: "absolute", top: "-40%", right: "-5%", width: "50%", height: "180%", background: "radial-gradient(ellipse at top right, rgba(192,57,43,0.20) 0%, transparent 60%)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", bottom: "-20%", left: "10%", width: "35%", height: "80%", background: "radial-gradient(ellipse at bottom left, rgba(192,57,43,0.13) 0%, transparent 55%)", pointerEvents: "none" }} />
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-16 w-full items-center">
         {/* Left — main heading */}
         <motion.div
@@ -210,12 +215,23 @@ function ServiceCard({
         }}
         className="relative flex h-full w-full flex-col overflow-hidden rounded-t-[1.5rem] md:rounded-t-[2.5rem]"
       >
+        {/* Atmospheric glow — varies by card index */}
+        {index === 0 && (
+          <div aria-hidden style={{ position: "absolute", top: "-30%", left: "-10%", width: "55%", height: "90%", background: "radial-gradient(ellipse at top left, rgba(192,57,43,0.22) 0%, transparent 60%)", pointerEvents: "none", zIndex: 0 }} />
+        )}
+        {index === 1 && (
+          <div aria-hidden style={{ position: "absolute", top: "-20%", right: "-5%", width: "50%", height: "85%", background: "radial-gradient(ellipse at top right, rgba(192,57,43,0.20) 0%, transparent 58%)", pointerEvents: "none", zIndex: 0 }} />
+        )}
+        {index === 2 && (
+          <div aria-hidden style={{ position: "absolute", bottom: "-15%", left: "20%", width: "60%", height: "80%", background: "radial-gradient(ellipse at bottom center, rgba(192,57,43,0.18) 0%, transparent 55%)", pointerEvents: "none", zIndex: 0 }} />
+        )}
+
         {/* Title + Number */}
         <div
           className="flex flex-row items-start justify-between gap-6"
           style={{
-            paddingLeft: "clamp(32px, 8vw, 120px)",
-            paddingRight: "clamp(32px, 8vw, 120px)",
+            paddingLeft: TOKENS.spacing.shellX,
+            paddingRight: TOKENS.spacing.shellX,
             paddingTop: "clamp(48px, 8vw, 96px)",
             paddingBottom: "clamp(16px, 2vw, 24px)",
           }}
@@ -244,8 +260,8 @@ function ServiceCard({
         {/* Divider */}
         <div
           style={{
-            marginLeft: "clamp(32px, 8vw, 120px)",
-            marginRight: "clamp(32px, 8vw, 120px)",
+            marginLeft: TOKENS.spacing.shellX,
+            marginRight: TOKENS.spacing.shellX,
             borderTop: `1px solid ${service.border}`,
           }}
         />
@@ -254,8 +270,8 @@ function ServiceCard({
         <div
           className="flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-24"
           style={{
-            paddingLeft: "clamp(32px, 8vw, 120px)",
-            paddingRight: "clamp(32px, 8vw, 120px)",
+            paddingLeft: TOKENS.spacing.shellX,
+            paddingRight: TOKENS.spacing.shellX,
             paddingTop: "clamp(48px, 6vw, 80px)",
             paddingBottom: "clamp(48px, 8vw, 120px)",
           }}

@@ -83,8 +83,31 @@ section[id] {
     color: #ffffff;
 }
 
-@media (max-width: 768px) {
-    .contact-form-grid {
-        grid-template-columns: 1fr !important;
+/* Globe column — desktop: left border + left padding */
+.contact-globe-col {
+    border-left: 1px solid rgba(255,255,255,0.1);
+    padding-left: clamp(32px, 5vw, 64px);
+}
+
+/* Globe canvas wrapper height */
+.contact-globe-wrapper {
+    height: 620px;
+}
+
+@media (max-width: 1024px) {
+    .contact-globe-col {
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        padding-left: 0;
+        padding-top: clamp(28px, 5vw, 40px);
+    }
+
+    .contact-globe-wrapper {
+        height: 320px;
+    }
+
+    .contact-submit-btn {
+        width: 100%;
+        justify-content: center;
     }
 }

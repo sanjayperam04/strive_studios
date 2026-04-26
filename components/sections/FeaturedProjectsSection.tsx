@@ -83,16 +83,6 @@ export default function FeaturedProjectsSection() {
     return () => cancelAnimationFrame(frameId);
   }, [isDragging, isUserInteracting]);
 
-  const slide = (direction: -1 | 1) => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    track.scrollBy({
-      left: direction * Math.min(track.clientWidth * 0.86, 620),
-      behavior: "smooth",
-    });
-  };
-
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== "mouse") return;
     const track = trackRef.current;
@@ -137,8 +127,11 @@ export default function FeaturedProjectsSection() {
         paddingTop: TOKENS.spacing.sectionTopMd,
         paddingBottom: TOKENS.spacing.sectionBottomLg,
         overflow: "hidden",
+        position: "relative",
       }}
     >
+      <div aria-hidden style={{ position: "absolute", top: "-10%", right: "-8%", width: "45%", height: "70%", background: "radial-gradient(ellipse at top right, rgba(192,57,43,0.18) 0%, transparent 58%)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", bottom: "0%", left: "-5%", width: "40%", height: "55%", background: "radial-gradient(ellipse at bottom left, rgba(192,57,43,0.13) 0%, transparent 55%)", pointerEvents: "none" }} />
       <div
         className="flex w-full flex-col"
         style={{
@@ -150,43 +143,14 @@ export default function FeaturedProjectsSection() {
           initial={{ opacity: 0, y: 18 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
         >
-          <div>
-            <p className="text-xs uppercase tracking-[0.25em] text-[#c0392b]/70">
-              Selected work
-            </p>
-            <div className="h-5" />
-            <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-white md:text-6xl">
-              Projects with a pulse.
-            </h2>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="hidden text-sm text-white/35 md:inline">
-              Drag, swipe, or use controls
-            </span>
-            <button
-              type="button"
-              onClick={() => slide(-1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/55 transition-all hover:border-white hover:bg-white hover:text-black"
-              aria-label="Previous project"
-            >
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <button
-              type="button"
-              onClick={() => slide(1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/55 transition-all hover:border-white hover:bg-white hover:text-black"
-              aria-label="Next project"
-            >
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </div>
+          <p className="text-xs uppercase tracking-[0.25em] text-white/40">
+            Selected work
+          </p>
+          <div className="h-5" />
+          <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-white md:text-6xl">
+            Projects with a pulse.
+          </h2>
         </motion.div>
       </div>
 
@@ -208,59 +172,49 @@ export default function FeaturedProjectsSection() {
           onTouchStart={() => setIsUserInteracting(true)}
           onTouchEnd={() => setIsUserInteracting(false)}
           onTouchCancel={() => setIsUserInteracting(false)}
-          className={`no-scrollbar flex snap-x snap-mandatory overflow-x-auto pb-5 ${
+          className={`no-scrollbar flex overflow-x-auto pb-6 ${
             isDragging ? "cursor-grabbing select-none" : "cursor-grab"
           }`}
           style={{
             WebkitOverflowScrolling: "touch",
-            gap: TOKENS.spacing.cardGap,
+            gap: "clamp(32px, 4vw, 56px)",
             paddingLeft: TOKENS.spacing.shellX,
             paddingRight: TOKENS.spacing.shellX,
-            scrollPaddingLeft: TOKENS.spacing.shellX,
           }}
         >
           {[...PROJECTS, ...PROJECTS].map((project, loopIndex) => (
             <article
               key={`${project.index}-${loopIndex}`}
-              className="group min-w-[82vw] snap-start border border-white/10 sm:min-w-[560px] lg:min-w-[660px]"
-              style={{
-                backgroundColor: "#111111",
-                borderRadius: TOKENS.radius.cardLg,
-                padding: TOKENS.spacing.mediaInset,
-              }}
+              className="group shrink-0"
+              style={{ width: "clamp(320px, 44vw, 600px)" }}
             >
+              {/* Image */}
               <a
                 href={project.url || "#work"}
                 target={project.url ? "_blank" : undefined}
                 rel={project.url ? "noopener noreferrer" : undefined}
                 onClick={handleProjectClick}
-                className={`block ${project.url ? "cursor-inherit" : "pointer-events-none"}`}
+                className={project.url ? "" : "pointer-events-none"}
                 aria-label={project.url ? `Open ${project.title}` : project.title}
               >
-                <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] bg-zinc-900">
+                <div className="relative w-full overflow-hidden rounded-2xl bg-zinc-900" style={{ aspectRatio: "16/10" }}>
                   <Image
                     src={project.image}
                     alt={`${project.title} project preview`}
                     fill
-                    sizes="(min-width: 1024px) 640px, 82vw"
+                    sizes="(min-width: 1024px) 600px, 44vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent opacity-80" />
-                  <span className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/35 px-3 py-1 text-xs text-white/70 backdrop-blur">
-                    {project.index}
-                  </span>
                 </div>
               </a>
 
-              <div
-                className="flex items-start justify-between gap-5"
-                style={{ padding: TOKENS.spacing.cardPaddingCompact }}
-              >
+              {/* Text below */}
+              <div style={{ marginTop: "32px" }} className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="text-xl font-semibold tracking-tight text-white">
+                  <h3 className="text-lg font-semibold tracking-tight text-white">
                     {project.title}
                   </h3>
-                  <p className="mt-2 text-xs uppercase tracking-[0.15em] text-white/40">
+                  <p className="mt-1 text-xs uppercase tracking-[0.15em] text-white/35">
                     {project.category} · {project.year}
                   </p>
                 </div>
@@ -269,10 +223,11 @@ export default function FeaturedProjectsSection() {
                     href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-white/50 transition-all hover:border-white hover:bg-white hover:text-black"
+                    className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-white/40 transition-all hover:border-white hover:bg-white hover:text-black"
                     aria-label={`Open ${project.title}`}
+                    onClick={(e) => e.stopPropagation()}
                   >
-                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                    <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
                       <path d="M4 12L12 4M12 4H6M12 4V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </a>
