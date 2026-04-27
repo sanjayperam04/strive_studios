@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     locale: "en_GB",
     images: [
       {
-        url: "https://summitstudios.vercel.app/og-image.png",
+        url: "https://summitstudios.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Summit Studio — Branding, Web Design & Development Agency",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Summit Studio — Branding, Web Design & Development",
     description:
       "Bold digital experiences for ambitious brands. Branding, website design, and development — built to convert.",
-    images: ["https://summitstudios.vercel.app/og-image.png"],
+    images: ["https://summitstudios.vercel.app/og-image.jpg"],
   },
   robots: {
     index: true,
