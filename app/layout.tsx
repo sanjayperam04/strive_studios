@@ -11,9 +11,47 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Summit Studios — Digital Agency",
+  title: "Summit Studio — Branding, Web Design & Development Agency",
   description:
-    "We craft bold, unforgettable digital experiences that captivate and inspire.",
+    "Summit Studio is a digital agency specialising in brand identity, website design, and Next.js development. We build bold digital experiences for ambitious brands.",
+  keywords: [
+    "digital agency",
+    "branding agency",
+    "web design",
+    "website development",
+    "Next.js agency",
+    "brand identity",
+    "UI design",
+    "Summit Studio",
+  ],
+  openGraph: {
+    title: "Summit Studio — Branding, Web Design & Development",
+    description:
+      "Bold digital experiences for ambitious brands. Branding, website design, and development — built to convert.",
+    url: "https://summitstudios.vercel.app",
+    siteName: "Summit Studio",
+    type: "website",
+    locale: "en_GB",
+    images: [
+      {
+        url: "https://summitstudios.vercel.app/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Summit Studio — Branding, Web Design & Development Agency",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Summit Studio — Branding, Web Design & Development",
+    description:
+      "Bold digital experiences for ambitious brands. Branding, website design, and development — built to convert.",
+    images: ["https://summitstudios.vercel.app/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

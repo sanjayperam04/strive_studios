@@ -71,18 +71,17 @@ export default function Hero() {
           style={{ top: "38%", left: TOKENS.spacing.shellX, right: TOKENS.spacing.shellX }}
         >
           <p className="max-w-xl text-white text-[20px] md:text-[23px] font-normal leading-[1.75] mb-8">
-            We craft bold, unforgettable digital<br />
-            experiences that captivate and inspire.
+            Branding, website design, and development<br />
+            for businesses that want to be remembered.
           </p>
 
           <motion.a
-            href="#work"
+            href="#contact"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
             className="group inline-flex items-center gap-0 text-white text-sm font-normal tracking-wide"
           >
-            <br /><br />
             <span className="relative">
               Get started
               <span className="absolute bottom-0 left-0 w-0 h-px bg-[#c0392b] group-hover:w-full transition-all duration-300 ease-out" />

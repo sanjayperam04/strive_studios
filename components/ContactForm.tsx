@@ -17,6 +17,8 @@ const serviceOptions = [
   "Other",
 ];
 
+type Status = "idle" | "loading" | "success" | "error";
+
 export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -25,6 +27,8 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
     services: [] as string[],
     message: "",
   });
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const toggleService = (service: string) => {
     setFormData((prev) => ({
@@ -35,9 +39,51 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setStatus("loading");
+    setErrorMsg("");
+
+    const payload = {
+      name: formData.fullName,
+      email: formData.email,
+      company: formData.company,
+      services: formData.services.join(", "),
+      message: formData.message,
+      subject: `New Project Inquiry from ${formData.fullName}`,
+    };
+
+    const keys = [
+      process.env.NEXT_PUBLIC_WEB3FORMS_KEY_SANJAY,
+      process.env.NEXT_PUBLIC_WEB3FORMS_KEY_RUPIN,
+    ];
+
+    try {
+      const results = await Promise.allSettled(
+        keys.map((access_key) =>
+          fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...payload, access_key }),
+          }).then((r) => r.json())
+        )
+      );
+
+      const anySuccess = results.some(
+        (r) => r.status === "fulfilled" && r.value?.success
+      );
+
+      if (anySuccess) {
+        setStatus("success");
+        setFormData({ fullName: "", company: "", email: "", services: [], message: "" });
+      } else {
+        setErrorMsg("Something went wrong. Please try again.");
+        setStatus("error");
+      }
+    } catch {
+      setErrorMsg("Network error. Please try again.");
+      setStatus("error");
+    }
   };
 
   return (
@@ -157,22 +203,39 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
                   />
                 </div>
 
+                {/* Error message */}
+                {status === "error" && errorMsg && (
+                  <p className="text-red-400 text-sm -mt-8">{errorMsg}</p>
+                )}
+
                 {/* Submit */}
                 <div className="flex items-center justify-between pt-4">
-                  <button
-                    type="submit"
-                    className="group flex items-center gap-4 text-white"
-                  >
-                    <span className="text-xl font-semibold relative">
-                      Send message
-                      <span className="absolute bottom-0 left-0 w-0 h-px bg-white group-hover:w-full transition-all duration-300" />
-                    </span>
-                    <div className="w-11 h-11 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="group-hover:[&>path]:stroke-black transition-all">
-                        <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
+                  {status === "success" ? (
+                    <div className="flex items-center gap-4">
+                      <div className="w-11 h-11 rounded-full border border-white/30 flex items-center justify-center">
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                          <path d="M4 10l4 4 8-8" stroke="white" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                      <span className="text-white/70 text-base">Message sent — we&apos;ll be in touch soon.</span>
                     </div>
-                  </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      disabled={status === "loading"}
+                      className="group flex items-center gap-4 text-white disabled:opacity-50"
+                    >
+                      <span className="text-xl font-semibold relative">
+                        {status === "loading" ? "Sending…" : "Send message"}
+                        <span className="absolute bottom-0 left-0 w-0 h-px bg-white group-hover:w-full transition-all duration-300" />
+                      </span>
+                      <div className="w-11 h-11 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="group-hover:[&>path]:stroke-black transition-all">
+                          <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+                  )}
 
                   <div className="text-right">
                     <p className="text-white/30 text-xs mb-2">Not ready yet?</p>

@@ -41,21 +41,38 @@ export default function ContactSection() {
     e.preventDefault();
     setStatus("loading");
     setErrorMsg("");
+
+    const payload = {
+      name: `${formData.firstName} ${formData.lastName}`.trim(),
+      email: formData.email,
+      message: formData.message,
+      subject: `New Project Inquiry from ${formData.firstName} ${formData.lastName}`.trim(),
+    };
+
+    const keys = [
+      process.env.NEXT_PUBLIC_WEB3FORMS_KEY_SANJAY,
+      process.env.NEXT_PUBLIC_WEB3FORMS_KEY_RUPIN,
+    ];
+
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: `${formData.firstName} ${formData.lastName}`.trim(),
-          email: formData.email,
-          message: formData.message,
-        }),
-      });
-      if (res.ok) {
+      const results = await Promise.allSettled(
+        keys.map((access_key) =>
+          fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...payload, access_key }),
+          }).then((r) => r.json())
+        )
+      );
+
+      const anySuccess = results.some(
+        (r) => r.status === "fulfilled" && r.value?.success
+      );
+
+      if (anySuccess) {
         setStatus("success");
       } else {
-        const data = await res.json();
-        setErrorMsg(data.message || "Something went wrong.");
+        setErrorMsg("Something went wrong. Please try again.");
         setStatus("error");
       }
     } catch {

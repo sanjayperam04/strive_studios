@@ -11,10 +11,22 @@ const services = [
     num: "01",
     title: "Branding",
     bullets: [
-      "Positioning that explains why you exist",
-      "Logo, colour, and type systems that scale",
-      "Brand guidelines your team can actually use",
-      "Launch-ready assets for web, social, and pitch decks",
+      {
+        heading: "Positioning that explains why you exist",
+        detail: "We dig into your market, competitors, and audience to define a clear brand position — so every touchpoint communicates the same sharp message.",
+      },
+      {
+        heading: "Logo, colour, and type systems that scale",
+        detail: "A cohesive visual identity built to work at every size — from a favicon to a billboard — with colour palettes and typography that feel intentional.",
+      },
+      {
+        heading: "Brand guidelines your team can actually use",
+        detail: "Practical, well-documented guidelines that make it easy for anyone on your team — or your vendors — to stay on-brand without asking you every time.",
+      },
+      {
+        heading: "Launch-ready assets for web, social, and pitch decks",
+        detail: "Every file you need on day one: web-optimised logos, social templates, presentation decks, and export-ready assets in the right formats.",
+      },
     ],
     description:
       "Build a brand that resonates with your audience through strategic positioning and compelling visual identity systems.",
@@ -30,10 +42,22 @@ const services = [
     num: "02",
     title: "Website Design",
     bullets: [
-      "Clear page flow from first impression to inquiry",
-      "Responsive UI systems for mobile and desktop",
-      "SEO-friendly content structure and headings",
-      "High-impact visuals without hurting usability",
+      {
+        heading: "Clear page flow from first impression to inquiry",
+        detail: "We map the full visitor journey before touching a pixel — structuring pages so attention flows naturally toward the action you want them to take.",
+      },
+      {
+        heading: "Responsive UI systems for mobile and desktop",
+        detail: "Layouts that adapt fluidly across every screen size, with consistent spacing, type scales, and component behaviour — no awkward breakpoints.",
+      },
+      {
+        heading: "SEO-friendly content structure and headings",
+        detail: "Semantic HTML, proper heading hierarchy, and content structured the way search engines expect — so your site ranks without needing a separate SEO audit.",
+      },
+      {
+        heading: "High-impact visuals without hurting usability",
+        detail: "Bold imagery and motion that make a strong first impression, balanced with fast load times and clear navigation so visitors don't bounce.",
+      },
     ],
     description:
       "Create intuitive, beautiful websites that guide visitors toward action while performing flawlessly on every device.",
@@ -49,10 +73,22 @@ const services = [
     num: "03",
     title: "Development & Hosting",
     bullets: [
-      "Next.js builds tuned for speed and stability",
-      "Hosting, domains, analytics, and forms handled",
-      "Launch QA across devices and browsers",
-      "Maintenance support after the site goes live",
+      {
+        heading: "Next.js builds tuned for speed and stability",
+        detail: "Production-grade Next.js code with optimised images, lazy loading, and Core Web Vitals scores that keep both users and Google happy.",
+      },
+      {
+        heading: "Hosting, domains, analytics, and forms handled",
+        detail: "We set up and configure everything — Vercel hosting, custom domain, Google Analytics, and contact forms — so you launch with a complete stack.",
+      },
+      {
+        heading: "Launch QA across devices and browsers",
+        detail: "Every page tested on real devices and major browsers before go-live. We catch the edge cases so your clients don't.",
+      },
+      {
+        heading: "Maintenance support after the site goes live",
+        detail: "Post-launch isn't the end of the relationship. We offer ongoing support for content updates, performance monitoring, and feature additions.",
+      },
     ],
     description:
       "Robust technical implementation with performance, security, and scalability built in from day one.",
@@ -302,7 +338,7 @@ function ServiceCard({
                           opacity: isExpanded || hoveredIndex === i ? 1 : 0.6,
                         }}
                       >
-                        {bullet}
+                        {bullet.heading}
                       </p>
                       {/* Chevron arrow on the right side */}
                       <span
@@ -347,7 +383,7 @@ function ServiceCard({
                           opacity: 0.7,
                         }}
                       >
-                        {service.description}
+                        {bullet.detail}
                       </p>
                     </motion.div>
                   </div>

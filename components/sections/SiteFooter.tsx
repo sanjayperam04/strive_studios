@@ -13,15 +13,12 @@ const FOOTER_STUDIO = [
   { label: "Work", href: "#work" },
   { label: "Process", href: "#process" },
   { label: "About", href: "#about" },
-  { label: "Blog", href: "#" },
-  { label: "FAQ", href: "#" },
 ];
 
 const FOOTER_SOCIAL = [
   { label: "Instagram", href: "#" },
   { label: "Twitter / X", href: "#" },
   { label: "LinkedIn", href: "#" },
-  { label: "Behance", href: "#" },
 ];
 
 export default function SiteFooter() {
