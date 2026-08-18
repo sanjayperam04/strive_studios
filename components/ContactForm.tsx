@@ -240,10 +240,10 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
                   <div className="text-right">
                     <p className="text-white/30 text-xs mb-2">Not ready yet?</p>
                     <a
-                      href="mailto:hello@strivestudios.co"
-                      className="text-white/50 hover:text-white text-sm transition-colors underline underline-offset-4"
+                      href="mailto:hello@summitstudios.co"
+                      style={{ color: "#c0392b", textDecoration: "none" }}
                     >
-                      hello@strivestudios.co
+                      hello@summitstudios.co
                     </a>
                   </div>
                 </div>

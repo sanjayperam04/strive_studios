@@ -1,225 +1,175 @@
 "use client";
 
-import { TOKENS } from "../../styles/tokens";
+import { motion } from "framer-motion";
 
-const FOOTER_SERVICES = [
-  { label: "Branding", href: "#services" },
-  { label: "Website Design", href: "#services" },
-  { label: "Development & Hosting", href: "#services" },
-  { label: "Full-Service Packages", href: "#services" },
-];
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } }
+};
 
-const FOOTER_STUDIO = [
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } }
+};
+
+const footerLinks = [
+  { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "Process", href: "#process" },
-  { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" },
 ];
 
-const FOOTER_SOCIAL = [
+const socialLinks = [
   { label: "Instagram", href: "#" },
   { label: "Twitter / X", href: "#" },
   { label: "LinkedIn", href: "#" },
 ];
 
 export default function SiteFooter() {
-  const currentYear = new Date().getFullYear();
-
-  const shell: React.CSSProperties = {
-    paddingLeft: TOKENS.spacing.shellX,
-    paddingRight: TOKENS.spacing.shellX,
-  };
-
-  const colTitleStyle: React.CSSProperties = {
-    fontSize: "10px",
-    color: TOKENS.colors.textMuted30,
-    letterSpacing: "0.22em",
-    textTransform: "uppercase",
-    fontWeight: 600,
-    marginBottom: "28px",
-  };
-
-  const linkStyle: React.CSSProperties = {
-    fontSize: "15px",
-    color: TOKENS.colors.textMuted40,
-    textDecoration: "none",
-    display: "block",
-    transition: "color 0.2s",
-    lineHeight: 1,
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer style={{ backgroundColor: TOKENS.colors.background, overflow: "hidden", position: "relative" }}>
-      <div aria-hidden style={{ position: "absolute", top: "0%", right: "-5%", width: "45%", height: "50%", background: "radial-gradient(ellipse at top right, rgba(192,57,43,0.16) 0%, transparent 58%)", pointerEvents: "none" }} />
-      <div aria-hidden style={{ position: "absolute", bottom: "10%", left: "-5%", width: "40%", height: "55%", background: "radial-gradient(ellipse at bottom left, rgba(192,57,43,0.13) 0%, transparent 55%)", pointerEvents: "none" }} />
-
-      {/* ── Top grid ──────────────────────────────────────── */}
-      <div
-        style={{
-          ...shell,
-          borderTop: `1px solid ${TOKENS.colors.textMuted10}`,
-          paddingTop: "clamp(56px, 7vw, 88px)",
-          paddingBottom: "clamp(48px, 6vw, 72px)",
-        }}
-      >
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]"
-          style={{ gap: "clamp(48px, 6vw, 80px)" }}
-        >
-
-          {/* Col 1 — Brand */}
-          <div style={{ paddingRight: "clamp(0px, 3vw, 48px)" }}>
-            <p
-              style={{
-                fontSize: "17px",
-                fontWeight: 600,
-                color: TOKENS.colors.textPrimary,
-                letterSpacing: "0.01em",
-                marginBottom: "14px",
-              }}
-            >
-              Summit Studio
-              <span style={{ color: TOKENS.colors.accentRed }}>.</span>
-            </p>
-            <p
-              style={{
-                fontSize: "14px",
-                color: TOKENS.colors.textMuted40,
-                lineHeight: 1.75,
-                marginBottom: "0",
-                maxWidth: "32ch",
-              }}
-            >
+    <footer
+      style={{
+        paddingTop: "clamp(100px, 12vw, 180px)",
+        paddingBottom: "clamp(40px, 4vw, 60px)",
+        paddingInline: "clamp(24px, 5vw, 80px)",
+        backgroundColor: "#0a0a0a",
+        color: "#ffffff"
+      }}
+    >
+      <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
+        
+        <div style={{ height: "1px", backgroundColor: "rgba(255, 255, 255, 0.08)", width: "100%" }} />
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4" style={{ gap: "48px", paddingTop: "60px", paddingBottom: "80px" }}>
+          <div>
+            <div style={{ fontSize: "18px", fontWeight: 600, marginBottom: "16px" }}>
+              Summit Studio<span style={{ color: "#c0392b" }}>.</span>
+            </div>
+            <div style={{ fontSize: "14px", lineHeight: 1.7, color: "rgba(255, 255, 255, 0.35)", maxWidth: "280px" }}>
               Bold digital experiences for ambitious brands that refuse to blend in.
-            </p>
-
+            </div>
           </div>
-
-          {/* Col 2 — Services */}
+          
           <div>
-            <p style={colTitleStyle}>Services</p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "20px" }}>
-              {FOOTER_SERVICES.map((item) => (
-                <li key={item.label}>
-                  <a href={item.href} style={linkStyle} className="hover:text-white/90">
-                    {item.label}
-                  </a>
-                </li>
+            <div style={{ fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.15em", color: "rgba(255, 255, 255, 0.35)", marginBottom: "20px" }}>
+              Navigation
+            </div>
+            <div>
+              {footerLinks.map((link, idx) => (
+                <a 
+                  key={idx} 
+                  href={link.href}
+                  style={{ 
+                    fontSize: "14px", 
+                    color: "rgba(255, 255, 255, 0.5)", 
+                    textDecoration: "none", 
+                    marginBottom: "12px", 
+                    display: "block",
+                    transition: "color 0.3s"
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.color = "white"}
+                  onMouseOut={(e) => e.currentTarget.style.color = "rgba(255, 255, 255, 0.5)"}
+                >
+                  {link.label}
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
-
-          {/* Col 3 — Studio */}
+          
           <div>
-            <p style={colTitleStyle}>Studio</p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "20px" }}>
-              {FOOTER_STUDIO.map((item) => (
-                <li key={item.label}>
-                  <a href={item.href} style={linkStyle} className="hover:text-white/90">
-                    {item.label}
-                  </a>
-                </li>
+            <div style={{ fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.15em", color: "rgba(255, 255, 255, 0.35)", marginBottom: "20px" }}>
+              Social
+            </div>
+            <div>
+              {socialLinks.map((link, idx) => (
+                <a 
+                  key={idx} 
+                  href={link.href}
+                  style={{ 
+                    fontSize: "14px", 
+                    color: "rgba(255, 255, 255, 0.5)", 
+                    textDecoration: "none", 
+                    marginBottom: "12px", 
+                    display: "block",
+                    transition: "color 0.3s"
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.color = "white"}
+                  onMouseOut={(e) => e.currentTarget.style.color = "rgba(255, 255, 255, 0.5)"}
+                >
+                  {link.label}
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
-
-          {/* Col 4 — Follow Us */}
+          
           <div>
-            <p style={colTitleStyle}>Follow Us</p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "20px" }}>
-              {FOOTER_SOCIAL.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group hover:text-white/90"
-                    style={{ ...linkStyle, display: "flex", alignItems: "center", gap: "7px" }}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <div style={{ fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.15em", color: "rgba(255, 255, 255, 0.35)", marginBottom: "20px" }}>
+              Contact
+            </div>
+            <div>
+              <a 
+                href="mailto:hello@summitstudios.co"
+                style={{ 
+                  fontSize: "14px", 
+                  color: "rgba(255, 255, 255, 0.5)", 
+                  textDecoration: "none",
+                  display: "block",
+                  transition: "color 0.3s"
+                }}
+                onMouseOver={(e) => e.currentTarget.style.color = "white"}
+                onMouseOut={(e) => e.currentTarget.style.color = "rgba(255, 255, 255, 0.5)"}
+              >
+                hello@summitstudios.co
+              </a>
+              <div style={{ fontSize: "14px", color: "rgba(255, 255, 255, 0.3)", marginTop: "8px" }}>
+                Chennai & Bangalore, India
+              </div>
+            </div>
           </div>
-
         </div>
-      </div>
-
-      {/* ── Big name bar ──────────────────────────────────── */}
-      <div
-        style={{
-          ...shell,
-          borderTop: `1px solid ${TOKENS.colors.textMuted6}`,
-          paddingTop: "clamp(16px, 2vw, 24px)",
-          paddingBottom: "clamp(16px, 2vw, 24px)",
-          textAlign: "center",
-        }}
-      >
-        <p
-          style={{
-            fontSize: "clamp(52px, 10.5vw, 168px)",
-            fontWeight: 700,
-            lineHeight: 0.88,
+        
+        <div 
+          style={{ 
+            textAlign: "center", 
+            paddingBlock: "clamp(40px, 6vw, 80px)",
+            fontSize: "clamp(48px, 10vw, 160px)",
+            fontWeight: 800,
             letterSpacing: "-0.04em",
-            userSelect: "none",
+            color: "rgba(255, 255, 255, 0.04)",
+            userSelect: "none"
           }}
         >
-          <span style={{ color: TOKENS.colors.textPrimary }}>Summit Studio</span>
-          <span style={{ color: TOKENS.colors.accentRed }}>.</span>
-        </p>
-      </div>
-
-      {/* ── Bottom bar ────────────────────────────────────── */}
-      <div
-        style={{
-          ...shell,
-          borderTop: `1px solid ${TOKENS.colors.textMuted6}`,
-          paddingTop: "18px",
-          paddingBottom: "28px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "16px",
-          flexWrap: "wrap",
-        }}
-      >
-        <p style={{ fontSize: "12px", color: TOKENS.colors.textMuted30 }}>
-          © {currentYear} Summit Studio. All rights reserved.
-        </p>
-        <div style={{ display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap" }}>
-          <a
-            href="#"
-            style={{ fontSize: "12px", color: TOKENS.colors.textMuted30, textDecoration: "none", transition: "color 0.2s" }}
-            className="hover:text-white/80"
-          >
-            Privacy Policy
-          </a>
-          <a
-            href="#"
-            style={{ fontSize: "12px", color: TOKENS.colors.textMuted30, textDecoration: "none", transition: "color 0.2s" }}
-            className="hover:text-white/80"
-          >
-            Terms of Use
-          </a>
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            style={{
-              fontSize: "12px",
-              color: TOKENS.colors.textMuted30,
-              background: "none",
-              border: "none",
+          Summit Studio<span style={{ color: "#c0392b" }}>.</span>
+        </div>
+        
+        <div style={{ height: "1px", backgroundColor: "rgba(255, 255, 255, 0.08)", width: "100%" }} />
+        
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "24px", flexWrap: "wrap", gap: "16px" }}>
+          <div style={{ fontSize: "13px", color: "rgba(255, 255, 255, 0.25)" }}>
+            © 2025 Summit Studio. All rights reserved.
+          </div>
+          <button 
+            onClick={scrollToTop}
+            style={{ 
+              fontSize: "13px", 
+              color: "rgba(255, 255, 255, 0.35)", 
+              background: "none", 
+              border: "none", 
               cursor: "pointer",
-              fontFamily: "inherit",
-              padding: 0,
-              transition: "color 0.2s",
+              transition: "color 0.3s"
             }}
-            className="hover:text-white/80"
+            onMouseOver={(e) => e.currentTarget.style.color = "white"}
+            onMouseOut={(e) => e.currentTarget.style.color = "rgba(255, 255, 255, 0.35)"}
           >
             Back to Top ↑
           </button>
         </div>
+        
       </div>
-
     </footer>
   );
 }

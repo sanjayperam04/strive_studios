@@ -43,7 +43,7 @@ async function sendEmail({
     },
     body: JSON.stringify({
       from: "Summit Studios Form <onboarding@resend.dev>",
-      to: ["hello@strivestudios.co"],
+      to: ["hello@summitstudios.co"],
       reply_to: email,
       subject: `New Project Inquiry from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\n${fullMessage}`,

@@ -1,37 +1,31 @@
-"use client";
-
-import { useCallback } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import PhilosophySection from "@/components/sections/PhilosophySection";
 import ServicesSection from "@/components/sections/ServicesSection";
-import FeaturedProjectsSection from "@/components/sections/FeaturedProjectsSection";
-import WhyChooseUsSection from "@/components/sections/WhyChooseUsSection";
+import ClientsMarquee from "@/components/sections/ClientsMarquee";
+import FeaturedWorkSection from "@/components/sections/FeaturedWorkSection";
+import StatsSection from "@/components/sections/StatsSection";
+import TestimonialSection from "@/components/sections/TestimonialSection";
 import ProcessSection from "@/components/sections/ProcessSection";
-import ContactSection from "@/components/sections/ContactSection";
+import FAQSection from "@/components/sections/FAQSection";
+import ContactCTA from "@/components/sections/ContactCTA";
 import SiteFooter from "@/components/sections/SiteFooter";
 
 export default function Home() {
-  const handleContactClick = useCallback(() => {
-    const target = document.getElementById("contact");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }, []);
-
   return (
-    <main className="bg-black text-white">
+    <main style={{ background: "#0a0a0a", color: "#ffffff" }}>
       <Navbar />
       <Hero />
-
-      {/* Slides over the sticky hero as user scrolls — card edge on top */}
-      <div className="relative z-10 bg-black">
-        <ServicesSection />
-        <FeaturedProjectsSection />
-        <WhyChooseUsSection />
-        <ProcessSection onContactClick={handleContactClick} />
-        <ContactSection />
-        <SiteFooter />
-      </div>
+      <PhilosophySection />
+      <ServicesSection />
+      <ClientsMarquee />
+      <FeaturedWorkSection />
+      <StatsSection />
+      <TestimonialSection />
+      <ProcessSection />
+      <FAQSection />
+      <ContactCTA />
+      <SiteFooter />
     </main>
   );
 }

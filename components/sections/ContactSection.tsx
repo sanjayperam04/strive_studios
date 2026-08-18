@@ -7,7 +7,7 @@ import { TOKENS } from "../../styles/tokens";
 
 
 const CONTACT_LINKS = [
-  { label: "Email", value: "hello@strivestudios.co", href: "mailto:hello@strivestudios.co" },
+  { label: "Email", value: "hello@summitstudios.co", href: "mailto:hello@summitstudios.co" },
   { label: "Instagram", value: "@summitstudios", href: "https://instagram.com" },
   { label: "Twitter / X", value: "@summitstudios", href: "https://twitter.com" },
   { label: "LinkedIn", value: "Summit Studios", href: "https://linkedin.com" },

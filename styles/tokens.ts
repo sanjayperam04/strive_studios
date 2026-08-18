@@ -1,60 +1,85 @@
+/**
+ * Editorial Design System Tokens
+ * ───────────────────────────────
+ * Premium agency aesthetic: generous whitespace,
+ * restrained colour palette, typography-first hierarchy.
+ */
+
 export const TOKENS = {
   colors: {
-    background: "#000000",
-    surface: "#18181b",
-    surfaceStrong: "#09090b",
+    bg: "#0a0a0a",
+    surface: "#111111",
+    text: "#ffffff",
     textPrimary: "#ffffff",
-    textInverse: "#000000",
-    textMuted40: "rgba(255,255,255,0.4)",
-    textMuted35: "rgba(255,255,255,0.35)",
-    textMuted30: "rgba(255,255,255,0.3)",
-    textMuted25: "rgba(255,255,255,0.25)",
-    textMuted20: "rgba(255,255,255,0.2)",
-    textMuted15: "rgba(255,255,255,0.15)",
-    textMuted10: "rgba(255,255,255,0.1)",
-    textMuted6: "rgba(255,255,255,0.06)",
-    textMuted5: "rgba(255,255,255,0.05)",
-    textNearWhite: "rgba(255,255,255,0.9)",
+    textMuted: "rgba(255,255,255,0.45)",
+    textMuted40: "rgba(255,255,255,0.45)",
+    textMuted30: "rgba(255,255,255,0.30)",
+    textMuted20: "rgba(255,255,255,0.20)",
+    textMuted10: "rgba(255,255,255,0.10)",
+    textFaint: "rgba(255,255,255,0.2)",
+    textMicro: "rgba(255,255,255,0.1)",
+    accent: "#c0392b",
     accentRed: "#c0392b",
-    accentRedSoft: "rgba(192,57,43,0.6)",
-    accentRedMuted: "rgba(192,57,43,0.1)",
-    accentBlue: "rgba(147,197,253,0.6)",
+    accentBlue: "#3b82f6",
+    accentRedMuted: "rgba(192,57,43,0.15)",
+    background: "#0a0a0a",
+    accentSoft: "rgba(192,57,43,0.6)",
+    divider: "rgba(255,255,255,0.08)",
+    overlay: "rgba(0,0,0,0.6)",
+    textInverse: "#000000",
     inverseMuted45: "rgba(0,0,0,0.45)",
-    overlay40: "rgba(0,0,0,0.4)",
-    overlay60: "rgba(0,0,0,0.6)",
-    overlay20: "rgba(0,0,0,0.2)",
+    textMuted35: "rgba(255,255,255,0.35)",
+    textMuted5: "rgba(255,255,255,0.05)",
   },
-  spacing: {
-    shellX: "clamp(32px, 5vw, 80px)",
-    sectionX: "6%",
-    sectionTopLg: "clamp(80px, 9vw, 128px)",
-    sectionTopMd: "clamp(80px, 9vw, 128px)",
-    sectionBottomLg: "clamp(80px, 9vw, 128px)",
-    sectionBottomMd: "clamp(80px, 9vw, 128px)",
-    sectionHeaderGap: "clamp(40px, 5vw, 72px)",
-    contentGap: "clamp(24px, 3vw, 44px)",
-    cardGap: "clamp(18px, 2.4vw, 32px)",
-    cardPadding: "32px",
-    cardPaddingFluid: "clamp(24px, 4vw, 56px)",
-    cardPaddingCompact: "clamp(20px, 3vw, 36px)",
-    listItemPadding: "14px 16px",
-    mediaInset: "clamp(12px, 1.7vw, 24px)",
-    buttonPadding: "14px 40px",
-    buttonPaddingCompact: "13px 18px",
-  },
+
   radius: {
-    card: "16px",
-    cardLg: "clamp(24px, 3vw, 34px)",
-    panel: "24px",
-    pill: "999px",
+    card: "8px",
+    pill: "9999px",
   },
+
+  spacing: {
+    shellX: "clamp(24px, 5vw, 80px)",
+    sectionY: "clamp(100px, 12vw, 180px)",
+    sectionTopMd: "clamp(80px, 10vw, 140px)",
+    sectionBottomLg: "clamp(100px, 12vw, 180px)",
+    contentMax: "1400px",
+    contentGap: "clamp(40px, 6vw, 80px)",
+    sectionHeaderGap: "clamp(48px, 6vw, 80px)",
+    narrowMax: "900px",
+    headingGap: "24px",
+    bodyGap: "32px",
+  },
+
   type: {
-    h2Fluid: "clamp(36px, 4.5vw, 56px)",
-    h3Fluid: "clamp(24px, 2.8vw, 40px)",
-    statFluid: "clamp(36px, 4vw, 56px)",
-    metaFluid: "clamp(14px, 1.5vw, 20px)",
+    hero: "clamp(52px, 8.5vw, 150px)",
+    h2: "clamp(36px, 5vw, 72px)",
+    h2Fluid: "clamp(36px, 5vw, 72px)",
+    h3: "clamp(24px, 3vw, 40px)",
+    body: "clamp(16px, 1.3vw, 20px)",
+    small: "15px",
+    label: "12px",
+    footer: "clamp(48px, 10vw, 160px)",
   },
-  motion: {
-    quick: "0.3s",
+
+  /** Power3.out equivalent */
+  ease: [0.16, 1, 0.3, 1] as const,
+  duration: 0.7,
+} as const;
+
+/* ── Re-usable Framer Motion variants ───────────────── */
+
+export const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
+
+export const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+};
+
+export const viewportOpts = { once: true, amount: 0.15 } as const;

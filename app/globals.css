@@ -1,113 +1,57 @@
 @import "tailwindcss";
 
+/* ── Reset ────────────────────────────────────────────── */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: var(--font-inter), sans-serif;
-    background: #000;
-    color: #fff;
-    overflow-x: hidden;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-    background: #c0392b;
-    color: #fff;
+  background: #c0392b;
+  color: #fff;
 }
 
-.menu-link {
-    position: relative;
-    display: inline-block;
-}
-
-.menu-link::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: #000;
-    transition: width 0.3s ease;
-}
-
-.menu-link:hover::after {
-    width: 100%;
-}
-
-@keyframes marquee {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-50%);
-    }
-}
-
+/* ── Section scroll offset ────────────────────────────── */
 section[id] {
-    scroll-margin-top: 72px;
+  scroll-margin-top: 72px;
 }
 
-@keyframes projectsMarquee {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-50%);
-    }
+/* ── Marquee ──────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
+/* ── Scrollbar hide ───────────────────────────────────── */
 .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-
 .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
+/* ── Contact form (slide-out panel) ───────────────────── */
 .contact-input::placeholder,
 .contact-textarea::placeholder {
-    color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.2);
 }
 
 .contact-select option {
-    background: #111111;
-    color: #ffffff;
-}
-
-/* Globe column — desktop: left border + left padding */
-.contact-globe-col {
-    border-left: 1px solid rgba(255,255,255,0.1);
-    padding-left: clamp(32px, 5vw, 64px);
-}
-
-/* Globe canvas wrapper height */
-.contact-globe-wrapper {
-    height: 620px;
-}
-
-@media (max-width: 1024px) {
-    .contact-globe-col {
-        border-left: none;
-        border-top: 1px solid rgba(255,255,255,0.08);
-        padding-left: 0;
-        padding-top: clamp(28px, 5vw, 40px);
-    }
-
-    .contact-globe-wrapper {
-        height: 320px;
-    }
-
-    .contact-submit-btn {
-        width: 100%;
-        justify-content: center;
-    }
+  background: #111111;
+  color: #ffffff;
 }

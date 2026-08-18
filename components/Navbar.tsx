@@ -1,149 +1,167 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { TOKENS } from "../styles/tokens";
 
-
-type MenuItem = {
-  label: string;
-  href: string;
-};
-
-const menuItems: MenuItem[] = [
-  { label: "Home", href: "#home" },
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#work" },
-  { label: "Contact", href: "#contact" },
-];
+const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } } };
+const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.12 } } };
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [visible, setVisible] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  // Show navbar only when scrolled within the hero (100vh)
   useEffect(() => {
     const handleScroll = () => {
-      const heroHeight = window.innerHeight;
-      setVisible(window.scrollY < heroHeight - 80);
+      setScrolled(window.scrollY > 80);
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const navPadding = { paddingInline: TOKENS.spacing.shellX };
-  const menuPadding = { paddingInline: TOKENS.spacing.shellX };
-
-  const closeMenu = () => setOpen(false);
 
   useEffect(() => {
-    const previousBodyOverflow = document.body.style.overflow;
-    const previousHtmlOverflow = document.documentElement.style.overflow;
-    const previousBodyTouchAction = document.body.style.touchAction;
-
-    if (open) {
+    if (menuOpen) {
       document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
-      document.body.style.touchAction = "none";
     } else {
-      document.body.style.overflow = previousBodyOverflow;
-      document.documentElement.style.overflow = previousHtmlOverflow;
-      document.body.style.touchAction = previousBodyTouchAction;
+      document.body.style.overflow = "";
     }
-
     return () => {
-      document.body.style.overflow = previousBodyOverflow;
-      document.documentElement.style.overflow = previousHtmlOverflow;
-      document.body.style.touchAction = previousBodyTouchAction;
+      document.body.style.overflow = "";
     };
-  }, [open]);
+  }, [menuOpen]);
 
-  const handleMenuClick = () => {
-    closeMenu();
-  };
+  const navLinks = [
+    { name: "Home", href: "#home" },
+    { name: "Services", href: "#services" },
+    { name: "Work", href: "#work" },
+    { name: "Process", href: "#process" },
+    { name: "Contact", href: "#contact" },
+  ];
 
   return (
     <>
       <motion.nav
-        animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -12 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between"
-        style={{ ...navPadding, pointerEvents: visible ? "auto" : "none" }}
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+        className="flex items-center justify-between"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          height: "64px",
+          paddingInline: "clamp(24px, 5vw, 80px)",
+          background: scrolled ? "rgba(10, 10, 10, 0.85)" : "transparent",
+          backdropFilter: scrolled ? "blur(12px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid transparent",
+          transition: "all 0.3s ease",
+        }}
       >
-        <span style={{ fontSize: "17px", fontWeight: 600, letterSpacing: "0.01em", color: TOKENS.colors.textPrimary }}>
-          Summit Studio<span style={{ color: TOKENS.colors.accentRed }}>.</span>
-        </span>
-
+        <div className="flex items-center" style={{ fontSize: "15px", fontWeight: 600, letterSpacing: "0.01em", color: "#ffffff" }}>
+          Summit Studio
+          <span style={{ color: "#c0392b", marginLeft: "2px" }}>.</span>
+        </div>
         <button
-          onClick={() => setOpen(true)}
-          className="flex flex-col gap-[5px] text-white cursor-pointer"
-          aria-label="Open menu"
+          onClick={() => setMenuOpen(true)}
+          style={{
+            fontSize: "13px",
+            fontWeight: 500,
+            textTransform: "uppercase",
+            letterSpacing: "0.1em",
+            color: "rgba(255, 255, 255, 0.6)",
+            cursor: "pointer",
+            background: "none",
+            border: "none",
+            padding: 0,
+          }}
         >
-          <span className="block h-[1.5px] w-[22px] bg-current" />
-          <span className="block h-[1.5px] w-[22px] bg-current" />
-          <span className="block h-[1.5px] w-[22px] bg-current" />
+          Menu
         </button>
       </motion.nav>
 
-      {/* Overlay */}
       <AnimatePresence>
-        {open && (
+        {menuOpen && (
           <>
-            {/* Blurred backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-40 backdrop-blur-sm"
-              style={{ backgroundColor: TOKENS.colors.overlay20 }}
-              onClick={closeMenu}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                position: "fixed",
+                inset: 0,
+                zIndex: 40,
+                background: "rgba(0, 0, 0, 0.5)",
+                backdropFilter: "blur(4px)",
+              }}
             />
-
-            {/* Menu panel slides from right */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "tween", ease: [0.76, 0, 0.24, 1], duration: 0.5 }}
-              className="fixed top-0 right-0 h-full w-full overflow-hidden md:w-[50%] lg:w-[40%] z-50"
-              style={{ backgroundColor: TOKENS.colors.background }}
+              transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+              style={{
+                position: "fixed",
+                top: 0,
+                right: 0,
+                height: "100%",
+                width: "max(400px, 45%)",
+                maxWidth: "100%",
+                background: "#0a0a0a",
+                zIndex: 50,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                paddingInline: "clamp(24px, 5vw, 80px)",
+              }}
             >
-              {/* Close button */}
-              <div className="absolute right-0 top-0 z-10 flex h-14 items-center justify-end" style={navPadding}>
-                <button
-                  onClick={closeMenu}
-                  className="text-white/50 hover:text-white transition-colors duration-200 cursor-pointer"
-                  aria-label="Close menu"
-                >
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M3 3L17 17M17 3L3 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Nav links */}
-              <nav className="flex h-full flex-col justify-center gap-6" style={menuPadding}>
-                {menuItems.map((item, i) => (
+              <button
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  position: "absolute",
+                  top: "22px",
+                  right: "clamp(24px, 5vw, 80px)",
+                  fontSize: "13px",
+                  fontWeight: 500,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  cursor: "pointer",
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                }}
+              >
+                Close
+              </button>
+              <div className="flex flex-col" style={{ width: "100%" }}>
+                {navLinks.map((link, i) => (
                   <motion.a
-                    key={item.label}
-                    href={item.href}
-                    onClick={handleMenuClick}
-                    initial={{ opacity: 0, x: 20 }}
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
-                    className="group relative pb-4 pt-1 text-3xl font-bold tracking-tight md:text-4xl"
-                    style={{ color: TOKENS.colors.textPrimary }}
+                    exit={{ opacity: 0, x: 30 }}
+                    transition={{ delay: 0.1 + i * 0.06, duration: 0.4 }}
+                    whileHover={{ x: 8, color: "#c0392b", transition: { duration: 0.3 } }}
+                    style={{
+                      fontSize: "clamp(32px, 5vw, 48px)",
+                      fontWeight: 700,
+                      letterSpacing: "-0.02em",
+                      color: "#ffffff",
+                      textDecoration: "none",
+                      paddingBlock: "24px",
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                      display: "block",
+                    }}
                   >
-                    <span className="relative z-10 inline-block group-hover:translate-x-2 transition-transform duration-300">
-                      {item.label}
-                    </span>
-                    <span
-                      className="pointer-events-none absolute bottom-0 left-0 h-px w-0 transition-all duration-500 group-hover:w-full"
-                      style={{ backgroundColor: TOKENS.colors.accentRed }}
-                    />
+                    {link.name}
                   </motion.a>
                 ))}
-              </nav>
+              </div>
             </motion.div>
           </>
         )}

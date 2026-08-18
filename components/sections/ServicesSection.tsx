@@ -1,443 +1,47 @@
 "use client";
+import React from "react";
+import { motion } from "framer-motion";
 
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { TOKENS } from "../../styles/tokens";
-
-// ── DATA ─────────────────────────────────────────────────────────────────────
+const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } } };
+const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.12 } } };
 
 const services = [
-  {
-    num: "01",
-    title: "Branding",
-    bullets: [
-      {
-        heading: "Positioning that explains why you exist",
-        detail: "We dig into your market, competitors, and audience to define a clear brand position — so every touchpoint communicates the same sharp message.",
-      },
-      {
-        heading: "Logo, colour, and type systems that scale",
-        detail: "A cohesive visual identity built to work at every size — from a favicon to a billboard — with colour palettes and typography that feel intentional.",
-      },
-      {
-        heading: "Brand guidelines your team can actually use",
-        detail: "Practical, well-documented guidelines that make it easy for anyone on your team — or your vendors — to stay on-brand without asking you every time.",
-      },
-      {
-        heading: "Launch-ready assets for web, social, and pitch decks",
-        detail: "Every file you need on day one: web-optimised logos, social templates, presentation decks, and export-ready assets in the right formats.",
-      },
-    ],
-    description:
-      "Build a brand that resonates with your audience through strategic positioning and compelling visual identity systems.",
-    image: "/service-brand.png",
-    bg: "#000000",
-    text: "#ffffff",
-    muted: "rgba(255,255,255,0.55)",
-    border: "rgba(255,255,255,0.08)",
-    numColor: "rgba(255,255,255,0.06)",
-    accent: "#c0392b",
-  },
-  {
-    num: "02",
-    title: "Website Design",
-    bullets: [
-      {
-        heading: "Clear page flow from first impression to inquiry",
-        detail: "We map the full visitor journey before touching a pixel — structuring pages so attention flows naturally toward the action you want them to take.",
-      },
-      {
-        heading: "Responsive UI systems for mobile and desktop",
-        detail: "Layouts that adapt fluidly across every screen size, with consistent spacing, type scales, and component behaviour — no awkward breakpoints.",
-      },
-      {
-        heading: "SEO-friendly content structure and headings",
-        detail: "Semantic HTML, proper heading hierarchy, and content structured the way search engines expect — so your site ranks without needing a separate SEO audit.",
-      },
-      {
-        heading: "High-impact visuals without hurting usability",
-        detail: "Bold imagery and motion that make a strong first impression, balanced with fast load times and clear navigation so visitors don't bounce.",
-      },
-    ],
-    description:
-      "Create intuitive, beautiful websites that guide visitors toward action while performing flawlessly on every device.",
-    image: "/service-web-design.png",
-    bg: "#000000",
-    text: "#ffffff",
-    muted: "rgba(255,255,255,0.55)",
-    border: "rgba(255,255,255,0.08)",
-    numColor: "rgba(255,255,255,0.06)",
-    accent: "#c0392b",
-  },
-  {
-    num: "03",
-    title: "Development & Hosting",
-    bullets: [
-      {
-        heading: "Next.js builds tuned for speed and stability",
-        detail: "Production-grade Next.js code with optimised images, lazy loading, and Core Web Vitals scores that keep both users and Google happy.",
-      },
-      {
-        heading: "Hosting, domains, analytics, and forms handled",
-        detail: "We set up and configure everything — Vercel hosting, custom domain, Google Analytics, and contact forms — so you launch with a complete stack.",
-      },
-      {
-        heading: "Launch QA across devices and browsers",
-        detail: "Every page tested on real devices and major browsers before go-live. We catch the edge cases so your clients don't.",
-      },
-      {
-        heading: "Maintenance support after the site goes live",
-        detail: "Post-launch isn't the end of the relationship. We offer ongoing support for content updates, performance monitoring, and feature additions.",
-      },
-    ],
-    description:
-      "Robust technical implementation with performance, security, and scalability built in from day one.",
-    image: "/service-dev.png",
-    bg: "#000000",
-    text: "#ffffff",
-    muted: "rgba(255,255,255,0.55)",
-    border: "rgba(255,255,255,0.08)",
-    numColor: "rgba(255,255,255,0.06)",
-    accent: "#c0392b",
-  },
+  { num: "01", title: "Branding", description: "Strategic positioning, visual identity systems, and brand guidelines. We build brands that command attention and ensure consistency across every touchpoint." },
+  { num: "02", title: "Website Design", description: "Beautiful interfaces backed by behavioural insight. Every layout, interaction, and micro-animation is crafted to guide users toward conversion." },
+  { num: "03", title: "Development", description: "From performant Next.js builds to hosting and launch QA. We ship clean, scalable code that loads fast and ranks higher." },
 ];
 
-// ── HEADER ────────────────────────────────────────────────────────────────────
-
-function ServicesHeader() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -30% 0px" });
-
-  return (
-    <div
-      ref={ref}
-      className="flex flex-col justify-center bg-black"
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        paddingLeft: TOKENS.spacing.shellX,
-        paddingRight: TOKENS.spacing.shellX,
-        paddingTop: "clamp(80px, 9vw, 128px)",
-        paddingBottom: "clamp(80px, 9vw, 128px)",
-      }}
-    >
-      <div aria-hidden style={{ position: "absolute", top: "-40%", right: "-5%", width: "50%", height: "180%", background: "radial-gradient(ellipse at top right, rgba(192,57,43,0.20) 0%, transparent 60%)", pointerEvents: "none" }} />
-      <div aria-hidden style={{ position: "absolute", bottom: "-20%", left: "10%", width: "35%", height: "80%", background: "radial-gradient(ellipse at bottom left, rgba(192,57,43,0.13) 0%, transparent 55%)", pointerEvents: "none" }} />
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-16 w-full items-center">
-        {/* Left — main heading */}
-        <motion.div
-          className="w-full"
-          initial={{ x: "-60px", opacity: 0 }}
-          animate={inView ? { x: 0, opacity: 1 } : {}}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-        >
-
-
-          <h2
-            className="font-bold leading-[0.95] tracking-tight text-white"
-            style={{ fontSize: "clamp(32px, 5vw, 72px)" }}
-          >
-            Our Services
-          </h2>
-        </motion.div>
-
-        {/* Right — navigation list */}
-        <motion.div
-          className="w-full"
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-        >
-          <div className="flex flex-col border-t border-white/10 mt-8 lg:mt-0">
-            {services.map((s, i) => (
-              <motion.div
-                key={s.num}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.7,
-                  ease: [0.16, 1, 0.3, 1],
-                  delay: 0.2 + i * 0.1,
-                }}
-                className="group cursor-default flex items-center justify-between border-b border-white/10 transition-colors hover:bg-white/[0.02]"
-                style={{
-                  paddingTop: "clamp(16px, 2vw, 24px)",
-                  paddingBottom: "clamp(16px, 2vw, 24px)",
-                  paddingLeft: "clamp(16px, 2vw, 32px)",
-                  paddingRight: "clamp(16px, 2vw, 32px)",
-                }}
-              >
-                <div className="flex items-center gap-6 md:gap-8">
-                  <span className="font-mono text-sm text-white/30 shrink-0 transition-colors group-hover:text-[#c0392b]/70">
-                    {s.num}
-                  </span>
-                  <span
-                    className="font-medium tracking-tight text-white/70 transition-colors group-hover:text-white"
-                    style={{ fontSize: "clamp(18px, 2.5vw, 28px)" }}
-                  >
-                    {s.title.replace("\n", " ")}
-                  </span>
-                </div>
-                <span className="text-white/20 transition-all duration-300 group-hover:translate-x-2 md:group-hover:text-[#c0392b]/60 hidden md:block">
-                  <svg
-                    width="28"
-                    height="28"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M5 12h14" />
-                    <path d="m12 5 7 7-7 7" />
-                  </svg>
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-// ── SERVICE CARD ──────────────────────────────────────────────────────────────
-
-function ServiceCard({
-  service,
-  index,
-  containerRef,
-}: {
-  service: (typeof services)[0];
-  index: number;
-  containerRef: React.RefObject<HTMLDivElement>;
-}) {
-  const total = services.length;
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const segStart = index / total;
-  const segMid = (index + 0.6) / total;
-  const segEnd = (index + 1) / total;
-
-  const scale = useTransform(
-    scrollYProgress,
-    [segStart, segMid, segEnd],
-    [1, 1, 0.92],
-  );
-  const y = useTransform(scrollYProgress, [segMid, segEnd], ["0%", "-6%"]);
-  const opacity = useTransform(scrollYProgress, [segStart, segEnd], [1, 1]);
-
-  const titleLines = service.title.split("\n");
-
-  return (
-    <div className="sticky top-0 h-[90vh] w-full" style={{ zIndex: index + 1 }}>
-      <motion.div
-        style={{
-          scale,
-          y,
-          opacity,
-          transformOrigin: "top center",
-          height: "100%",
-          width: "100%",
-          backgroundColor: service.bg,
-          boxShadow: index > 0 ? "0 -30px 60px -15px rgba(0,0,0,0.5)" : "none",
-        }}
-        className="relative flex h-full w-full flex-col overflow-hidden rounded-t-[1.5rem] md:rounded-t-[2.5rem]"
-      >
-        {/* Atmospheric glow — varies by card index */}
-        {index === 0 && (
-          <div aria-hidden style={{ position: "absolute", top: "-30%", left: "-10%", width: "55%", height: "90%", background: "radial-gradient(ellipse at top left, rgba(192,57,43,0.22) 0%, transparent 60%)", pointerEvents: "none", zIndex: 0 }} />
-        )}
-        {index === 1 && (
-          <div aria-hidden style={{ position: "absolute", top: "-20%", right: "-5%", width: "50%", height: "85%", background: "radial-gradient(ellipse at top right, rgba(192,57,43,0.20) 0%, transparent 58%)", pointerEvents: "none", zIndex: 0 }} />
-        )}
-        {index === 2 && (
-          <div aria-hidden style={{ position: "absolute", bottom: "-15%", left: "20%", width: "60%", height: "80%", background: "radial-gradient(ellipse at bottom center, rgba(192,57,43,0.18) 0%, transparent 55%)", pointerEvents: "none", zIndex: 0 }} />
-        )}
-
-        {/* Title + Number */}
-        <div
-          className="flex flex-row items-start justify-between gap-6"
-          style={{
-            paddingLeft: TOKENS.spacing.shellX,
-            paddingRight: TOKENS.spacing.shellX,
-            paddingTop: "clamp(48px, 8vw, 96px)",
-            paddingBottom: "clamp(16px, 2vw, 24px)",
-          }}
-        >
-          <h3
-            className="font-bold tracking-tight flex-1 min-w-0"
-            style={{ fontSize: "clamp(26px, 4vw, 52px)", color: service.text }}
-          >
-            {titleLines.map((line, i) => (
-              <span key={i} className="block leading-tight">
-                {line}
-              </span>
-            ))}
-          </h3>
-          <span
-            className="font-bold leading-none select-none shrink-0"
-            style={{
-              fontSize: "clamp(24px, 3vw, 40px)",
-              color: service.numColor,
-            }}
-          >
-            {service.num}
-          </span>
-        </div>
-
-        {/* Divider */}
-        <div
-          style={{
-            marginLeft: TOKENS.spacing.shellX,
-            marginRight: TOKENS.spacing.shellX,
-            borderTop: `1px solid ${service.border}`,
-          }}
-        />
-
-        {/* Content row */}
-        <div
-          className="flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-24"
-          style={{
-            paddingLeft: TOKENS.spacing.shellX,
-            paddingRight: TOKENS.spacing.shellX,
-            paddingTop: "clamp(48px, 6vw, 80px)",
-            paddingBottom: "clamp(48px, 8vw, 120px)",
-          }}
-        >
-          {/* Left side - Service details with expandable rows */}
-          <div className="flex-1 min-w-0 w-full lg:w-1/2">
-            <div className="flex flex-col gap-6 lg:gap-10">
-              {service.bullets.map((bullet, i) => {
-                const isExpanded = expandedIndex === i;
-
-                return (
-                  <div key={i} className="group">
-                    {/* Clickable row header */}
-                    <div
-                      className="w-full flex items-center justify-between cursor-pointer py-6 px-6 -mx-6 rounded-xl transition-all duration-300"
-                      onClick={() => setExpandedIndex(isExpanded ? null : i)}
-                      aria-expanded={isExpanded}
-                      onMouseEnter={() => {
-                        setHoveredIndex(i);
-                        setExpandedIndex(i);
-                      }}
-                      onMouseLeave={() => setHoveredIndex(null)}
-                    >
-                      <p
-                        className="text-[16px] md:text-[18px] leading-relaxed font-medium transition-opacity duration-300"
-                        style={{
-                          color: service.text,
-                          opacity: isExpanded || hoveredIndex === i ? 1 : 0.6,
-                        }}
-                      >
-                        {bullet.heading}
-                      </p>
-                      {/* Chevron arrow on the right side */}
-                      <span
-                        className="ml-4 flex-shrink-0 transition-all duration-300 ease-[0.16,1,0.3,1]"
-                        style={{
-                          color: service.text,
-                          opacity: isExpanded ? 1 : 0.3,
-                          transform: isExpanded
-                            ? "rotate(180deg)"
-                            : "rotate(0deg)",
-                        }}
-                      >
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="m6 9 6 6 6-6" />
-                        </svg>
-                      </span>
-                    </div>
-
-                    {/* Expandable detail panel */}
-                    <motion.div
-                      initial={false}
-                      animate={{
-                        height: isExpanded ? "auto" : "0px",
-                        opacity: isExpanded ? 1 : 0,
-                      }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p
-                        className="text-[15px] leading-relaxed px-6 pb-6 pt-3"
-                        style={{
-                          color: service.text,
-                          opacity: 0.7,
-                        }}
-                      >
-                        {bullet.detail}
-                      </p>
-                    </motion.div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Right side - Image */}
-          <div className="flex-1 w-full lg:w-1/2 overflow-hidden rounded-2xl lg:rounded-3xl min-h-[300px] lg:min-h-[450px] aspect-[4/3] relative group shadow-2xl">
-            <motion.div
-              className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out"
-              style={{
-                background: `linear-gradient(to top, ${service.bg} 0%, transparent 40%)`,
-              }}
-            />
-            <img
-              src={service.image}
-              alt={service.title}
-              className="h-full w-full object-cover transition-transform duration-1000 ease-[0.16,1,0.3,1] group-hover:scale-105"
-              style={{
-                filter: "brightness(0.95)",
-              }}
-            />
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
-// ── EXPORT ────────────────────────────────────────────────────────────────────
-
 export default function ServicesSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section id="services" className="relative w-full bg-black">
-      <ServicesHeader />
-      <div className="border-t border-white/[0.08]" />
-      <div
-        ref={containerRef}
-        style={{ height: `${services.length * 100}vh` }}
-        className="relative"
-      >
-        {services.map((service, i) => (
-          <ServiceCard
-            key={service.num}
-            service={service}
-            index={i}
-            containerRef={containerRef as React.RefObject<HTMLDivElement>}
-          />
-        ))}
+    <motion.section id="services" initial="hidden" whileInView="visible" viewport={{ once:true, amount:0.15 }} variants={stagger} style={{ paddingTop: "clamp(100px,12vw,180px)", paddingBottom: "clamp(100px,12vw,180px)", paddingInline: "clamp(24px,5vw,80px)", backgroundColor: "#0a0a0a", color: "#ffffff" }}>
+      <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
+        <motion.p variants={fadeUp} style={{ fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.15em", color: "rgba(255,255,255,0.45)", marginBottom: "24px" }}>
+          What we do
+        </motion.p>
+        <motion.h2 variants={fadeUp} style={{ fontSize: "clamp(36px,5vw,72px)", fontWeight: 600, lineHeight: 1.1, letterSpacing: "-0.025em", marginBottom: "80px", color: "#ffffff" }}>
+          Our Services
+        </motion.h2>
+        
+        <div>
+          {services.map((service) => (
+            <React.Fragment key={service.num}>
+              <div style={{ height: "1px", backgroundColor: "rgba(255,255,255,0.08)", width: "100%" }} />
+              <motion.div variants={fadeUp} className="grid grid-cols-1 lg:grid-cols-[80px_1fr_1.5fr]" style={{ gap: "24px", paddingTop: "40px", paddingBottom: "40px" }}>
+                <div style={{ fontSize: "14px", fontWeight: 500, color: "rgba(255,255,255,0.2)" }}>
+                  {service.num}
+                </div>
+                <div style={{ fontSize: "clamp(24px,3vw,40px)", fontWeight: 600, letterSpacing: "-0.02em", color: "#ffffff" }}>
+                  {service.title}
+                </div>
+                <div style={{ fontSize: "clamp(15px,1.1vw,18px)", fontWeight: 400, lineHeight: 1.7, color: "rgba(255,255,255,0.45)", maxWidth: "480px" }}>
+                  {service.description}
+                </div>
+              </motion.div>
+            </React.Fragment>
+          ))}
+          <div style={{ height: "1px", backgroundColor: "rgba(255,255,255,0.08)", width: "100%" }} />
+        </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
